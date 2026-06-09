@@ -1,0 +1,24 @@
+:root {
+  --bg-primary: #0b1020;
+  --bg-secondary: #12182b;
+
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+
+  --border: rgba(255, 255, 255, 0.15);
+
+  --primary: #7c5cff;
+  --primary-hover: #9377ff;
+
+  --accent: #4fd1c5;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b6c2d9;
+
+  --shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35);
+
+  --radius-large: 32px;
+  --radius-medium: 20px;
+  --radius-small: 14px;
+}

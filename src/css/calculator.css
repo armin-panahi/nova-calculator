@@ -1,0 +1,30 @@
+.calculator {
+  width: 100%;
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(30px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Tablet */
+
+@media (min-width: 768px) {
+
+  .calculator {
+    max-width: 520px;
+    height: 900px;
+
+    border-radius: 40px;
+
+    overflow: hidden;
+
+    box-shadow: var(--shadow);
+  }
+
+}
