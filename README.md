@@ -66,7 +66,7 @@ No external frameworks or libraries are required.
 
 ## 📷 Preview
 
-(https://armin-panahi.github.io/calculator/)
+https://armin-panahi.github.io/calculator/
 
 ---
 
