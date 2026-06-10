@@ -66,7 +66,7 @@ No external frameworks or libraries are required.
 
 ## 📷 Preview
 
-> Add screenshots or GIFs here to showcase the application's interface and functionality.
+(https://armin-panahi.github.io/calculator/)
 
 ---
 
