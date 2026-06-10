@@ -1,10 +1,33 @@
+/* ==========================
+   APP WRAPPER
+========================== */
+
 .app {
   width: 100%;
-  min-height: 100dvh;
+  min-height: 100svh;
 
   display: flex;
+
   justify-content: center;
   align-items: center;
+}
 
-  padding: 20px;
+/* ==========================
+   DESKTOP POSITIONING
+========================== */
+
+@media (min-width: 768px) {
+
+  .app {
+    padding: 32px;
+  }
+
+}
+
+@media (min-width: 1440px) {
+
+  .app {
+    padding: 48px;
+  }
+
 }
