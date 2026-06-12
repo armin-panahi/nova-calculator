@@ -1,6 +1,25 @@
 /* ==================================
    MOBILE
 ================================== */
+@media (max-height: 700px) {
+
+    .display-section {
+        padding: 16px;
+    }
+
+    .result {
+        font-size: clamp(3rem, 8vw, 5rem);
+    }
+
+    .keypad {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .keypad button {
+        height: 52px;
+    }
+}
 
 @media (max-width: 767px) {
 
