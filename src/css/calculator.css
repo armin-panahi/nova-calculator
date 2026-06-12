@@ -162,14 +162,17 @@
 ================================== */
 
 .display-section {
+   display: flex;
+   flex-direction: column;
+
+   justify-content: flex-end;
+
+   min-height: 120px;
+
   flex: 1;
 
   min-height: 180px;
 
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
   align-items: flex-end;
 
   padding: 20px;
@@ -245,7 +248,7 @@
 
   gap: 10px;
 
-  padding: 20px;
+  padding: clamp(12px, 2vw, 24px);
 
   flex-shrink: 0;
 
@@ -258,7 +261,7 @@
 ================================== */
 
 .keypad button {
-  height: 64px;
+  height: clamp(52px, 7vh, 72px);
 
   border-radius: 22px;
 
