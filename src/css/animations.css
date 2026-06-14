@@ -42,7 +42,7 @@
 
   from {
     opacity: 0;
-    transform: scale(.95);
+    transform: scale(.96);
   }
 
   to {
@@ -99,7 +99,27 @@
 }
 
 /* ==================================
-   BUTTON RIPPLE PREP
+   BUTTON PRESS
+================================== */
+
+@keyframes buttonPress {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+/* ==================================
+   RIPPLE
 ================================== */
 
 @keyframes ripple {
@@ -123,19 +143,19 @@
 @keyframes drawerOpen {
 
   from {
-    transform: translateX(30px);
     opacity: 0;
+    transform: translateX(30px);
   }
 
   to {
-    transform: translateX(0);
     opacity: 1;
+    transform: translateX(0);
   }
 
 }
 
 /* ==================================
-   HISTORY PANEL OPEN
+   HISTORY OPEN
 ================================== */
 
 @keyframes historyOpen {
@@ -166,4 +186,29 @@
 
 .slide-in-right {
   animation: slideInRight .35s ease;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ==================================
+   ACCESSIBILITY
+================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+  }
+
 }
