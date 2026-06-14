@@ -1,8 +1,5 @@
 /* ==================================
    SMALL HEIGHT DEVICES
-   Nest Hub
-   Tablet Landscape
-   Fold Landscape
 ================================== */
 
 @media (max-height: 700px) {
@@ -12,11 +9,12 @@
   }
 
   .display-section {
+    min-height: 100px;
     padding: 12px 18px;
   }
 
   .last-calculation {
-    margin-bottom: 6px;
+    margin-bottom: auto;
     font-size: .8rem;
   }
 
@@ -26,7 +24,7 @@
   }
 
   .result {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 4vw, 3rem);
   }
 
   .keypad {
@@ -54,7 +52,6 @@
   .calculator {
     width: 100%;
     min-height: 100dvh;
-
     border-radius: 0;
   }
 
@@ -89,18 +86,19 @@
    MOBILE LANDSCAPE
 ================================== */
 
-@media (orientation: landscape) and (max-height: 500px) {
+@media (max-height: 500px) {
 
   .calculator-header {
     padding: 10px 16px;
   }
 
   .display-section {
+    min-height: 80px;
     padding: 10px 16px;
   }
 
   .last-calculation {
-    margin-bottom: 4px;
+    display: none;
   }
 
   .expression {
@@ -128,7 +126,7 @@
    TABLET
 ================================== */
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1199px) {
 
   .app {
     padding: 16px;
@@ -140,11 +138,8 @@
 
   .calculator {
     width: 100%;
-
-    max-width: 950px;
-
+    height: 100%;
     margin: 0 auto;
-
     border-radius: 32px;
   }
 
@@ -155,12 +150,13 @@
 }
 
 /* ==================================
-   LARGE TABLET / LAPTOP / DESKTOP
+   DESKTOP
 ================================== */
 
-@media (min-width: 1024px) and (min-height: 700px) {
+@media (min-width: 1200px) {
 
   .app {
+
     width: 100%;
 
     display: flex;
@@ -182,19 +178,11 @@
     right: auto;
 
     width: 320px;
-    height: auto;
-
-    min-height: 0;
-
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-
-    display: flex;
-    flex-direction: column;
 
     flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
 
     border-radius: 32px;
 
@@ -224,7 +212,7 @@
    LARGE DESKTOP
 ================================== */
 
-@media (min-width: 1440px) and (min-height: 700px) {
+@media (min-width: 1440px) {
 
   .side-drawer {
     width: 340px;
@@ -236,50 +224,11 @@
    ULTRA WIDE
 ================================== */
 
-@media (min-width: 1800px) and (min-height: 700px) {
+@media (min-width: 1800px) {
 
   .app {
     max-width: 1800px;
-
     margin: 0 auto;
   }
 
-}
-
-/* ==================================
-   LANDSCAPE DEVICES
-================================== */
-
-@media (max-height: 500px) {
-
-    .calculator-header {
-        padding: 12px 18px;
-    }
-
-    .display-section {
-        min-height: 80px;
-        padding: 12px 18px;
-    }
-
-    .last-calculation {
-        display: none;
-    }
-
-    .expression {
-        font-size: 1rem;
-        margin-bottom: 4px;
-    }
-
-    .result {
-        font-size: clamp(2.5rem, 6vw, 4rem);
-    }
-
-    .keypad {
-        padding: 10px;
-        gap: 6px;
-    }
-
-    .keypad button {
-        height: 44px;
-    }
 }
