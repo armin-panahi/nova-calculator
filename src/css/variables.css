@@ -6,47 +6,89 @@
 
   --bg-primary: #0b1020;
   --bg-secondary: #12182b;
-
-  --glass: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.12);
-
-  --border: rgba(255, 255, 255, 0.12);
+  --bg-tertiary: #171f36;
 
   --primary: #7c5cff;
   --primary-hover: #9276ff;
+  --primary-soft: rgba(124, 92, 255, 0.15);
 
   --accent: #4fd1c5;
+  --accent-soft: rgba(79, 209, 197, 0.15);
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
 
   --text-primary: #ffffff;
   --text-secondary: #aab4c5;
+  --text-muted: #6b7280;
+
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* ==========================
+     GLASS
+  ========================== */
+
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+  --glass-strong: rgba(255, 255, 255, 0.16);
 
   /* ==========================
      SHADOWS
   ========================== */
 
-  --shadow:
+  --shadow-xs:
+    0 4px 10px rgba(0, 0, 0, 0.12);
+
+  --shadow-sm:
+    0 8px 20px rgba(0, 0, 0, 0.18);
+
+  --shadow-md:
     0 20px 40px rgba(0, 0, 0, 0.35);
 
-  --button-shadow:
-    0 8px 20px rgba(0,0,0,.15);
+  --shadow-lg:
+    0 30px 60px rgba(0, 0, 0, 0.45);
 
   --glow-primary:
-    0 0 30px rgba(124,92,255,.25);
+    0 0 30px rgba(124, 92, 255, 0.25);
+
+  --glow-accent:
+    0 0 30px rgba(79, 209, 197, 0.2);
 
   /* ==========================
-     RADIUS
+     BORDER RADIUS
   ========================== */
 
-  --radius-small: 16px;
-  --radius-medium: 24px;
-  --radius-large: 40px;
+  --radius-xs: 12px;
+  --radius-sm: 16px;
+  --radius-md: 24px;
+  --radius-lg: 32px;
+  --radius-xl: 40px;
+  --radius-full: 999px;
+
+  /* ==========================
+     SPACING
+  ========================== */
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
 
   /* ==========================
      TRANSITIONS
   ========================== */
 
   --transition-fast: .2s ease;
-  --transition-normal: .3s ease;
-  --transition-slow: .5s ease;
+
+  --transition-normal:
+    .3s cubic-bezier(.4,0,.2,1);
+
+  --transition-slow:
+    .5s cubic-bezier(.4,0,.2,1);
 
 }
+
