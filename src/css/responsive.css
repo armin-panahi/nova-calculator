@@ -182,6 +182,14 @@
     right: auto;
 
     width: 320px;
+    height: auto;
+
+    min-height: 0;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
 
     display: flex;
     flex-direction: column;
@@ -236,4 +244,42 @@
     margin: 0 auto;
   }
 
+}
+
+/* ==================================
+   LANDSCAPE DEVICES
+================================== */
+
+@media (max-height: 500px) {
+
+    .calculator-header {
+        padding: 12px 18px;
+    }
+
+    .display-section {
+        min-height: 80px;
+        padding: 12px 18px;
+    }
+
+    .last-calculation {
+        display: none;
+    }
+
+    .expression {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .result {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .keypad {
+        padding: 10px;
+        gap: 6px;
+    }
+
+    .keypad button {
+        height: 44px;
+    }
 }
