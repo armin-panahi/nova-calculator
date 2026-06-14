@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Nova Calculator</title>
 
@@ -27,281 +24,146 @@
   </head>
 
   <body>
-
     <!-- Overlay -->
 
     <div class="drawer-overlay"></div>
 
     <main class="app">
-
       <!-- Sidebar -->
 
       <aside class="side-drawer">
-
         <div class="drawer-header">
           <h2>Nova</h2>
           <p>Utilities</p>
         </div>
 
         <nav class="drawer-menu">
-
-          <button
-            class="drawer-item active"
-            data-page="calculator"
-          >
+          <button class="drawer-item active" data-page="calculator">
             <i data-lucide="calculator"></i>
             <span>Calculator</span>
           </button>
 
-          <button
-            class="drawer-item"
-            data-page="converter"
-          >
+          <button class="drawer-item" data-page="converter">
             <i data-lucide="ruler"></i>
             <span>Unit Converter</span>
           </button>
 
-          <button
-            class="drawer-item"
-            data-page="currency"
-          >
+          <button class="drawer-item" data-page="currency">
             <i data-lucide="badge-dollar-sign"></i>
             <span>Currency Converter</span>
           </button>
 
-          <button
-            class="drawer-item"
-            data-page="scientific"
-          >
+          <button class="drawer-item" data-page="scientific">
             <i data-lucide="sigma"></i>
             <span>Scientific Mode</span>
           </button>
-
         </nav>
-
       </aside>
 
       <!-- Calculator -->
 
       <section class="calculator">
-
         <!-- Header -->
 
         <header class="calculator-header">
-
           <div class="brand">
-
-            <span class="brand-icon">
-              ✦
-            </span>
+            <span class="brand-icon"> ✦ </span>
 
             <div>
               <h1>Nova</h1>
               <p>Smart Calculator</p>
             </div>
-
           </div>
 
           <div class="header-actions">
-
-            <button
-              class="history-btn"
-              id="historyToggle"
-              aria-label="History"
-            >
+            <button class="history-btn" id="historyToggle" aria-label="History">
               <i data-lucide="history"></i>
             </button>
 
-            <button
-              class="theme-btn"
-              id="themeToggle"
-              aria-label="Theme"
-            >
+            <button class="theme-btn" id="themeToggle" aria-label="Theme">
               <i data-lucide="moon"></i>
             </button>
 
-            <button
-              class="menu-btn"
-              id="menuToggle"
-              aria-label="Menu"
-            >
+            <button class="menu-btn" id="menuToggle" aria-label="Menu">
               <i data-lucide="menu"></i>
             </button>
-
           </div>
-
         </header>
 
         <!-- Display -->
 
         <section class="display-section">
-
-          <div
-            class="last-calculation"
-            id="lastCalculation"
-          >
+          <div class="last-calculation" id="lastCalculation">
             Last calculation
           </div>
 
-          <div
-            class="expression"
-            id="expression"
-          >
-            0
-          </div>
+          <div class="expression" id="expression">0</div>
 
-          <div
-            class="result"
-            id="result"
-          >
-            0
-          </div>
-
+          <div class="result" id="result">0</div>
         </section>
 
         <!-- History -->
 
-        <div
-          class="history-panel"
-          id="historyPanel"
-        >
-
+        <div class="history-panel" id="historyPanel">
           <div class="history-header">
             <h2>History</h2>
           </div>
 
-          <div
-            class="history-list"
-            id="historyList"
-          >
-          </div>
-
+          <div class="history-list" id="historyList"></div>
         </div>
 
         <!-- Keypad -->
 
-        <section
-          class="keypad"
-          id="keypad"
-        >
-
+        <section class="keypad" id="keypad">
           <!-- Row 1 -->
 
-          <button
-            class="action"
-            data-action="clear"
-          >
-            AC
-          </button>
+          <button class="action" data-action="clear">AC</button>
 
-          <button
-            class="action"
-            data-action="parentheses"
-          >
-            ( )
-          </button>
+          <button class="action" data-action="delete">⌫</button>
 
-          <button
-            class="action"
-            data-operator="%"
-          >
-            %
-          </button>
+          <button class="action" data-action="parentheses">( )</button>
 
-          <button
-            class="operator"
-            data-operator="/"
-          >
-            ÷
-          </button>
+          <button class="operator" data-operator="/">÷</button>
 
           <!-- Row 2 -->
 
-          <button data-number="7">
-            7
-          </button>
+          <button data-number="7">7</button>
 
-          <button data-number="8">
-            8
-          </button>
+          <button data-number="8">8</button>
 
-          <button data-number="9">
-            9
-          </button>
+          <button data-number="9">9</button>
 
-          <button
-            class="operator"
-            data-operator="*"
-          >
-            ×
-          </button>
+          <button class="operator" data-operator="*">×</button>
 
           <!-- Row 3 -->
 
-          <button data-number="4">
-            4
-          </button>
+          <button data-number="4">4</button>
 
-          <button data-number="5">
-            5
-          </button>
+          <button data-number="5">5</button>
 
-          <button data-number="6">
-            6
-          </button>
+          <button data-number="6">6</button>
 
-          <button
-            class="operator"
-            data-operator="-"
-          >
-            −
-          </button>
+          <button class="operator" data-operator="-">−</button>
 
           <!-- Row 4 -->
 
-          <button data-number="1">
-            1
-          </button>
+          <button data-number="1">1</button>
 
-          <button data-number="2">
-            2
-          </button>
+          <button data-number="2">2</button>
 
-          <button data-number="3">
-            3
-          </button>
+          <button data-number="3">3</button>
 
-          <button
-            class="operator"
-            data-operator="+"
-          >
-            +
-          </button>
+          <button class="operator" data-operator="+">+</button>
 
           <!-- Row 5 -->
 
-          <button
-            class="zero"
-            data-number="0"
-          >
-            0
-          </button>
+          <button class="zero" data-number="0">0</button>
 
-          <button data-number=".">
-            .
-          </button>
+          <button data-number=".">.</button>
 
-          <button
-            class="equal"
-            data-action="equal"
-          >
-            =
-          </button>
-
+          <button class="equal" data-action="equal">=</button>
         </section>
-
       </section>
-
     </main>
 
     <script>
@@ -313,6 +175,5 @@
     <script src="./src/js/theme.js"></script>
     <script src="./src/js/calculator.js"></script>
     <script src="./src/js/app.js"></script>
-
   </body>
 </html>
