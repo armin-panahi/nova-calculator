@@ -27,32 +27,50 @@ const calculator = {
     const keypad =
       document.getElementById("keypad");
 
-    keypad.addEventListener("click", (event) => {
+    if (!keypad) return;
 
-      const button =
-        event.target.closest("button");
+    keypad.addEventListener(
+      "click",
+      (event) => {
 
-      if (!button) return;
+        const button =
+          event.target.closest("button");
 
-      const number = button.dataset.number;
-      const operator = button.dataset.operator;
-      const action = button.dataset.action;
+        if (!button) return;
 
-      if (number !== undefined) {
-        this.appendNumber(number);
-        return;
+        const number =
+          button.dataset.number;
+
+        const operator =
+          button.dataset.operator;
+
+        const action =
+          button.dataset.action;
+
+        if (number !== undefined) {
+
+          this.appendNumber(number);
+
+          return;
+
+        }
+
+        if (operator !== undefined) {
+
+          this.appendOperator(operator);
+
+          return;
+
+        }
+
+        if (action !== undefined) {
+
+          this.handleAction(action);
+
+        }
+
       }
-
-      if (operator !== undefined) {
-        this.appendOperator(operator);
-        return;
-      }
-
-      if (action !== undefined) {
-        this.handleAction(action);
-      }
-
-    });
+    );
 
   },
 
@@ -65,40 +83,62 @@ const calculator = {
         const key = event.key;
 
         if ("0123456789".includes(key)) {
+
           this.appendNumber(key);
+
           return;
+
         }
 
         if (key === ".") {
+
           this.appendNumber(".");
+
           return;
+
         }
 
         if ("+-*/".includes(key)) {
+
           this.appendOperator(key);
+
           return;
+
         }
 
         if (key === "Enter") {
+
+          event.preventDefault();
+
           this.calculate();
+
           return;
+
         }
 
         if (key === "Backspace") {
+
           this.delete();
+
           return;
+
         }
 
         if (key === "Escape") {
+
           this.clear();
+
           return;
+
         }
 
         if (
           key === "(" ||
           key === ")"
         ) {
+
           this.toggleParentheses();
+
         }
 
       }
@@ -111,12 +151,16 @@ const calculator = {
     if (value === ".") {
 
       const parts =
-        this.expression.split(/[+\-*/()]/);
+        this.expression.split(
+          /[+\-*/()%]/
+        );
 
       const current =
         parts[parts.length - 1];
 
-      if (current.includes(".")) {
+      if (
+        current.includes(".")
+      ) {
         return;
       }
 
@@ -143,7 +187,8 @@ const calculator = {
 
   appendOperator(operator) {
 
-    if (!this.expression.length) return;
+    if (!this.expression.length)
+      return;
 
     const lastChar =
       this.expression[
@@ -155,14 +200,18 @@ const calculator = {
     ) {
 
       this.expression =
-        this.expression.slice(0, -1) +
-        operator;
+        this.expression.slice(
+          0,
+          -1
+        ) + operator;
 
     } else {
 
       this.expression += operator;
 
     }
+
+    this.updateLiveResult();
 
     this.render();
 
@@ -198,6 +247,8 @@ const calculator = {
 
     }
 
+    this.updateLiveResult();
+
     this.render();
 
   },
@@ -231,19 +282,28 @@ const calculator = {
     if (!this.expression.length)
       return;
 
-    const last =
+    const lastChar =
       this.expression[
         this.expression.length - 1
       ];
 
-    if (last === "(")
+    if (lastChar === "(") {
+
       this.openParentheses--;
 
-    if (last === ")")
+    }
+
+    if (lastChar === ")") {
+
       this.openParentheses++;
 
+    }
+
     this.expression =
-      this.expression.slice(0, -1);
+      this.expression.slice(
+        0,
+        -1
+      );
 
     this.updateLiveResult();
 
@@ -270,14 +330,35 @@ const calculator = {
 
       if (
         value !== undefined &&
+        value !== null &&
         !Number.isNaN(value)
       ) {
 
-        this.result = String(value);
+        this.result =
+          String(value);
 
       }
 
-    } catch {}
+    } catch {
+
+      /* ignore */
+
+    }
+
+  },
+
+  loadHistoryItem(
+    expression,
+    result
+  ) {
+
+    this.expression =
+      expression;
+
+    this.result =
+      result;
+
+    this.render();
 
   },
 
@@ -295,7 +376,8 @@ const calculator = {
 
   calculate() {
 
-    if (!this.expression) return;
+    if (!this.expression)
+      return;
 
     try {
 
@@ -304,16 +386,33 @@ const calculator = {
           `"use strict"; return (${this.expression})`
         )();
 
-      this.result = String(value);
+      const finalResult =
+        String(value);
+
+      if (
+        typeof HistoryManager !==
+        "undefined"
+      ) {
+
+        HistoryManager.add(
+          this.expression,
+          finalResult
+        );
+
+      }
+
+      this.result =
+        finalResult;
 
       this.expression =
-        String(value);
+        finalResult;
 
       this.openParentheses = 0;
 
     } catch {
 
-      this.result = "Error";
+      this.result =
+        "Error";
 
     }
 
@@ -323,11 +422,23 @@ const calculator = {
 
   render() {
 
-    this.expressionElement.textContent =
-      this.expression || "0";
+    if (
+      this.expressionElement
+    ) {
 
-    this.resultElement.textContent =
-      this.result;
+      this.expressionElement.textContent =
+        this.expression || "0";
+
+    }
+
+    if (
+      this.resultElement
+    ) {
+
+      this.resultElement.textContent =
+        this.result;
+
+    }
 
   }
 
