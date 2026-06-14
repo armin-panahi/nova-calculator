@@ -2,13 +2,17 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
 
     <title>Nova Calculator</title>
 
     <link
       rel="shortcut icon"
-      href="./assets/images/nova-logo.png"
+      href="./assets/images/new-nova.png"
       type="image/x-icon"
     />
 
@@ -23,118 +27,292 @@
   </head>
 
   <body>
+
+    <!-- Overlay -->
+
     <div class="drawer-overlay"></div>
 
     <main class="app">
+
+      <!-- Sidebar -->
+
       <aside class="side-drawer">
+
         <div class="drawer-header">
           <h2>Nova</h2>
           <p>Utilities</p>
         </div>
 
         <nav class="drawer-menu">
-          <button class="drawer-item active">
+
+          <button
+            class="drawer-item active"
+            data-page="calculator"
+          >
             <i data-lucide="calculator"></i>
             <span>Calculator</span>
           </button>
 
-          <button class="drawer-item">
+          <button
+            class="drawer-item"
+            data-page="converter"
+          >
             <i data-lucide="ruler"></i>
             <span>Unit Converter</span>
           </button>
 
-          <button class="drawer-item">
+          <button
+            class="drawer-item"
+            data-page="currency"
+          >
             <i data-lucide="badge-dollar-sign"></i>
             <span>Currency Converter</span>
           </button>
 
-          <button class="drawer-item">
+          <button
+            class="drawer-item"
+            data-page="scientific"
+          >
             <i data-lucide="sigma"></i>
             <span>Scientific Mode</span>
           </button>
+
         </nav>
+
       </aside>
 
+      <!-- Calculator -->
+
       <section class="calculator">
+
+        <!-- Header -->
+
         <header class="calculator-header">
+
           <div class="brand">
-            <span class="brand-icon"> ✦ </span>
+
+            <span class="brand-icon">
+              ✦
+            </span>
 
             <div>
               <h1>Nova</h1>
               <p>Smart Calculator</p>
             </div>
+
           </div>
 
           <div class="header-actions">
-            <button class="history-btn">
+
+            <button
+              class="history-btn"
+              id="historyToggle"
+              aria-label="History"
+            >
               <i data-lucide="history"></i>
             </button>
 
-            <button class="theme-btn">
+            <button
+              class="theme-btn"
+              id="themeToggle"
+              aria-label="Theme"
+            >
               <i data-lucide="moon"></i>
             </button>
 
-            <button class="menu-btn">
+            <button
+              class="menu-btn"
+              id="menuToggle"
+              aria-label="Menu"
+            >
               <i data-lucide="menu"></i>
             </button>
+
           </div>
+
         </header>
 
+        <!-- Display -->
+
         <section class="display-section">
-          <div class="last-calculation">Last calculation</div>
 
-          <div class="expression">58 + 12</div>
+          <div
+            class="last-calculation"
+            id="lastCalculation"
+          >
+            Last calculation
+          </div>
 
-          <div class="result">70</div>
+          <div
+            class="expression"
+            id="expression"
+          >
+            0
+          </div>
+
+          <div
+            class="result"
+            id="result"
+          >
+            0
+          </div>
+
         </section>
 
-        <div class="history-panel">
+        <!-- History -->
+
+        <div
+          class="history-panel"
+          id="historyPanel"
+        >
+
           <div class="history-header">
             <h2>History</h2>
           </div>
 
-          <div class="history-list">
-            <div class="history-item">58 + 12 = 70</div>
+          <div
+            class="history-list"
+            id="historyList"
+          >
           </div>
+
         </div>
 
-        <section class="keypad">
-          <button class="action">AC</button>
-          <button class="action">( )</button>
-          <button class="action">%</button>
-          <button class="operator">÷</button>
+        <!-- Keypad -->
 
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button class="operator">×</button>
+        <section
+          class="keypad"
+          id="keypad"
+        >
 
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button class="operator">−</button>
+          <!-- Row 1 -->
 
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button class="operator">+</button>
+          <button
+            class="action"
+            data-action="clear"
+          >
+            AC
+          </button>
 
-          <button class="zero">0</button>
-          <button>.</button>
-          <button class="equal">=</button>
+          <button
+            class="action"
+            data-action="parentheses"
+          >
+            ( )
+          </button>
+
+          <button
+            class="action"
+            data-operator="%"
+          >
+            %
+          </button>
+
+          <button
+            class="operator"
+            data-operator="/"
+          >
+            ÷
+          </button>
+
+          <!-- Row 2 -->
+
+          <button data-number="7">
+            7
+          </button>
+
+          <button data-number="8">
+            8
+          </button>
+
+          <button data-number="9">
+            9
+          </button>
+
+          <button
+            class="operator"
+            data-operator="*"
+          >
+            ×
+          </button>
+
+          <!-- Row 3 -->
+
+          <button data-number="4">
+            4
+          </button>
+
+          <button data-number="5">
+            5
+          </button>
+
+          <button data-number="6">
+            6
+          </button>
+
+          <button
+            class="operator"
+            data-operator="-"
+          >
+            −
+          </button>
+
+          <!-- Row 4 -->
+
+          <button data-number="1">
+            1
+          </button>
+
+          <button data-number="2">
+            2
+          </button>
+
+          <button data-number="3">
+            3
+          </button>
+
+          <button
+            class="operator"
+            data-operator="+"
+          >
+            +
+          </button>
+
+          <!-- Row 5 -->
+
+          <button
+            class="zero"
+            data-number="0"
+          >
+            0
+          </button>
+
+          <button data-number=".">
+            .
+          </button>
+
+          <button
+            class="equal"
+            data-action="equal"
+          >
+            =
+          </button>
+
         </section>
+
       </section>
+
     </main>
 
     <script>
       lucide.createIcons();
     </script>
 
-    <script src="./src/js/app.js"></script>
-    <script src="./src/js/calculator.js"></script>
+    <script src="./src/js/storage.js"></script>
     <script src="./src/js/history.js"></script>
     <script src="./src/js/theme.js"></script>
-    <script src="./src/js/storage.js"></script>
+    <script src="./src/js/calculator.js"></script>
+    <script src="./src/js/app.js"></script>
+
   </body>
 </html>
