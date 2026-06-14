@@ -210,7 +210,7 @@
 .last-calculation {
   align-self: flex-start;
 
-  margin-bottom: 12px;
+  margin-bottom: auto;
 
   color: var(--accent);
 
@@ -244,7 +244,7 @@
 .result {
   text-align: right;
 
-  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-size: clamp(3rem, 9vw, 6rem);
 
   font-weight: 700;
 
