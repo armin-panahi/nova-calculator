@@ -230,45 +230,91 @@
 ================================== */
 
 .history-panel {
-  display: none;
 
-  border-top: 1px solid var(--border);
+  position: absolute;
 
-  background: rgba(255,255,255,.03);
+  top: 120px;
+  left: 24px;
+  right: 24px;
+
+  max-height: 320px;
+
+  overflow-y: auto;
+
+  background: rgba(15, 23, 42, .96);
+
+  border: 1px solid var(--border);
+
+  border-radius: 24px;
 
   backdrop-filter: blur(20px);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: translateY(-12px);
+
+  transition: .3s ease;
+
+  z-index: 100;
 }
 
 .history-panel.open {
-  display: block;
+
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
 }
 
 .history-header {
-  padding: 16px 20px;
+
+  padding: 20px;
 
   border-bottom: 1px solid var(--border);
 }
 
-.history-list {
-  max-height: 250px;
+.history-header h2 {
 
-  overflow-y: auto;
+  font-size: 1.2rem;
+
+  font-weight: 700;
+}
+
+.history-list {
+
+  display: flex;
+
+  flex-direction: column;
 }
 
 .history-item {
+
   padding: 14px 20px;
 
   cursor: pointer;
+
+  border-bottom: 1px solid rgba(255,255,255,.05);
 
   transition: .2s ease;
 }
 
 .history-item:hover {
+
   background: rgba(255,255,255,.05);
 }
 
 .history-empty {
-  padding: 20px;
+
+  padding: 24px;
+
+  text-align: center;
 
   color: var(--text-secondary);
 }

@@ -1,199 +1,102 @@
 const HistoryManager = {
-
-  maxItems: 50,
-
   items: [],
 
   historyList:
-    document.getElementById(
-      "historyList"
-    ),
+    document.getElementById("historyList"),
+
+  historyPanel:
+    document.getElementById("historyPanel"),
+
+  toggleButton:
+    document.getElementById("historyToggle"),
 
   init() {
-
-    this.load();
-
-    this.render();
-
-  },
-
-  load() {
-
-    if (
-      typeof Storage ===
-      "undefined"
-    ) {
-      return;
-    }
-
     this.items =
       Storage.loadHistory();
 
+    this.bindEvents();
+
+    this.render();
   },
 
-  save() {
-
-    if (
-      typeof Storage ===
-      "undefined"
-    ) {
-      return;
-    }
-
-    Storage.saveHistory(
-      this.items
+  bindEvents() {
+    this.toggleButton?.addEventListener(
+      "click",
+      () => {
+        this.historyPanel.classList.toggle(
+          "open"
+        );
+      }
     );
-
   },
 
-  add(
-    expression,
-    result
-  ) {
-
+  add(expression, result) {
     const entry = {
-
       id: Date.now(),
-
       expression,
-
-      result,
-
-      createdAt:
-        new Date().toISOString()
-
+      result
     };
 
-    this.items.unshift(
-      entry
-    );
+    this.items.unshift(entry);
 
-    if (
-      this.items.length >
-      this.maxItems
-    ) {
-
-      this.items.length =
-        this.maxItems;
-
+    if (this.items.length > 50) {
+      this.items.pop();
     }
 
-    this.save();
+    Storage.saveHistory(this.items);
 
     this.render();
-
-  },
-
-  clear() {
-
-    this.items = [];
-
-    this.save();
-
-    this.render();
-
-  },
-
-  remove(id) {
-
-    this.items =
-      this.items.filter(
-        item =>
-          item.id !== id
-      );
-
-    this.save();
-
-    this.render();
-
   },
 
   render() {
+    if (!this.historyList) return;
 
-    if (
-      !this.historyList
-    ) {
-      return;
-    }
+    this.historyList.innerHTML = "";
 
-    this.historyList.innerHTML =
-      "";
-
-    if (
-      this.items.length === 0
-    ) {
-
-      this.historyList.innerHTML =
-        `
+    if (this.items.length === 0) {
+      this.historyList.innerHTML = `
         <div class="history-empty">
           No history yet
         </div>
       `;
-
       return;
-
     }
 
-    const fragment =
-      document.createDocumentFragment();
+    this.items.forEach(item => {
+      const div =
+        document.createElement("div");
 
-    this.items.forEach(
-      (item) => {
+      div.className =
+        "history-item";
 
-        const element =
-          document.createElement(
-            "div"
+      div.innerHTML = `
+        ${item.expression}
+        <br>
+        = ${item.result}
+      `;
+
+      div.addEventListener(
+        "click",
+        () => {
+          calculator.loadHistoryItem(
+            item.expression,
+            item.result
           );
 
-        element.className =
-          "history-item";
+          this.historyPanel.classList.remove(
+            "open"
+          );
+        }
+      );
 
-        element.dataset.id =
-          item.id;
-
-        element.innerHTML =
-          `
-          <div class="history-expression">
-            ${item.expression}
-          </div>
-
-          <div class="history-result">
-            = ${item.result}
-          </div>
-        `;
-
-        element.addEventListener(
-          "click",
-          () => {
-
-            if (
-              typeof calculator !==
-              "undefined"
-            ) {
-
-              calculator.loadHistoryItem(
-                item.expression,
-                item.result
-              );
-
-            }
-
-          }
-        );
-
-        fragment.appendChild(
-          element
-        );
-
-      }
-    );
-
-    this.historyList.appendChild(
-      fragment
-    );
-
+      this.historyList.appendChild(div);
+    });
   }
-
 };
 
-HistoryManager.init();
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    HistoryManager.init();
+  }
+);
