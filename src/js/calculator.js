@@ -14,7 +14,18 @@ const calculator = {
       "result"
     ),
 
+  lastCalculationElement:
+    document.getElementById(
+      "lastCalculation"
+    ),
+
   init() {
+
+    this.expression =
+      Storage.loadExpression();
+
+    this.result =
+      Storage.loadResult();
 
     this.bindEvents();
 
@@ -88,95 +99,24 @@ const calculator = {
       }
     );
 
-    document.addEventListener(
-      "keydown",
-      (event) => {
-
-        const key =
-          event.key;
-
-        if (
-          /[0-9]/.test(key)
-        ) {
-
-          this.appendNumber(
-            key
-          );
-
-          return;
-
-        }
-
-        if (
-          key === "."
-        ) {
-
-          this.appendNumber(
-            "."
-          );
-
-          return;
-
-        }
-
-        if (
-          ["+", "-", "*", "/"]
-            .includes(key)
-        ) {
-
-          this.appendOperator(
-            key
-          );
-
-          return;
-
-        }
-
-        if (
-          key === "Enter" ||
-          key === "="
-        ) {
-
-          event.preventDefault();
-
-          this.calculate();
-
-          return;
-
-        }
-
-        if (
-          key === "Backspace"
-        ) {
-
-          this.deleteLast();
-
-          return;
-
-        }
-
-        if (
-          key === "Escape"
-        ) {
-
-          this.clear();
-
-        }
-
-      }
-    );
-
   },
 
   appendNumber(value) {
 
     if (
-      value === "." &&
-      this.getCurrentNumber()
-        .includes(".")
+      value === "."
     ) {
 
-      return;
+      const lastNumber =
+        this.expression
+          .split(/[+\-*/()%]/)
+          .pop();
+
+      if (
+        lastNumber.includes(".")
+      ) {
+        return;
+      }
 
     }
 
@@ -185,30 +125,39 @@ const calculator = {
       value !== "."
     ) {
 
-      this.expression =
-        value;
+      this.expression = value;
 
     } else {
 
-      this.expression +=
-        value;
+      this.expression += value;
 
     }
 
-    this.updateLiveResult();
+    this.saveState();
 
     this.render();
 
   },
 
-  appendOperator(
-    operator
-  ) {
+  appendOperator(operator) {
 
     if (
-      !this.expression
-        .length
-    ) return;
+      !this.expression.length
+    ) {
+
+      if (
+        operator === "-"
+      ) {
+
+        this.expression = "-";
+
+      }
+
+      this.render();
+
+      return;
+
+    }
 
     const lastChar =
       this.expression[
@@ -216,8 +165,9 @@ const calculator = {
       ];
 
     if (
-      "+-*/"
-        .includes(lastChar)
+      "+-*/%".includes(
+        lastChar
+      )
     ) {
 
       this.expression =
@@ -232,6 +182,8 @@ const calculator = {
         operator;
 
     }
+
+    this.saveState();
 
     this.render();
 
@@ -253,9 +205,9 @@ const calculator = {
 
         break;
 
-      case "percent":
+      case "parentheses":
 
-        this.applyPercent();
+        this.insertParentheses();
 
         break;
 
@@ -269,16 +221,6 @@ const calculator = {
 
   },
 
-  clear() {
-
-    this.expression = "";
-
-    this.result = "0";
-
-    this.render();
-
-  },
-
   deleteLast() {
 
     this.expression =
@@ -288,49 +230,62 @@ const calculator = {
       );
 
     if (
-      !this.expression
+      !this.expression.length
     ) {
 
       this.result = "0";
 
-    } else {
-
-      this.updateLiveResult();
-
     }
+
+    this.saveState();
 
     this.render();
 
   },
 
-  applyPercent() {
+  insertParentheses() {
+
+    const opens =
+      (
+        this.expression.match(
+          /\(/g
+        ) || []
+      ).length;
+
+    const closes =
+      (
+        this.expression.match(
+          /\)/g
+        ) || []
+      ).length;
 
     if (
-      !this.expression
-    ) return;
+      opens === closes
+    ) {
 
-    const match =
-      this.expression.match(
-        /(\d+\.?\d*)$/
-      );
+      this.expression += "(";
 
-    if (!match) return;
+    } else {
 
-    const number =
-      parseFloat(
-        match[1]
-      );
+      this.expression += ")";
 
-    const percent =
-      number / 100;
+    }
 
-    this.expression =
-      this.expression.replace(
-        /(\d+\.?\d*)$/,
-        percent
-      );
+    this.saveState();
 
-    this.updateLiveResult();
+    this.render();
+
+  },
+
+  clear() {
+
+    this.expression = "";
+
+    this.result = "0";
+
+    Storage.saveExpression("");
+
+    Storage.saveResult("0");
 
     this.render();
 
@@ -349,17 +304,31 @@ const calculator = {
           `"use strict"; return (${this.expression})`
         )();
 
-      const result =
+      if (
+        !Number.isFinite(
+          value
+        )
+      ) {
+
+        throw new Error();
+
+      }
+
+      const formatted =
         Number.isInteger(
           value
         )
           ? value
           : Number(
-              value.toFixed(10)
+              value.toFixed(
+                10
+              )
             );
 
       this.result =
-        String(result);
+        String(
+          formatted
+        );
 
       if (
         typeof HistoryManager !==
@@ -373,6 +342,19 @@ const calculator = {
 
       }
 
+      if (
+        this.lastCalculationElement
+      ) {
+
+        this.lastCalculationElement.textContent =
+          `${this.expression} = ${this.result}`;
+
+      }
+
+      Storage.saveResult(
+        this.result
+      );
+
     } catch {
 
       this.result =
@@ -381,53 +363,6 @@ const calculator = {
     }
 
     this.render();
-
-  },
-
-  updateLiveResult() {
-
-    try {
-
-      const value =
-        Function(
-          `"use strict"; return (${this.expression})`
-        )();
-
-      if (
-        Number.isFinite(
-          value
-        )
-      ) {
-
-        this.result =
-          String(
-            Number(
-              value.toFixed(
-                10
-              )
-            )
-          );
-
-      }
-
-    } catch {
-
-      // Ignore live errors
-
-    }
-
-  },
-
-  getCurrentNumber() {
-
-    const match =
-      this.expression.match(
-        /(\d+\.?\d*)$/
-      );
-
-    return match
-      ? match[1]
-      : "";
 
   },
 
@@ -442,7 +377,21 @@ const calculator = {
     this.result =
       result;
 
+    this.saveState();
+
     this.render();
+
+  },
+
+  saveState() {
+
+    Storage.saveExpression(
+      this.expression
+    );
+
+    Storage.saveResult(
+      this.result
+    );
 
   },
 
@@ -452,8 +401,7 @@ const calculator = {
       this.expressionElement
     ) {
 
-      this.expressionElement
-        .textContent =
+      this.expressionElement.textContent =
         this.expression ||
         "0";
 
@@ -463,8 +411,7 @@ const calculator = {
       this.resultElement
     ) {
 
-      this.resultElement
-        .textContent =
+      this.resultElement.textContent =
         this.result;
 
     }
@@ -473,4 +420,11 @@ const calculator = {
 
 };
 
-calculator.init();
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    calculator.init();
+
+  }
+);

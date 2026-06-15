@@ -1,35 +1,22 @@
 const App = {
 
-  menuButton:
-    document.getElementById(
-      "menuToggle"
-    ),
+  drawer: document.querySelector(".side-drawer"),
 
-  historyButton:
-    document.getElementById(
-      "historyToggle"
-    ),
+  overlay: document.querySelector(".drawer-overlay"),
 
-  drawer:
-    document.querySelector(
-      ".side-drawer"
-    ),
+  menuButton: document.getElementById("menuToggle"),
 
-  overlay:
-    document.querySelector(
-      ".drawer-overlay"
-    ),
+  historyButton: document.getElementById("historyToggle"),
 
-  historyPanel:
-    document.getElementById(
-      "historyPanel"
-    ),
+  historyPanel: document.getElementById("historyPanel"),
+
+  isDrawerOpen: false,
+
+  isHistoryOpen: false,
 
   init() {
 
     this.bindEvents();
-
-    this.handleResize();
 
   },
 
@@ -37,11 +24,7 @@ const App = {
 
     this.menuButton?.addEventListener(
       "click",
-      () => {
-
-        this.toggleDrawer();
-
-      }
+      () => this.toggleDrawer()
     );
 
     this.overlay?.addEventListener(
@@ -49,7 +32,6 @@ const App = {
       () => {
 
         this.closeDrawer();
-
         this.closeHistory();
 
       }
@@ -57,45 +39,78 @@ const App = {
 
     this.historyButton?.addEventListener(
       "click",
-      () => {
+      () => this.toggleHistory()
+    );
 
-        this.toggleHistory();
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key !== "Escape")
+          return;
+
+        this.closeDrawer();
+        this.closeHistory();
 
       }
     );
 
     window.addEventListener(
       "resize",
-      () => {
-
-        this.handleResize();
-
-      }
+      () => this.handleResize()
     );
 
   },
 
   toggleDrawer() {
 
-    this.drawer?.classList.toggle(
-      "open"
-    );
+    if (this.isDrawerOpen) {
 
-    this.overlay?.classList.toggle(
+      this.closeDrawer();
+
+    } else {
+
+      this.openDrawer();
+
+    }
+
+  },
+
+  openDrawer() {
+
+    if (!this.drawer)
+      return;
+
+    this.drawer.classList.add("open");
+
+    this.overlay?.classList.add(
       "active"
     );
+
+    document.body.style.overflow =
+      "hidden";
+
+    this.isDrawerOpen = true;
 
   },
 
   closeDrawer() {
 
-    this.drawer?.classList.remove(
+    if (!this.drawer)
+      return;
+
+    this.drawer.classList.remove(
       "open"
     );
 
     this.overlay?.classList.remove(
       "active"
     );
+
+    document.body.style.overflow =
+      "";
+
+    this.isDrawerOpen = false;
 
   },
 
@@ -104,12 +119,7 @@ const App = {
     if (!this.historyPanel)
       return;
 
-    const isOpen =
-      this.historyPanel.classList.contains(
-        "open"
-      );
-
-    if (isOpen) {
+    if (this.isHistoryOpen) {
 
       this.closeHistory();
 
@@ -123,24 +133,42 @@ const App = {
 
   openHistory() {
 
-    this.historyPanel?.classList.add(
-      "open"
+    if (!this.historyPanel)
+      return;
+
+    this.historyPanel.style.display =
+      "block";
+
+    this.historyPanel.classList.remove(
+      "fade-in"
     );
+
+    void this.historyPanel.offsetWidth;
+
+    this.historyPanel.classList.add(
+      "fade-in"
+    );
+
+    this.isHistoryOpen = true;
 
   },
 
   closeHistory() {
 
-    this.historyPanel?.classList.remove(
-      "open"
-    );
+    if (!this.historyPanel)
+      return;
+
+    this.historyPanel.style.display =
+      "none";
+
+    this.isHistoryOpen = false;
 
   },
 
   handleResize() {
 
     if (
-      window.innerWidth >= 1024
+      window.innerWidth >= 1200
     ) {
 
       this.closeDrawer();

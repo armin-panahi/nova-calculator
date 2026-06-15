@@ -1,14 +1,20 @@
 const Storage = {
 
-  keys: {
+  KEYS: {
 
-    history: "nova_history",
+    HISTORY: "nova_history",
 
-    theme: "nova_theme",
+    THEME: "nova_theme",
 
-    settings: "nova_settings"
+    EXPRESSION: "nova_expression",
+
+    RESULT: "nova_result"
 
   },
+
+  /* ==========================
+     GENERIC
+  ========================== */
 
   set(key, value) {
 
@@ -19,11 +25,12 @@ const Storage = {
         JSON.stringify(value)
       );
 
-      return true;
+    } catch (error) {
 
-    } catch {
-
-      return false;
+      console.error(
+        "Storage Save Error",
+        error
+      );
 
     }
 
@@ -33,14 +40,13 @@ const Storage = {
 
     try {
 
-      const value =
+      const data =
         localStorage.getItem(key);
 
-      if (value === null) {
+      if (!data)
         return fallback;
-      }
 
-      return JSON.parse(value);
+      return JSON.parse(data);
 
     } catch {
 
@@ -62,10 +68,14 @@ const Storage = {
 
   },
 
+  /* ==========================
+     HISTORY
+  ========================== */
+
   saveHistory(history) {
 
-    return this.set(
-      this.keys.history,
+    this.set(
+      this.KEYS.HISTORY,
       history
     );
 
@@ -74,16 +84,20 @@ const Storage = {
   loadHistory() {
 
     return this.get(
-      this.keys.history,
+      this.KEYS.HISTORY,
       []
     );
 
   },
 
+  /* ==========================
+     THEME
+  ========================== */
+
   saveTheme(theme) {
 
-    return this.set(
-      this.keys.theme,
+    this.set(
+      this.KEYS.THEME,
       theme
     );
 
@@ -92,26 +106,48 @@ const Storage = {
   loadTheme() {
 
     return this.get(
-      this.keys.theme,
+      this.KEYS.THEME,
       "dark"
     );
 
   },
 
-  saveSettings(settings) {
+  /* ==========================
+     CALCULATOR STATE
+  ========================== */
 
-    return this.set(
-      this.keys.settings,
-      settings
+  saveExpression(expression) {
+
+    this.set(
+      this.KEYS.EXPRESSION,
+      expression
     );
 
   },
 
-  loadSettings() {
+  loadExpression() {
 
     return this.get(
-      this.keys.settings,
-      {}
+      this.KEYS.EXPRESSION,
+      ""
+    );
+
+  },
+
+  saveResult(result) {
+
+    this.set(
+      this.KEYS.RESULT,
+      result
+    );
+
+  },
+
+  loadResult() {
+
+    return this.get(
+      this.KEYS.RESULT,
+      "0"
     );
 
   }
