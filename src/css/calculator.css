@@ -591,27 +591,62 @@
    LIGHT MODE
 ================================== */
 
-body.light-mode .calculator,
-body.light-mode .side-drawer {
+/* ==================================
+   LIGHT MODE
+================================== */
+
+body[data-theme="light"] .calculator,
+body[data-theme="light"] .side-drawer {
+
   background: rgba(255,255,255,.72);
 
-  border: 1px solid rgba(0,0,0,.08);
+  border-color: rgba(15,23,42,.08);
 }
 
-body.light-mode .keypad button {
+body[data-theme="light"] .keypad button {
+
   background: rgba(255,255,255,.85);
 
   color: #1b2238;
 
-  border-color: rgba(0,0,0,.08);
+  border-color: rgba(15,23,42,.08);
 }
 
-body.light-mode .drawer-item:hover {
-  background: rgba(0,0,0,.04);
+body[data-theme="light"] .drawer-item:hover {
+
+  background: rgba(15,23,42,.04);
 }
 
-body.light-mode .history-item:hover {
-  background: rgba(0,0,0,.04);
+body[data-theme="light"] .history-item:hover {
+
+  background: rgba(15,23,42,.04);
+}
+
+body[data-theme="light"] .history-panel {
+
+  background: rgba(255,255,255,.96);
+
+  border-color: rgba(15,23,42,.08);
+
+  box-shadow:
+    0 20px 40px rgba(15,23,42,.08);
+}
+
+body[data-theme="light"] .history-header {
+
+  border-bottom:
+    1px solid rgba(15,23,42,.08);
+}
+
+body[data-theme="light"] .history-item {
+
+  border-bottom:
+    1px solid rgba(15,23,42,.05);
+}
+
+body[data-theme="light"] .history-empty {
+
+  color: var(--text-secondary);
 }
 
 /* ==================================
