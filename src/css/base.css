@@ -87,10 +87,70 @@ body {
     ),
     var(--bg-primary);
 
+  transition:
+    background .35s ease,
+    color .35s ease;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   text-rendering: optimizeLegibility;
+}
+
+/* ==========================
+   LIGHT THEME BACKGROUND
+========================== */
+
+body[data-theme="light"] {
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(109, 93, 252, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(20, 184, 166, 0.10),
+      transparent 35%
+    ),
+    var(--bg-primary);
+
+}
+
+/* ==========================
+   GLOBAL TRANSITIONS
+========================== */
+
+body,
+.calculator,
+.side-drawer,
+.keypad button,
+.drawer-item,
+.history-item,
+.menu-btn,
+.theme-btn,
+.history-btn {
+
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+
+}
+
+/* ==========================
+   FOCUS STATES
+========================== */
+
+button:focus-visible {
+
+  outline: 2px solid var(--primary);
+
+  outline-offset: 2px;
+
 }
 
 /* ==========================
@@ -115,11 +175,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,.15);
 
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,.25);
+}
+
+/* ==========================
+   LIGHT SCROLLBAR
+========================== */
+
+body[data-theme="light"] ::-webkit-scrollbar-thumb {
+
+  background: rgba(15,23,42,.15);
+
+}
+
+body[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+
+  background: rgba(15,23,42,.25);
+
 }
