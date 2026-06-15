@@ -565,3 +565,77 @@ body.light-mode .drawer-item:hover {
 body.light-mode .history-item:hover {
   background: rgba(0,0,0,.04);
 }
+
+/* ==================================
+   LIGHT MODE HISTORY
+================================== */
+
+body[data-theme="light"] .history-panel {
+
+  background: rgba(255,255,255,.96);
+
+  border-color: rgba(15,23,42,.08);
+
+  box-shadow:
+    0 20px 40px rgba(15,23,42,.08);
+}
+
+body[data-theme="light"] .history-header {
+
+  border-bottom: 1px solid rgba(15,23,42,.08);
+}
+
+body[data-theme="light"] .history-item {
+
+  border-bottom: 1px solid rgba(15,23,42,.05);
+}
+
+body[data-theme="light"] .history-item:hover {
+
+  background: rgba(15,23,42,.04);
+}
+
+body[data-theme="light"] .history-empty {
+
+  color: var(--text-secondary);
+}
+
+
+.drawer-header-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.drawer-close-btn {
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: var(--glass);
+
+  border: 1px solid var(--border);
+
+  color: var(--text-primary);
+
+  transition: .25s ease;
+}
+
+.drawer-close-btn:hover {
+
+  transform: rotate(90deg);
+
+  background: var(--glass-hover);
+}

@@ -21,56 +21,54 @@ const App = {
 
   bindEvents() {
 
-    this.menuButton?.addEventListener(
-      "click",
-      () => {
+  this.menuButton?.addEventListener(
+    "click",
+    (event) => {
 
-        this.toggleDrawer();
+      event.stopPropagation();
 
-      }
-    );
+      this.toggleDrawer();
 
-    this.overlay?.addEventListener(
-      "click",
-      () => {
+    }
+  );
+
+  this.overlay?.addEventListener(
+    "click",
+    () => {
+
+      this.closeDrawer();
+
+    }
+  );
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        window.innerWidth < 1200 &&
+        this.drawer?.classList.contains("open") &&
+        !this.drawer.contains(event.target) &&
+        !this.menuButton.contains(event.target)
+      ) {
 
         this.closeDrawer();
 
       }
-    );
 
-    window.addEventListener(
-      "resize",
-      () => {
+    }
+  );
 
-        this.handleResize();
+  window.addEventListener(
+    "resize",
+    () => {
 
-      }
-    );
+      this.handleResize();
 
-    document.addEventListener(
-      "keydown",
-      (event) => {
+    }
+  );
 
-        if (event.key === "Escape") {
-
-          this.closeDrawer();
-
-          const historyPanel =
-            document.getElementById(
-              "historyPanel"
-            );
-
-          historyPanel?.classList.remove(
-            "open"
-          );
-
-        }
-
-      }
-    );
-
-  },
+},
 
   toggleDrawer() {
 
