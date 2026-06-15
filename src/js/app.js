@@ -1,7 +1,9 @@
 const App = {
+
   drawer: null,
   overlay: null,
   menuButton: null,
+  closeButton: null,
 
   init() {
 
@@ -14,61 +16,96 @@ const App = {
     this.menuButton =
       document.getElementById("menuToggle");
 
+    this.closeButton =
+      document.getElementById("drawerClose");
+
     this.bindEvents();
 
     this.handleResize();
+
   },
 
   bindEvents() {
 
-  this.menuButton?.addEventListener(
-    "click",
-    (event) => {
+    this.menuButton?.addEventListener(
+      "click",
+      (event) => {
 
-      event.stopPropagation();
+        event.stopPropagation();
 
-      this.toggleDrawer();
+        this.toggleDrawer();
 
-    }
-  );
+      }
+    );
 
-  this.overlay?.addEventListener(
-    "click",
-    () => {
-
-      this.closeDrawer();
-
-    }
-  );
-
-  document.addEventListener(
-    "click",
-    (event) => {
-
-      if (
-        window.innerWidth < 1200 &&
-        this.drawer?.classList.contains("open") &&
-        !this.drawer.contains(event.target) &&
-        !this.menuButton.contains(event.target)
-      ) {
+    this.closeButton?.addEventListener(
+      "click",
+      () => {
 
         this.closeDrawer();
 
       }
+    );
 
-    }
-  );
+    this.overlay?.addEventListener(
+      "click",
+      () => {
 
-  window.addEventListener(
-    "resize",
-    () => {
+        this.closeDrawer();
 
-      this.handleResize();
+      }
+    );
 
-    }
-  );
+    document.addEventListener(
+      "click",
+      (event) => {
 
-},
+        if (
+          window.innerWidth < 1200 &&
+          this.drawer?.classList.contains("open") &&
+          !this.drawer.contains(event.target) &&
+          !this.menuButton?.contains(event.target)
+        ) {
+
+          this.closeDrawer();
+
+        }
+
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        this.handleResize();
+
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Escape") {
+
+          this.closeDrawer();
+
+          const historyPanel =
+            document.getElementById(
+              "historyPanel"
+            );
+
+          historyPanel?.classList.remove(
+            "open"
+          );
+
+        }
+
+      }
+    );
+
+  },
 
   toggleDrawer() {
 
