@@ -4,19 +4,19 @@ const calculator = {
 
   result: "0",
 
-  openParentheses: 0,
-
   expressionElement:
-    document.getElementById("expression"),
+    document.getElementById(
+      "expression"
+    ),
 
   resultElement:
-    document.getElementById("result"),
+    document.getElementById(
+      "result"
+    ),
 
   init() {
 
     this.bindEvents();
-
-    this.bindKeyboard();
 
     this.render();
 
@@ -25,7 +25,9 @@ const calculator = {
   bindEvents() {
 
     const keypad =
-      document.getElementById("keypad");
+      document.getElementById(
+        "keypad"
+      );
 
     if (!keypad) return;
 
@@ -34,7 +36,9 @@ const calculator = {
       (event) => {
 
         const button =
-          event.target.closest("button");
+          event.target.closest(
+            "button"
+          );
 
         if (!button) return;
 
@@ -47,66 +51,91 @@ const calculator = {
         const action =
           button.dataset.action;
 
-        if (number !== undefined) {
+        if (
+          number !== undefined
+        ) {
 
-          this.appendNumber(number);
-
-          return;
-
-        }
-
-        if (operator !== undefined) {
-
-          this.appendOperator(operator);
+          this.appendNumber(
+            number
+          );
 
           return;
 
         }
 
-        if (action !== undefined) {
+        if (
+          operator !== undefined
+        ) {
 
-          this.handleAction(action);
+          this.appendOperator(
+            operator
+          );
+
+          return;
+
+        }
+
+        if (
+          action !== undefined
+        ) {
+
+          this.handleAction(
+            action
+          );
 
         }
 
       }
     );
 
-  },
-
-  bindKeyboard() {
-
     document.addEventListener(
       "keydown",
       (event) => {
 
-        const key = event.key;
+        const key =
+          event.key;
 
-        if ("0123456789".includes(key)) {
+        if (
+          /[0-9]/.test(key)
+        ) {
 
-          this.appendNumber(key);
-
-          return;
-
-        }
-
-        if (key === ".") {
-
-          this.appendNumber(".");
+          this.appendNumber(
+            key
+          );
 
           return;
 
         }
 
-        if ("+-*/".includes(key)) {
+        if (
+          key === "."
+        ) {
 
-          this.appendOperator(key);
+          this.appendNumber(
+            "."
+          );
 
           return;
 
         }
 
-        if (key === "Enter") {
+        if (
+          ["+", "-", "*", "/"]
+            .includes(key)
+        ) {
+
+          this.appendOperator(
+            key
+          );
+
+          return;
+
+        }
+
+        if (
+          key === "Enter" ||
+          key === "="
+        ) {
 
           event.preventDefault();
 
@@ -116,28 +145,21 @@ const calculator = {
 
         }
 
-        if (key === "Backspace") {
+        if (
+          key === "Backspace"
+        ) {
 
-          this.delete();
-
-          return;
-
-        }
-
-        if (key === "Escape") {
-
-          this.clear();
+          this.deleteLast();
 
           return;
 
         }
 
         if (
-          key === "(" ||
-          key === ")"
+          key === "Escape"
         ) {
 
-          this.toggleParentheses();
+          this.clear();
 
         }
 
@@ -148,21 +170,13 @@ const calculator = {
 
   appendNumber(value) {
 
-    if (value === ".") {
+    if (
+      value === "." &&
+      this.getCurrentNumber()
+        .includes(".")
+    ) {
 
-      const parts =
-        this.expression.split(
-          /[+\-*/()%]/
-        );
-
-      const current =
-        parts[parts.length - 1];
-
-      if (
-        current.includes(".")
-      ) {
-        return;
-      }
+      return;
 
     }
 
@@ -171,11 +185,13 @@ const calculator = {
       value !== "."
     ) {
 
-      this.expression = value;
+      this.expression =
+        value;
 
     } else {
 
-      this.expression += value;
+      this.expression +=
+        value;
 
     }
 
@@ -185,10 +201,14 @@ const calculator = {
 
   },
 
-  appendOperator(operator) {
+  appendOperator(
+    operator
+  ) {
 
-    if (!this.expression.length)
-      return;
+    if (
+      !this.expression
+        .length
+    ) return;
 
     const lastChar =
       this.expression[
@@ -196,7 +216,8 @@ const calculator = {
       ];
 
     if (
-      "+-*/".includes(lastChar)
+      "+-*/"
+        .includes(lastChar)
     ) {
 
       this.expression =
@@ -207,47 +228,10 @@ const calculator = {
 
     } else {
 
-      this.expression += operator;
+      this.expression +=
+        operator;
 
     }
-
-    this.updateLiveResult();
-
-    this.render();
-
-  },
-
-  toggleParentheses() {
-
-    const lastChar =
-      this.expression[
-        this.expression.length - 1
-      ];
-
-    if (
-      !this.expression ||
-      "+-*/(".includes(lastChar)
-    ) {
-
-      this.expression += "(";
-
-      this.openParentheses++;
-
-    } else {
-
-      if (
-        this.openParentheses > 0
-      ) {
-
-        this.expression += ")";
-
-        this.openParentheses--;
-
-      }
-
-    }
-
-    this.updateLiveResult();
 
     this.render();
 
@@ -258,51 +242,92 @@ const calculator = {
     switch (action) {
 
       case "clear":
+
         this.clear();
+
         break;
 
       case "delete":
-        this.delete();
+
+        this.deleteLast();
+
+        break;
+
+      case "percent":
+
+        this.applyPercent();
+
         break;
 
       case "equal":
-        this.calculate();
-        break;
 
-      case "parentheses":
-        this.toggleParentheses();
+        this.calculate();
+
         break;
 
     }
 
   },
 
-  delete() {
+  clear() {
 
-    if (!this.expression.length)
-      return;
+    this.expression = "";
 
-    const lastChar =
-      this.expression[
-        this.expression.length - 1
-      ];
+    this.result = "0";
 
-    if (lastChar === "(") {
+    this.render();
 
-      this.openParentheses--;
+  },
 
-    }
-
-    if (lastChar === ")") {
-
-      this.openParentheses++;
-
-    }
+  deleteLast() {
 
     this.expression =
       this.expression.slice(
         0,
         -1
+      );
+
+    if (
+      !this.expression
+    ) {
+
+      this.result = "0";
+
+    } else {
+
+      this.updateLiveResult();
+
+    }
+
+    this.render();
+
+  },
+
+  applyPercent() {
+
+    if (
+      !this.expression
+    ) return;
+
+    const match =
+      this.expression.match(
+        /(\d+\.?\d*)$/
+      );
+
+    if (!match) return;
+
+    const number =
+      parseFloat(
+        match[1]
+      );
+
+    const percent =
+      number / 100;
+
+    this.expression =
+      this.expression.replace(
+        /(\d+\.?\d*)$/,
+        percent
       );
 
     this.updateLiveResult();
@@ -311,15 +336,55 @@ const calculator = {
 
   },
 
-  updateLiveResult() {
+  calculate() {
 
-    if (!this.expression) {
+    if (
+      !this.expression
+    ) return;
 
-      this.result = "0";
+    try {
 
-      return;
+      const value =
+        Function(
+          `"use strict"; return (${this.expression})`
+        )();
+
+      const result =
+        Number.isInteger(
+          value
+        )
+          ? value
+          : Number(
+              value.toFixed(10)
+            );
+
+      this.result =
+        String(result);
+
+      if (
+        typeof HistoryManager !==
+        "undefined"
+      ) {
+
+        HistoryManager.add(
+          this.expression,
+          this.result
+        );
+
+      }
+
+    } catch {
+
+      this.result =
+        "Error";
 
     }
+
+    this.render();
+
+  },
+
+  updateLiveResult() {
 
     try {
 
@@ -329,21 +394,40 @@ const calculator = {
         )();
 
       if (
-        value !== undefined &&
-        value !== null &&
-        !Number.isNaN(value)
+        Number.isFinite(
+          value
+        )
       ) {
 
         this.result =
-          String(value);
+          String(
+            Number(
+              value.toFixed(
+                10
+              )
+            )
+          );
 
       }
 
     } catch {
 
-      /* ignore */
+      // Ignore live errors
 
     }
+
+  },
+
+  getCurrentNumber() {
+
+    const match =
+      this.expression.match(
+        /(\d+\.?\d*)$/
+      );
+
+    return match
+      ? match[1]
+      : "";
 
   },
 
@@ -362,72 +446,16 @@ const calculator = {
 
   },
 
-  clear() {
-
-    this.expression = "";
-
-    this.result = "0";
-
-    this.openParentheses = 0;
-
-    this.render();
-
-  },
-
-  calculate() {
-
-    if (!this.expression)
-      return;
-
-    try {
-
-      const value =
-        Function(
-          `"use strict"; return (${this.expression})`
-        )();
-
-      const finalResult =
-        String(value);
-
-      if (
-        typeof HistoryManager !==
-        "undefined"
-      ) {
-
-        HistoryManager.add(
-          this.expression,
-          finalResult
-        );
-
-      }
-
-      this.result =
-        finalResult;
-
-      this.expression =
-        finalResult;
-
-      this.openParentheses = 0;
-
-    } catch {
-
-      this.result =
-        "Error";
-
-    }
-
-    this.render();
-
-  },
-
   render() {
 
     if (
       this.expressionElement
     ) {
 
-      this.expressionElement.textContent =
-        this.expression || "0";
+      this.expressionElement
+        .textContent =
+        this.expression ||
+        "0";
 
     }
 
@@ -435,7 +463,8 @@ const calculator = {
       this.resultElement
     ) {
 
-      this.resultElement.textContent =
+      this.resultElement
+        .textContent =
         this.result;
 
     }
