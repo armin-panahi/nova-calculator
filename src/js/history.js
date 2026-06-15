@@ -1,5 +1,7 @@
 const HistoryManager = {
 
+  maxItems: 50,
+
   items: [],
 
   historyList:
@@ -9,14 +11,45 @@ const HistoryManager = {
 
   init() {
 
-    this.items =
-      Storage.loadHistory();
+    this.load();
 
     this.render();
 
   },
 
-  add(expression, result) {
+  load() {
+
+    if (
+      typeof Storage ===
+      "undefined"
+    ) {
+      return;
+    }
+
+    this.items =
+      Storage.loadHistory();
+
+  },
+
+  save() {
+
+    if (
+      typeof Storage ===
+      "undefined"
+    ) {
+      return;
+    }
+
+    Storage.saveHistory(
+      this.items
+    );
+
+  },
+
+  add(
+    expression,
+    result
+  ) {
 
     const entry = {
 
@@ -24,23 +57,52 @@ const HistoryManager = {
 
       expression,
 
-      result
+      result,
+
+      createdAt:
+        new Date().toISOString()
 
     };
 
-    this.items.unshift(entry);
+    this.items.unshift(
+      entry
+    );
 
     if (
-      this.items.length > 50
+      this.items.length >
+      this.maxItems
     ) {
 
-      this.items.pop();
+      this.items.length =
+        this.maxItems;
 
     }
 
-    Storage.saveHistory(
-      this.items
-    );
+    this.save();
+
+    this.render();
+
+  },
+
+  clear() {
+
+    this.items = [];
+
+    this.save();
+
+    this.render();
+
+  },
+
+  remove(id) {
+
+    this.items =
+      this.items.filter(
+        item =>
+          item.id !== id
+      );
+
+    this.save();
 
     this.render();
 
@@ -48,10 +110,14 @@ const HistoryManager = {
 
   render() {
 
-    if (!this.historyList)
+    if (
+      !this.historyList
+    ) {
       return;
+    }
 
-    this.historyList.innerHTML = "";
+    this.historyList.innerHTML =
+      "";
 
     if (
       this.items.length === 0
@@ -68,46 +134,63 @@ const HistoryManager = {
 
     }
 
-    this.items.forEach(item => {
+    const fragment =
+      document.createDocumentFragment();
 
-      const div =
-        document.createElement(
-          "div"
-        );
+    this.items.forEach(
+      (item) => {
 
-      div.className =
-        "history-item";
-
-      div.dataset.expression =
-        item.expression;
-
-      div.dataset.result =
-        item.result;
-
-      div.innerHTML =
-        `
-        ${item.expression}
-        =
-        ${item.result}
-      `;
-
-      div.addEventListener(
-        "click",
-        () => {
-
-          calculator.loadHistoryItem(
-            item.expression,
-            item.result
+        const element =
+          document.createElement(
+            "div"
           );
 
-        }
-      );
+        element.className =
+          "history-item";
 
-      this.historyList.appendChild(
-        div
-      );
+        element.dataset.id =
+          item.id;
 
-    });
+        element.innerHTML =
+          `
+          <div class="history-expression">
+            ${item.expression}
+          </div>
+
+          <div class="history-result">
+            = ${item.result}
+          </div>
+        `;
+
+        element.addEventListener(
+          "click",
+          () => {
+
+            if (
+              typeof calculator !==
+              "undefined"
+            ) {
+
+              calculator.loadHistoryItem(
+                item.expression,
+                item.result
+              );
+
+            }
+
+          }
+        );
+
+        fragment.appendChild(
+          element
+        );
+
+      }
+    );
+
+    this.historyList.appendChild(
+      fragment
+    );
 
   }
 
