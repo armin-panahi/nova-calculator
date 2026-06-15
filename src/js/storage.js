@@ -1,34 +1,118 @@
 const Storage = {
 
-  HISTORY_KEY: "nova_history",
+  keys: {
+
+    history: "nova_history",
+
+    theme: "nova_theme",
+
+    settings: "nova_settings"
+
+  },
+
+  set(key, value) {
+
+    try {
+
+      localStorage.setItem(
+        key,
+        JSON.stringify(value)
+      );
+
+      return true;
+
+    } catch {
+
+      return false;
+
+    }
+
+  },
+
+  get(key, fallback = null) {
+
+    try {
+
+      const value =
+        localStorage.getItem(key);
+
+      if (value === null) {
+        return fallback;
+      }
+
+      return JSON.parse(value);
+
+    } catch {
+
+      return fallback;
+
+    }
+
+  },
+
+  remove(key) {
+
+    localStorage.removeItem(key);
+
+  },
+
+  clear() {
+
+    localStorage.clear();
+
+  },
 
   saveHistory(history) {
 
-    localStorage.setItem(
-      this.HISTORY_KEY,
-      JSON.stringify(history)
+    return this.set(
+      this.keys.history,
+      history
     );
 
   },
 
   loadHistory() {
 
-    const data =
-      localStorage.getItem(
-        this.HISTORY_KEY
-      );
+    return this.get(
+      this.keys.history,
+      []
+    );
 
-    if (!data) return [];
+  },
 
-    try {
+  saveTheme(theme) {
 
-      return JSON.parse(data);
+    return this.set(
+      this.keys.theme,
+      theme
+    );
 
-    } catch {
+  },
 
-      return [];
+  loadTheme() {
 
-    }
+    return this.get(
+      this.keys.theme,
+      "dark"
+    );
+
+  },
+
+  saveSettings(settings) {
+
+    return this.set(
+      this.keys.settings,
+      settings
+    );
+
+  },
+
+  loadSettings() {
+
+    return this.get(
+      this.keys.settings,
+      {}
+    );
 
   }
 
