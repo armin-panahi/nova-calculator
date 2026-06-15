@@ -1,45 +1,4 @@
 /* ==================================
-   SMALL HEIGHT DEVICES
-================================== */
-
-@media (max-height: 700px) {
-
-  .calculator-header {
-    padding: 12px 18px;
-  }
-
-  .display-section {
-    min-height: 100px;
-    padding: 12px 18px;
-  }
-
-  .last-calculation {
-    margin-bottom: auto;
-    font-size: .8rem;
-  }
-
-  .expression {
-    font-size: .95rem;
-    margin-bottom: 4px;
-  }
-
-  .result {
-    font-size: clamp(2rem, 4vw, 3rem);
-  }
-
-  .keypad {
-    gap: 6px;
-    padding: 10px;
-  }
-
-  .keypad button {
-    height: 46px;
-    border-radius: 16px;
-  }
-
-}
-
-/* ==================================
    MOBILE
 ================================== */
 
@@ -47,12 +6,60 @@
 
   .app {
     padding: 0;
+    height: 100dvh;
   }
 
   .calculator {
     width: 100%;
-    min-height: 100dvh;
+    height: 100dvh;
     border-radius: 0;
+  }
+
+  .side-drawer {
+
+    position: fixed;
+
+    top: 0;
+    right: -100%;
+
+    width: 300px;
+    max-width: 85vw;
+
+    height: 100dvh;
+
+    z-index: 1000;
+
+    transition: right .3s ease;
+  }
+
+  .side-drawer.open {
+    right: 0;
+  }
+
+  .drawer-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.5);
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 999;
+
+    transition: .3s ease;
+  }
+
+  .drawer-overlay.active {
+
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu-btn {
+    display: flex;
   }
 
   .calculator-header {
@@ -64,36 +71,54 @@
   }
 
   .result {
-    font-size: clamp(3rem, 14vw, 4.5rem);
+    font-size: clamp(3rem, 14vw, 5rem);
   }
 
   .keypad {
-    gap: 8px;
     padding: 18px;
+    gap: 8px;
   }
 
   .keypad button {
     height: 60px;
   }
 
-  .side-drawer {
-    width: 100%;
+  /* HISTORY FLOATING */
+
+  .history-panel {
+
+    position: absolute;
+
+    top: 90px;
+    left: 16px;
+    right: 16px;
+
+    max-height: 260px;
+
+    overflow-y: auto;
+
+    z-index: 100;
+
+    display: none;
   }
 
+  .history-panel.open {
+    display: block;
+  }
 }
 
 /* ==================================
    MOBILE LANDSCAPE
 ================================== */
 
-@media (max-height: 500px) {
+@media (orientation: landscape) and (max-height: 500px) {
 
   .calculator-header {
     padding: 10px 16px;
   }
 
   .display-section {
-    min-height: 80px;
+    min-height: 70px;
     padding: 10px 16px;
   }
 
@@ -103,11 +128,10 @@
 
   .expression {
     font-size: .9rem;
-    margin-bottom: 2px;
   }
 
   .result {
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(2rem, 5vw, 3rem);
   }
 
   .keypad {
@@ -117,9 +141,11 @@
 
   .keypad button {
     height: 42px;
-    border-radius: 14px;
   }
 
+  .history-panel {
+    max-height: 180px;
+  }
 }
 
 /* ==================================
@@ -132,21 +158,55 @@
     padding: 16px;
   }
 
-  .side-drawer {
-    display: none;
-  }
-
   .calculator {
     width: 100%;
     height: 100%;
-    margin: 0 auto;
-    border-radius: 32px;
+  }
+
+  .side-drawer {
+
+    position: fixed;
+
+    top: 0;
+    right: -340px;
+
+    width: 320px;
+
+    height: 100dvh;
+
+    z-index: 1000;
+
+    transition: right .3s ease;
+  }
+
+  .side-drawer.open {
+    right: 0;
   }
 
   .menu-btn {
     display: flex;
   }
 
+  .history-panel {
+
+    position: absolute;
+
+    top: 100px;
+    left: 20px;
+    right: 20px;
+
+    max-height: 320px;
+
+    overflow-y: auto;
+
+    z-index: 100;
+
+    display: none;
+  }
+
+  .history-panel.open {
+    display: block;
+  }
 }
 
 /* ==================================
@@ -174,28 +234,16 @@
 
     position: relative;
 
-    top: auto;
     right: auto;
+    top: auto;
 
     width: 320px;
 
     flex-shrink: 0;
 
     display: flex;
+
     flex-direction: column;
-
-    border-radius: 32px;
-
-    overflow: hidden;
-  }
-
-  .calculator {
-
-    flex: 1;
-
-    width: auto;
-
-    border-radius: 32px;
   }
 
   .menu-btn {
@@ -206,6 +254,35 @@
     display: none;
   }
 
+  .calculator {
+
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  /* HISTORY FLOATING */
+
+  .history-panel {
+
+    position: absolute;
+
+    top: 120px;
+    left: 24px;
+    right: 24px;
+
+    max-height: 350px;
+
+    overflow-y: auto;
+
+    z-index: 50;
+
+    display: none;
+  }
+
+  .history-panel.open {
+    display: block;
+  }
 }
 
 /* ==================================
@@ -217,7 +294,6 @@
   .side-drawer {
     width: 340px;
   }
-
 }
 
 /* ==================================
@@ -227,8 +303,37 @@
 @media (min-width: 1800px) {
 
   .app {
+
     max-width: 1800px;
+
     margin: 0 auto;
   }
+}
 
+/* ==================================
+   SHORT HEIGHT DEVICES
+================================== */
+
+@media (max-height: 700px) {
+
+  .calculator-header {
+    padding: 12px 18px;
+  }
+
+  .display-section {
+    min-height: 90px;
+  }
+
+  .result {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .keypad {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .keypad button {
+    height: 46px;
+  }
 }
