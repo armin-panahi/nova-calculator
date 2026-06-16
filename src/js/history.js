@@ -1,102 +1,240 @@
 const HistoryManager = {
+
   items: [],
 
   historyList:
-    document.getElementById("historyList"),
+    document.getElementById(
+      "historyList"
+    ),
 
   historyPanel:
-    document.getElementById("historyPanel"),
+    document.getElementById(
+      "historyPanel"
+    ),
 
-  toggleButton:
-    document.getElementById("historyToggle"),
+  historyToggle:
+    document.getElementById(
+      "historyToggle"
+    ),
 
   init() {
+
     this.items =
       Storage.loadHistory();
 
     this.bindEvents();
 
     this.render();
+
   },
 
   bindEvents() {
-    this.toggleButton?.addEventListener(
+
+    this.historyToggle
+      ?.addEventListener(
+        "click",
+        (event) => {
+
+          event.stopPropagation();
+
+          this.toggle();
+
+        }
+      );
+
+    document.addEventListener(
       "click",
-      () => {
-        this.historyPanel.classList.toggle(
-          "open"
-        );
+      (event) => {
+
+        if (
+          !this.historyPanel?.contains(
+            event.target
+          ) &&
+          !this.historyToggle?.contains(
+            event.target
+          )
+        ) {
+
+          this.close();
+
+        }
+
       }
     );
+
   },
 
-  add(expression, result) {
+  toggle() {
+
+    this.historyPanel?.classList.toggle(
+      "open"
+    );
+
+  },
+
+  open() {
+
+    this.historyPanel?.classList.add(
+      "open"
+    );
+
+  },
+
+  close() {
+
+    this.historyPanel?.classList.remove(
+      "open"
+    );
+
+  },
+
+  add(
+    expression,
+    result
+  ) {
+
     const entry = {
+
       id: Date.now(),
+
       expression,
+
       result
+
     };
 
-    this.items.unshift(entry);
+    this.items.unshift(
+      entry
+    );
 
-    if (this.items.length > 50) {
+    if (
+      this.items.length > 50
+    ) {
+
       this.items.pop();
+
     }
 
-    Storage.saveHistory(this.items);
+    Storage.saveHistory(
+      this.items
+    );
 
     this.render();
+
+  },
+
+  clear() {
+
+    this.items = [];
+
+    Storage.saveHistory(
+      this.items
+    );
+
+    this.render();
+
   },
 
   render() {
-    if (!this.historyList) return;
 
-    this.historyList.innerHTML = "";
+    if (
+      !this.historyList
+    ) return;
 
-    if (this.items.length === 0) {
-      this.historyList.innerHTML = `
+    this.historyList.innerHTML =
+      "";
+
+    if (
+      this.items.length === 0
+    ) {
+
+      this.historyList.innerHTML =
+        `
         <div class="history-empty">
           No history yet
         </div>
       `;
+
       return;
+
     }
 
-    this.items.forEach(item => {
-      const div =
-        document.createElement("div");
-
-      div.className =
-        "history-item";
-
-      div.innerHTML = `
-        ${item.expression}
-        <br>
-        = ${item.result}
-      `;
-
-      div.addEventListener(
-        "click",
-        () => {
-          calculator.loadHistoryItem(
-            item.expression,
-            item.result
-          );
-
-          this.historyPanel.classList.remove(
-            "open"
-          );
-        }
+    const clearButton =
+      document.createElement(
+        "button"
       );
 
-      this.historyList.appendChild(div);
-    });
+    clearButton.className =
+      "history-clear-btn";
+
+    clearButton.textContent =
+      "Clear History";
+
+    clearButton.addEventListener(
+      "click",
+      () => {
+
+        this.clear();
+
+      }
+    );
+
+    this.historyList.appendChild(
+      clearButton
+    );
+
+    this.items.forEach(
+      (item) => {
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+        div.className =
+          "history-item";
+
+        div.innerHTML =
+          `
+          <div class="history-expression">
+            ${item.expression}
+          </div>
+
+          <div class="history-result">
+            = ${item.result}
+          </div>
+        `;
+
+        div.addEventListener(
+          "click",
+          () => {
+
+            calculator.loadHistoryItem(
+              item.expression,
+              item.result
+            );
+
+            this.close();
+
+          }
+        );
+
+        this.historyList.appendChild(
+          div
+        );
+
+      }
+    );
+
   }
+
 };
 
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+
     HistoryManager.init();
+
   }
 );
