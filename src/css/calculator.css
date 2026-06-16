@@ -1,720 +1,621 @@
 /* ==================================
-   CALCULATOR
+CALCULATOR
 ================================== */
 
 .calculator {
-  position: relative;
+position: relative;
 
-  flex: 1;
+isolation: isolate;
 
-  min-width: 0;
+flex: 1;
 
-  min-height: 0;
+min-width: 0;
+min-height: 0;
 
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 
-  overflow: hidden;
+overflow: hidden;
 
-  border-radius: 32px;
+border-radius: 32px;
 
-  background: rgba(255,255,255,.05);
+background: rgba(255,255,255,.05);
 
-  backdrop-filter: blur(24px);
+backdrop-filter: blur(24px);
 
-  border: 1px solid var(--border);
+border: 1px solid var(--border);
 
-  box-shadow: var(--shadow);
+box-shadow: var(--shadow);
 }
 
 /* ==================================
-   GLOW EFFECTS
+GLOW EFFECTS
 ================================== */
 
 .calculator::before {
-  content: "";
+content: "";
 
-  position: absolute;
+position: absolute;
 
-  top: -180px;
-  right: -180px;
+top: -180px;
+right: -180px;
 
-  width: 360px;
-  height: 360px;
+width: 360px;
+height: 360px;
 
-  border-radius: 50%;
+border-radius: 50%;
 
-  background: rgba(124,92,255,.12);
+background: rgba(124,92,255,.12);
 
-  filter: blur(120px);
+filter: blur(120px);
 
-  pointer-events: none;
+pointer-events: none;
 }
 
 .calculator::after {
-  content: "";
+content: "";
 
-  position: absolute;
+position: absolute;
 
-  bottom: -120px;
-  left: -120px;
+bottom: -120px;
+left: -120px;
 
-  width: 260px;
-  height: 260px;
+width: 260px;
+height: 260px;
 
-  border-radius: 50%;
+border-radius: 50%;
 
-  background: rgba(79,209,197,.08);
+background: rgba(79,209,197,.08);
 
-  filter: blur(100px);
+filter: blur(100px);
 
-  pointer-events: none;
+pointer-events: none;
 }
 
 /* ==================================
-   HEADER
+HEADER
 ================================== */
 
 .calculator-header {
-  position: relative;
-  z-index: 2;
+position: relative;
+z-index: 2;
 
-  display: flex;
+display: flex;
 
-  justify-content: space-between;
-  align-items: center;
+justify-content: space-between;
+align-items: center;
 
-  flex-shrink: 0;
+flex-shrink: 0;
 
-  padding: 24px;
+padding: 24px;
 }
 
 /* ==================================
-   BRAND
+BRAND
 ================================== */
 
 .brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+display: flex;
+align-items: center;
+gap: 12px;
 }
 
 .brand-icon {
-  color: var(--primary);
-
-  font-size: 1.4rem;
+color: var(--primary);
+font-size: 1.4rem;
 }
 
 .brand h1 {
-  font-size: 1.9rem;
-  font-weight: 700;
+font-size: 1.9rem;
+font-weight: 700;
 }
 
 .brand p {
-  margin-top: 2px;
+margin-top: 2px;
 
-  color: var(--text-secondary);
+color: var(--text-secondary);
 
-  font-size: .95rem;
+font-size: .95rem;
 }
 
 /* ==================================
-   HEADER ACTIONS
+HEADER ACTIONS
 ================================== */
 
 .header-actions {
-  display: flex;
-  gap: 12px;
+display: flex;
+gap: 12px;
 }
 
 .menu-btn,
 .history-btn,
 .theme-btn {
-  width: 52px;
-  height: 52px;
+width: 52px;
+height: 52px;
 
-  flex-shrink: 0;
+flex-shrink: 0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+display: flex;
+justify-content: center;
+align-items: center;
 
-  border-radius: 50%;
+border-radius: 50%;
 
-  cursor: pointer;
+cursor: pointer;
 
-  background: var(--glass);
+background: var(--glass);
 
-  border: 1px solid var(--border);
+border: 1px solid var(--border);
 
-  color: var(--text-primary);
+color: var(--text-primary);
 
-  transition: .25s ease;
+transition: .25s ease;
 }
 
 .menu-btn:hover,
 .history-btn:hover,
 .theme-btn:hover {
-  transform: translateY(-2px);
+transform: translateY(-2px);
 
-  background: var(--glass-hover);
+background: var(--glass-hover);
 }
 
 /* ==================================
-   DISPLAY
+DISPLAY
 ================================== */
 
 .display-section {
-  flex: 1;
+flex: 1;
 
-  min-height: 0;
+min-height: 0;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
 
-  padding: 24px;
+padding: 24px;
 
-  position: relative;
-  z-index: 2;
+position: relative;
+z-index: 2;
 }
 
 /* ==================================
-   LAST CALCULATION
+LAST CALCULATION
 ================================== */
 
 .last-calculation {
-  margin-bottom: auto;
+margin-bottom: auto;
 
-  color: var(--accent);
+color: var(--accent);
 
-  font-size: .95rem;
+font-size: .95rem;
 }
 
 /* ==================================
-   EXPRESSION
+EXPRESSION
 ================================== */
 
 .expression {
-  text-align: right;
+text-align: right;
 
-  color: var(--text-secondary);
+color: var(--text-secondary);
 
-  font-size: 1.25rem;
+font-size: 1.25rem;
 
-  margin-bottom: 12px;
+margin-bottom: 12px;
 
-  word-break: break-word;
+word-break: break-word;
 }
 
 /* ==================================
-   RESULT
+RESULT
 ================================== */
 
 .result {
-  text-align: right;
+text-align: right;
 
-  font-size: clamp(3.5rem, 8vw, 6rem);
+font-size: clamp(3.5rem, 8vw, 6rem);
 
-  font-weight: 700;
+font-weight: 700;
 
-  line-height: 1;
+line-height: 1;
 
-  word-break: break-word;
+word-break: break-word;
 
-  color: var(--text-primary);
+color: var(--text-primary);
 }
 
 /* ==================================
-   HISTORY PANEL
+HISTORY PANEL
 ================================== */
 
 .history-panel {
+position: absolute;
 
-  position: absolute;
+top: 120px;
+left: 24px;
+right: 24px;
 
-  top: 120px;
-  left: 24px;
-  right: 24px;
+max-height: 320px;
 
-  max-height: 320px;
+overflow-y: auto;
 
-  overflow-y: auto;
+background: rgba(15,23,42,.96);
 
-  background: rgba(15, 23, 42, .96);
+border: 1px solid var(--border);
 
-  border: 1px solid var(--border);
+border-radius: 24px;
 
-  border-radius: 24px;
+backdrop-filter: blur(20px);
 
-  backdrop-filter: blur(20px);
+opacity: 0;
 
-  opacity: 0;
+visibility: hidden;
 
-  visibility: hidden;
+pointer-events: none;
 
-  pointer-events: none;
+transform: translateY(-12px);
 
-  transform: translateY(-12px);
+transition: .3s ease;
 
-  transition: .3s ease;
-
-  z-index: 100;
+z-index: 100;
 }
 
 .history-panel.open {
+opacity: 1;
 
-  opacity: 1;
+visibility: visible;
 
-  visibility: visible;
+pointer-events: auto;
 
-  pointer-events: auto;
-
-  transform: translateY(0);
+transform: translateY(0);
 }
 
 .history-header {
+padding: 20px;
 
-  padding: 20px;
-
-  border-bottom: 1px solid var(--border);
+border-bottom: 1px solid var(--border);
 }
 
 .history-header h2 {
+font-size: 1.2rem;
 
-  font-size: 1.2rem;
-
-  font-weight: 700;
+font-weight: 700;
 }
 
 .history-list {
+display: flex;
 
-  display: flex;
-
-  flex-direction: column;
+flex-direction: column;
 }
 
 .history-item {
+padding: 14px 20px;
 
-  padding: 14px 20px;
+cursor: pointer;
 
-  cursor: pointer;
+border-bottom: 1px solid rgba(255,255,255,.05);
 
-  border-bottom: 1px solid rgba(255,255,255,.05);
-
-  transition: .2s ease;
+transition: .2s ease;
 }
 
 .history-item:hover {
-
-  background: rgba(255,255,255,.05);
+background: rgba(255,255,255,.05);
 }
 
 .history-empty {
+padding: 24px;
 
-  padding: 24px;
+text-align: center;
 
-  text-align: center;
-
-  color: var(--text-secondary);
+color: var(--text-secondary);
 }
 
 /* ==================================
-   KEYPAD
+KEYPAD
 ================================== */
 
 .keypad {
-  flex-shrink: 0;
+flex-shrink: 0;
 
-  display: grid;
+display: grid;
 
-  grid-template-columns: repeat(4, 1fr);
+grid-template-columns: repeat(4, 1fr);
 
-  gap: 12px;
+gap: 12px;
 
-  padding: 16px;
+padding: 16px;
 
-  position: relative;
-  z-index: 2;
+position: relative;
+z-index: 2;
 }
 
 /* ==================================
-   BUTTONS
+BUTTONS
 ================================== */
 
 .keypad button {
-  height: clamp(54px, 8vh, 74px);
+height: clamp(54px, 8vh, 74px);
 
-  border-radius: 22px;
+border-radius: 22px;
 
-  font-size: 1.15rem;
-  font-weight: 600;
+font-size: 1.15rem;
+font-weight: 600;
 
-  cursor: pointer;
+cursor: pointer;
 
-  position: relative;
+position: relative;
 
-  overflow: hidden;
+overflow: hidden;
 
-  color: var(--text-primary);
+color: var(--text-primary);
 
-  background: var(--glass);
+background: var(--glass);
 
-  border: 1px solid var(--border);
+border: 1px solid var(--border);
 
-  transition: .25s ease;
+transition: .25s ease;
 }
 
 .keypad button:hover {
-  transform: translateY(-2px);
+transform: translateY(-2px);
 
-  background: var(--glass-hover);
+background: var(--glass-hover);
 }
 
 .keypad button:active {
-  transform: scale(.97);
+transform: scale(.97);
 }
 
 /* ==================================
-   ACTION BUTTONS
+ACTION BUTTONS
 ================================== */
 
 .action {
-  color: var(--accent) !important;
+color: var(--accent) !important;
 
-  background: rgba(79,209,197,.12) !important;
+background: rgba(79,209,197,.12) !important;
 
-  border-color: rgba(79,209,197,.22) !important;
+border-color: rgba(79,209,197,.22) !important;
 }
 
 /* ==================================
-   OPERATORS
+OPERATORS
 ================================== */
 
 .operator {
-  color: #b9a8ff !important;
+color: #b9a8ff !important;
 
-  background: rgba(124,92,255,.18) !important;
+background: rgba(124,92,255,.18) !important;
 
-  border-color: rgba(124,92,255,.25) !important;
+border-color: rgba(124,92,255,.25) !important;
 }
 
 /* ==================================
-   ZERO
+ZERO
 ================================== */
 
 .zero {
-  grid-column: span 2;
+grid-column: span 2;
 }
 
 /* ==================================
-   EQUAL
+EQUAL
 ================================== */
 
 .equal {
-  color: white !important;
+color: white !important;
 
-  background:
-    linear-gradient(
-      135deg,
-      #7c5cff,
-      #a186ff
-    ) !important;
+background: linear-gradient(
+135deg,
+#7c5cff,
+#a186ff
+) !important;
 
-  border: none;
+border: none;
 
-  box-shadow:
-    0 8px 25px rgba(124,92,255,.35);
+box-shadow: 0 8px 25px rgba(124,92,255,.35);
 
-  animation: glowPulse 3s infinite;
+animation: glowPulse 3s infinite;
 }
 
 /* ==================================
-   SIDEBAR
+SIDEBAR
 ================================== */
 
 .side-drawer {
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 
-  overflow: hidden;
+overflow: hidden;
 
-  background: rgba(255,255,255,.05);
+background: rgba(255,255,255,.05);
 
-  backdrop-filter: blur(24px);
+backdrop-filter: blur(24px);
 
-  border: 1px solid var(--border);
+border: 1px solid var(--border);
 
-  border-radius: 32px;
+border-radius: 32px;
+
+box-shadow: var(--shadow);
 }
 
 /* ==================================
-   DRAWER HEADER
+DRAWER HEADER
 ================================== */
 
 .drawer-header {
+flex-shrink: 0;
 
-  flex-shrink: 0;
+padding: 24px;
 
-  padding: 24px;
-
-  border-bottom: 1px solid var(--border);
+border-bottom: 1px solid var(--border);
 }
 
 .drawer-header-top {
+display: flex;
 
-  display: flex;
+justify-content: space-between;
 
-  justify-content: space-between;
+align-items: flex-start;
 
-  align-items: flex-start;
-
-  gap: 12px;
+gap: 12px;
 }
 
 .drawer-header h2 {
+font-size: 2rem;
 
-  font-size: 2rem;
-
-  font-weight: 700;
+font-weight: 700;
 }
 
 .drawer-header p {
+margin-top: 4px;
 
-  margin-top: 4px;
-
-  color: var(--text-secondary);
+color: var(--text-secondary);
 }
 
 .drawer-close-btn {
+width: 42px;
+height: 42px;
 
-  width: 42px;
-  height: 42px;
+flex-shrink: 0;
 
-  flex-shrink: 0;
+display: flex;
 
-  display: flex;
+justify-content: center;
+align-items: center;
 
-  justify-content: center;
-  align-items: center;
+border-radius: 50%;
 
-  border-radius: 50%;
+cursor: pointer;
 
-  cursor: pointer;
+background: var(--glass);
 
-  background: var(--glass);
+border: 1px solid var(--border);
 
-  border: 1px solid var(--border);
+color: var(--text-primary);
 
-  color: var(--text-primary);
-
-  transition: .25s ease;
+transition: .25s ease;
 }
 
 .drawer-close-btn:hover {
+transform: rotate(90deg);
 
-  transform: rotate(90deg);
-
-  background: var(--glass-hover);
+background: var(--glass-hover);
 }
 
 /* ==================================
-   DRAWER MENU
+DRAWER MENU
 ================================== */
 
 .drawer-menu {
-  flex: 1;
+flex: 1;
 
-  overflow-y: auto;
+overflow-y: auto;
 
-  padding: 16px;
+padding: 16px;
 }
 
 .drawer-item {
-  width: 100%;
+width: 100%;
 
-  display: flex;
-  align-items: center;
-  gap: 12px;
+display: flex;
+align-items: center;
+gap: 12px;
 
-  padding: 18px;
+padding: 18px;
 
-  margin-bottom: 10px;
+margin-bottom: 10px;
 
-  border-radius: 18px;
+border-radius: 18px;
 
-  cursor: pointer;
+cursor: pointer;
 
-  color: var(--text-primary);
+color: var(--text-primary);
 
-  transition: .2s ease;
+transition: .2s ease;
 }
 
 .drawer-item:hover {
-  background: rgba(255,255,255,.05);
+background: rgba(255,255,255,.05);
 }
 
 .drawer-item.active {
-  background: rgba(124,92,255,.16);
+background: rgba(124,92,255,.16);
 
-  border: 1px solid rgba(124,92,255,.24);
+border: 1px solid rgba(124,92,255,.24);
 }
 
 /* ==================================
-   OVERLAY
+OVERLAY
 ================================== */
 
 .drawer-overlay {
-  position: fixed;
+position: fixed;
 
-  inset: 0;
+inset: 0;
 
-  z-index: 999;
+z-index: 999;
 
-  opacity: 0;
+opacity: 0;
 
-  visibility: hidden;
+visibility: hidden;
 
-  background: rgba(0,0,0,.45);
+background: rgba(0,0,0,.45);
 
-  backdrop-filter: blur(6px);
+backdrop-filter: blur(6px);
 
-  transition: .3s ease;
+transition: .3s ease;
 }
 
 .drawer-overlay.active {
-  opacity: 1;
-  visibility: visible;
+opacity: 1;
+visibility: visible;
 }
 
 /* ==================================
-   LIGHT MODE
+LIGHT MODE
 ================================== */
 
 body[data-theme="light"] .calculator,
 body[data-theme="light"] .side-drawer {
+background: rgba(255,255,255,.72);
 
-  background: rgba(255,255,255,.72);
-
-  border-color: rgba(15,23,42,.08);
+border-color: rgba(15,23,42,.08);
 }
 
 body[data-theme="light"] .keypad button {
+background: rgba(255,255,255,.85);
 
-  background: rgba(255,255,255,.85);
+color: #1b2238;
 
-  color: #1b2238;
-
-  border-color: rgba(15,23,42,.08);
+border-color: rgba(15,23,42,.08);
 }
 
 body[data-theme="light"] .drawer-item:hover {
-
-  background: rgba(15,23,42,.04);
-}
-
-body[data-theme="light"] .history-item:hover {
-
-  background: rgba(15,23,42,.04);
+background: rgba(15,23,42,.04);
 }
 
 body[data-theme="light"] .history-panel {
+background: rgba(255,255,255,.96);
 
-  background: rgba(255,255,255,.96);
+border-color: rgba(15,23,42,.08);
 
-  border-color: rgba(15,23,42,.08);
-
-  box-shadow:
-    0 20px 40px rgba(15,23,42,.08);
+box-shadow: 0 20px 40px rgba(15,23,42,.08);
 }
 
 body[data-theme="light"] .history-header {
-
-  border-bottom:
-    1px solid rgba(15,23,42,.08);
+border-bottom: 1px solid rgba(15,23,42,.08);
 }
 
 body[data-theme="light"] .history-item {
-
-  border-bottom:
-    1px solid rgba(15,23,42,.05);
-}
-
-body[data-theme="light"] .history-empty {
-
-  color: var(--text-secondary);
-}
-
-/* ==================================
-   LIGHT MODE HISTORY
-================================== */
-
-body[data-theme="light"] .history-panel {
-
-  background: rgba(255,255,255,.96);
-
-  border-color: rgba(15,23,42,.08);
-
-  box-shadow:
-    0 20px 40px rgba(15,23,42,.08);
-}
-
-body[data-theme="light"] .history-header {
-
-  border-bottom: 1px solid rgba(15,23,42,.08);
-}
-
-body[data-theme="light"] .history-item {
-
-  border-bottom: 1px solid rgba(15,23,42,.05);
+border-bottom: 1px solid rgba(15,23,42,.05);
 }
 
 body[data-theme="light"] .history-item:hover {
-
-  background: rgba(15,23,42,.04);
+background: rgba(15,23,42,.04);
 }
 
 body[data-theme="light"] .history-empty {
-
-  color: var(--text-secondary);
-}
-
-
-.drawer-header-top {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-}
-
-.drawer-close-btn {
-
-  width: 42px;
-  height: 42px;
-
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 50%;
-
-  cursor: pointer;
-
-  background: var(--glass);
-
-  border: 1px solid var(--border);
-
-  color: var(--text-primary);
-
-  transition: .25s ease;
-}
-
-.drawer-close-btn:hover {
-
-  transform: rotate(90deg);
-
-  background: var(--glass-hover);
+color: var(--text-secondary);
 }
