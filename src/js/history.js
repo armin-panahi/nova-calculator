@@ -1,123 +1,62 @@
 const HistoryManager = {
 
-  items: [],
+  STORAGE_KEY: "nova_history",
 
-  historyList:
-    document.getElementById(
-      "historyList"
-    ),
+  history: [],
 
-  historyPanel:
-    document.getElementById(
-      "historyPanel"
-    ),
+  listElement:
+    document.getElementById("historyList"),
 
-  historyToggle:
-    document.getElementById(
-      "historyToggle"
-    ),
+  clearButton:
+    document.getElementById("clearHistory"),
 
   init() {
 
-    this.items =
-      Storage.loadHistory();
-
-    this.bindEvents();
+    this.load();
 
     this.render();
+
+    this.bindEvents();
 
   },
 
   bindEvents() {
 
-    this.historyToggle
-      ?.addEventListener(
-        "click",
-        (event) => {
-
-          event.stopPropagation();
-
-          this.toggle();
-
-        }
-      );
-
-    document.addEventListener(
+    this.clearButton?.addEventListener(
       "click",
-      (event) => {
+      () => {
 
-        if (
-          !this.historyPanel?.contains(
-            event.target
-          ) &&
-          !this.historyToggle?.contains(
-            event.target
-          )
-        ) {
-
-          this.close();
-
-        }
+        this.clear();
 
       }
     );
 
   },
 
-  toggle() {
-
-    this.historyPanel?.classList.toggle(
-      "open"
-    );
-
-  },
-
-  open() {
-
-    this.historyPanel?.classList.add(
-      "open"
-    );
-
-  },
-
-  close() {
-
-    this.historyPanel?.classList.remove(
-      "open"
-    );
-
-  },
-
-  add(
-    expression,
-    result
-  ) {
-
-    const entry = {
-
-      id: Date.now(),
-
-      expression,
-
-      result
-
-    };
-
-    this.items.unshift(
-      entry
-    );
+  add(expression, result) {
 
     if (
-      this.items.length > 50
+      !expression ||
+      !result ||
+      result === "Error"
     ) {
+      return;
+    }
 
-      this.items.pop();
+    this.history.unshift({
+      expression,
+      result,
+      timestamp: Date.now()
+    });
+
+    if (this.history.length > 50) {
+
+      this.history =
+        this.history.slice(0, 50);
 
     }
 
-    Storage.saveHistory(
-      this.items
-    );
+    this.save();
 
     this.render();
 
@@ -125,31 +64,53 @@ const HistoryManager = {
 
   clear() {
 
-    this.items = [];
+    this.history = [];
 
-    Storage.saveHistory(
-      this.items
-    );
+    this.save();
 
     this.render();
 
   },
 
+  save() {
+
+    localStorage.setItem(
+      this.STORAGE_KEY,
+      JSON.stringify(this.history)
+    );
+
+  },
+
+  load() {
+
+    try {
+
+      const data =
+        localStorage.getItem(
+          this.STORAGE_KEY
+        );
+
+      this.history =
+        data
+          ? JSON.parse(data)
+          : [];
+
+    } catch {
+
+      this.history = [];
+
+    }
+
+  },
+
   render() {
 
-    if (
-      !this.historyList
-    ) return;
+    if (!this.listElement)
+      return;
 
-    this.historyList.innerHTML =
-      "";
+    if (!this.history.length) {
 
-    if (
-      this.items.length === 0
-    ) {
-
-      this.historyList.innerHTML =
-        `
+      this.listElement.innerHTML = `
         <div class="history-empty">
           No history yet
         </div>
@@ -159,72 +120,68 @@ const HistoryManager = {
 
     }
 
-    const clearButton =
-      document.createElement(
-        "button"
+    this.listElement.innerHTML =
+      this.history
+        .map(
+          (item) => `
+            <div
+              class="history-item"
+              data-expression="${item.expression}"
+              data-result="${item.result}"
+            >
+
+              <div class="history-expression">
+                ${item.expression}
+              </div>
+
+              <div class="history-result">
+                = ${item.result}
+              </div>
+
+            </div>
+          `
+        )
+        .join("");
+
+    this.attachItemEvents();
+
+  },
+
+  attachItemEvents() {
+
+    const items =
+      document.querySelectorAll(
+        ".history-item"
       );
 
-    clearButton.className =
-      "history-clear-btn";
+    items.forEach((item) => {
 
-    clearButton.textContent =
-      "Clear History";
+      item.addEventListener(
+        "click",
+        () => {
 
-    clearButton.addEventListener(
-      "click",
-      () => {
+          const expression =
+            item.dataset.expression;
 
-        this.clear();
+          const result =
+            item.dataset.result;
 
-      }
-    );
-
-    this.historyList.appendChild(
-      clearButton
-    );
-
-    this.items.forEach(
-      (item) => {
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-        div.className =
-          "history-item";
-
-        div.innerHTML =
-          `
-          <div class="history-expression">
-            ${item.expression}
-          </div>
-
-          <div class="history-result">
-            = ${item.result}
-          </div>
-        `;
-
-        div.addEventListener(
-          "click",
-          () => {
+          if (
+            typeof calculator !==
+            "undefined"
+          ) {
 
             calculator.loadHistoryItem(
-              item.expression,
-              item.result
+              expression,
+              result
             );
 
-            this.close();
-
           }
-        );
 
-        this.historyList.appendChild(
-          div
-        );
+        }
+      );
 
-      }
-    );
+    });
 
   }
 
