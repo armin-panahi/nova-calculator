@@ -272,9 +272,18 @@ transform: translateY(0);
 }
 
 .history-header {
-padding: 20px;
 
-border-bottom: 1px solid var(--border);
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 20px;
+
+  border-bottom: 1px solid var(--border);
 }
 
 .history-header h2 {
@@ -705,3 +714,180 @@ body[data-theme="light"] .history-clear-btn:hover {
 
   background: rgba(220,38,38,.15);
 }
+
+/* ==================================
+   SCIENTIFIC PANEL
+================================== */
+
+.scientific-panel {
+
+  position: absolute;
+
+  top: 120px;
+  left: 24px;
+  right: 24px;
+
+  z-index: 120;
+
+  background: rgba(15,23,42,.96);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(24px);
+
+  border-radius: 28px;
+
+  padding: 20px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: translateY(-16px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    visibility .25s ease;
+}
+
+.scientific-panel.open {
+
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transform: translateY(0);
+}
+
+/* ==================================
+   SCIENTIFIC HEADER
+================================== */
+
+.scientific-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.scientific-header h3 {
+
+  font-size: 1.15rem;
+
+  font-weight: 700;
+
+  color: var(--text-primary);
+}
+
+.scientific-close-btn {
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  background: var(--glass);
+
+  border: 1px solid var(--border);
+
+  color: var(--text-primary);
+
+  transition: .25s ease;
+}
+
+.scientific-close-btn:hover {
+
+  transform: rotate(90deg);
+
+  background: var(--glass-hover);
+}
+
+/* ==================================
+   SCIENTIFIC GRID
+================================== */
+
+.scientific-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4,1fr);
+
+  gap: 12px;
+}
+
+.scientific-grid button {
+
+  height: 56px;
+
+  border-radius: 18px;
+
+  cursor: pointer;
+
+  font-size: 1rem;
+
+  font-weight: 600;
+
+  color: white;
+
+  background: rgba(124,92,255,.15);
+
+  border: 1px solid rgba(124,92,255,.22);
+
+  transition: .25s ease;
+}
+
+.scientific-grid button:hover {
+
+  transform: translateY(-2px);
+
+  background: rgba(124,92,255,.25);
+}
+
+.scientific-grid button:active {
+
+  transform: scale(.96);
+}
+
+/* ==================================
+   LIGHT MODE SCIENTIFIC
+================================== */
+
+body[data-theme="light"] .scientific-panel {
+
+  background: rgba(255,255,255,.96);
+
+  border-color: rgba(15,23,42,.08);
+
+  box-shadow:
+    0 20px 40px rgba(15,23,42,.08);
+}
+
+body[data-theme="light"] .scientific-grid button {
+
+  color: #1b2238;
+
+  background: rgba(124,92,255,.08);
+
+  border-color: rgba(124,92,255,.12);
+}
+
+body[data-theme="light"] .scientific-grid button:hover {
+
+  background: rgba(124,92,255,.15);
+}
+
