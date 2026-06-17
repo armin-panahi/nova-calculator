@@ -1,153 +1,271 @@
 const App = {
 
-  drawer: null,
-  overlay: null,
-  menuButton: null,
-  closeButton: null,
+drawer:
+document.querySelector(".side-drawer"),
 
-  init() {
+overlay:
+document.querySelector(".drawer-overlay"),
 
-    this.drawer =
-      document.querySelector(".side-drawer");
+menuButton:
+document.getElementById("menuToggle"),
 
-    this.overlay =
-      document.querySelector(".drawer-overlay");
+closeButton:
+document.getElementById("drawerClose"),
 
-    this.menuButton =
-      document.getElementById("menuToggle");
+historyPanel:
+document.getElementById("historyPanel"),
 
-    this.closeButton =
-      document.getElementById("drawerClose");
+historyButton:
+document.getElementById("historyToggle"),
 
-    this.bindEvents();
+scientificPanel:
+document.getElementById("scientificPanel"),
 
-    this.handleResize();
+scientificToggle:
+document.getElementById("scientificToggle"),
 
-  },
+scientificClose:
+document.getElementById("scientificClose"),
 
-  bindEvents() {
+init() {
 
-    this.menuButton?.addEventListener(
-      "click",
-      (event) => {
 
-        event.stopPropagation();
+this.bindEvents();
 
-        this.toggleDrawer();
+this.handleResize();
 
-      }
-    );
 
-    this.closeButton?.addEventListener(
-      "click",
-      () => {
+},
 
-        this.closeDrawer();
+bindEvents() {
 
-      }
-    );
 
-    this.overlay?.addEventListener(
-      "click",
-      () => {
+/* =====================
+   DRAWER
+===================== */
 
-        this.closeDrawer();
+this.menuButton?.addEventListener(
+  "click",
+  () => {
 
-      }
-    );
+    this.toggleDrawer();
 
-    document.addEventListener(
-      "click",
-      (event) => {
+  }
+);
 
-        if (
-          window.innerWidth < 1200 &&
-          this.drawer?.classList.contains("open") &&
-          !this.drawer.contains(event.target) &&
-          !this.menuButton?.contains(event.target)
-        ) {
+this.closeButton?.addEventListener(
+  "click",
+  () => {
 
-          this.closeDrawer();
+    this.closeDrawer();
 
-        }
+  }
+);
 
-      }
-    );
+this.overlay?.addEventListener(
+  "click",
+  () => {
 
-    window.addEventListener(
-      "resize",
-      () => {
+    this.closeDrawer();
 
-        this.handleResize();
+  }
+);
 
-      }
-    );
+/* =====================
+   HISTORY
+===================== */
 
-    document.addEventListener(
-      "keydown",
-      (event) => {
+this.historyButton?.addEventListener(
+  "click",
+  (event) => {
 
-        if (event.key === "Escape") {
+    event.stopPropagation();
 
-          this.closeDrawer();
+    this.closeScientific();
 
-          const historyPanel =
-            document.getElementById(
-              "historyPanel"
-            );
+    this.toggleHistory();
 
-          historyPanel?.classList.remove(
-            "open"
-          );
+  }
+);
 
-        }
+/* =====================
+   SCIENTIFIC
+===================== */
 
-      }
-    );
+this.scientificToggle?.addEventListener(
+  "click",
+  () => {
 
-  },
+    this.closeHistory();
 
-  toggleDrawer() {
+    this.toggleScientific();
 
-    this.drawer?.classList.toggle(
-      "open"
-    );
+    this.closeDrawer();
 
-    this.overlay?.classList.toggle(
-      "active"
-    );
+  }
+);
 
-  },
+this.scientificClose?.addEventListener(
+  "click",
+  () => {
 
-  closeDrawer() {
+    this.closeScientific();
 
-    this.drawer?.classList.remove(
-      "open"
-    );
+  }
+);
 
-    this.overlay?.classList.remove(
-      "active"
-    );
+/* =====================
+   OUTSIDE CLICK
+===================== */
 
-  },
+document.addEventListener(
+  "click",
+  (event) => {
 
-  handleResize() {
+    if (
+      this.historyPanel &&
+      !this.historyPanel.contains(event.target) &&
+      !this.historyButton?.contains(event.target)
+    ) {
 
-    if (window.innerWidth >= 1200) {
+      this.closeHistory();
 
-      this.closeDrawer();
+    }
+
+    if (
+      this.scientificPanel &&
+      !this.scientificPanel.contains(event.target) &&
+      !this.scientificToggle?.contains(event.target)
+    ) {
+
+      this.closeScientific();
 
     }
 
   }
+);
+
+/* =====================
+   RESIZE
+===================== */
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    this.handleResize();
+
+  }
+);
+
+
+},
+
+/* =====================
+DRAWER
+===================== */
+
+toggleDrawer() {
+
+
+this.drawer?.classList.toggle(
+  "open"
+);
+
+this.overlay?.classList.toggle(
+  "active"
+);
+
+
+},
+
+closeDrawer() {
+
+
+this.drawer?.classList.remove(
+  "open"
+);
+
+this.overlay?.classList.remove(
+  "active"
+);
+
+
+},
+
+/* =====================
+HISTORY
+===================== */
+
+toggleHistory() {
+
+
+this.historyPanel?.classList.toggle(
+  "open"
+);
+
+
+},
+
+closeHistory() {
+
+
+this.historyPanel?.classList.remove(
+  "open"
+);
+
+
+},
+
+/* =====================
+SCIENTIFIC
+===================== */
+
+toggleScientific() {
+
+
+this.scientificPanel?.classList.toggle(
+  "open"
+);
+
+
+},
+
+closeScientific() {
+
+
+this.scientificPanel?.classList.remove(
+  "open"
+);
+
+
+},
+
+/* =====================
+RESPONSIVE
+===================== */
+
+handleResize() {
+
+
+if (window.innerWidth >= 1200) {
+
+  this.closeDrawer();
+
+}
+
+
+}
 
 };
 
 document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+"DOMContentLoaded",
+() => {
 
-    App.init();
 
-  }
+App.init();
+
+
+}
 );
