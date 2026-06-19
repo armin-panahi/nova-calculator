@@ -15,19 +15,19 @@ document.getElementById("lastCalculation"),
 
 init() {
 
-```
+
 this.bindEvents();
 
 this.bindKeyboardEvents();
 
 this.render();
-```
+
 
 },
 
 bindEvents() {
 
-```
+
 const keypad =
   document.getElementById("keypad");
 
@@ -73,13 +73,13 @@ keypad.addEventListener(
 
   }
 );
-```
+
 
 },
 
 bindKeyboardEvents() {
 
-```
+
 document.addEventListener(
   "keydown",
   (event) => {
@@ -148,13 +148,13 @@ document.addEventListener(
 
   }
 );
-```
+
 
 },
 
 appendNumber(value) {
 
-```
+
 if (
   value === "." &&
   this.currentNumberHasDecimal()
@@ -176,13 +176,13 @@ if (
 }
 
 this.render();
-```
+
 
 },
 
 appendOperator(operator) {
 
-```
+
 if (!this.expression.length)
   return;
 
@@ -206,13 +206,13 @@ if (
 }
 
 this.render();
-```
+
 
 },
 
 handleAction(action) {
 
-```
+
 switch (action) {
 
   case "clear":
@@ -260,24 +260,24 @@ switch (action) {
     break;
 
 }
-```
+
 
 },
 
 deleteLast() {
 
-```
+
 this.expression =
   this.expression.slice(0, -1);
 
 this.render();
-```
+
 
 },
 
 percent() {
 
-```
+
 if (!this.expression)
   return;
 
@@ -298,13 +298,13 @@ try {
 }
 
 this.render();
-```
+
 
 },
 
 sqrt() {
 
-```
+
 try {
 
   const value =
@@ -322,13 +322,13 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 square() {
 
-```
+
 try {
 
   const value =
@@ -346,24 +346,24 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 insertPi() {
 
-```
+
 this.expression +=
   Math.PI.toFixed(8);
 
 this.render();
-```
+
 
 },
 
 sin() {
 
-```
+
 try {
 
   const value =
@@ -387,13 +387,13 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 cos() {
 
-```
+
 try {
 
   const value =
@@ -417,13 +417,13 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 tan() {
 
-```
+
 try {
 
   const value =
@@ -447,13 +447,13 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 log() {
 
-```
+
 try {
 
   const value =
@@ -473,25 +473,25 @@ try {
   this.render();
 
 }
-```
+
 
 },
 
 clear() {
 
-```
+
 this.expression = "";
 
 this.result = "0";
 
 this.render();
-```
+
 
 },
 
 calculate() {
 
-```
+
 if (!this.expression)
   return;
 
@@ -544,7 +544,7 @@ try {
 }
 
 this.render();
-```
+
 
 },
 
@@ -553,7 +553,7 @@ expression,
 result
 ) {
 
-```
+
 this.expression =
   expression;
 
@@ -570,13 +570,13 @@ if (
 }
 
 this.render();
-```
+
 
 },
 
 currentNumberHasDecimal() {
 
-```
+
 const parts =
   this.expression.split(
     /[\+\-\*\/]/g
@@ -588,19 +588,19 @@ const current =
   ];
 
 return current.includes(".");
-```
+
 
 },
 
 render() {
 
-```
+
 this.expressionElement.textContent =
   this.expression || "0";
 
 this.resultElement.textContent =
   this.result;
-```
+
 
 }
 
@@ -610,9 +610,9 @@ document.addEventListener(
 "DOMContentLoaded",
 () => {
 
-```
+
 calculator.init();
-```
+
 
 }
 );
