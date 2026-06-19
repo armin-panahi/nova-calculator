@@ -36,6 +36,10 @@
     right: 0;
   }
 
+  .drawer-close-btn {
+    display: flex;
+  }
+
   .drawer-overlay {
 
     position: fixed;
@@ -82,8 +86,6 @@
   .keypad button {
     height: 60px;
   }
-
-  /* HISTORY FLOATING */
 
   .history-panel {
 
@@ -183,6 +185,10 @@
     right: 0;
   }
 
+  .drawer-close-btn {
+    display: flex;
+  }
+
   .menu-btn {
     display: flex;
   }
@@ -250,6 +256,10 @@
     display: none;
   }
 
+  .drawer-close-btn {
+    display: none;
+  }
+
   .drawer-overlay {
     display: none;
   }
@@ -260,8 +270,6 @@
 
     min-width: 0;
   }
-
-  /* HISTORY FLOATING */
 
   .history-panel {
 
