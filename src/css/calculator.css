@@ -302,11 +302,12 @@ flex-direction: column;
    HISTORY CLEAR BUTTON
 ================================== */
 
-.history-clear-btn {
+.clear-history-btn {
 
-  margin: 16px;
+  /* margin: 16px; */
 
-  padding: 12px;
+  /* padding: 12px; */
+  padding: 8px;
 
   border-radius: 14px;
 
@@ -325,7 +326,7 @@ flex-direction: column;
   transition: .25s ease;
 }
 
-.history-clear-btn:hover {
+.clear-history-btn:hover {
 
   background: rgba(239,68,68,.28);
 
@@ -701,7 +702,7 @@ body[data-theme="light"] .history-empty {
 color: var(--text-secondary);
 }
 
-body[data-theme="light"] .history-clear-btn {
+body[data-theme="light"] .clear-history-btn {
 
   color: #dc2626;
 
@@ -710,7 +711,7 @@ body[data-theme="light"] .history-clear-btn {
   border-color: rgba(220,38,38,.15);
 }
 
-body[data-theme="light"] .history-clear-btn:hover {
+body[data-theme="light"] .clear-history-btn:hover {
 
   background: rgba(220,38,38,.15);
 }
