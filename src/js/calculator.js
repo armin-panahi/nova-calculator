@@ -15,17 +15,19 @@ document.getElementById("lastCalculation"),
 
 init() {
 
- 
+```
 this.bindEvents();
 
+this.bindKeyboardEvents();
+
 this.render();
- 
+```
 
 },
 
 bindEvents() {
 
- 
+```
 const keypad =
   document.getElementById("keypad");
 
@@ -71,13 +73,88 @@ keypad.addEventListener(
 
   }
 );
- 
+```
+
+},
+
+bindKeyboardEvents() {
+
+```
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    const key = event.key;
+
+    if (/^[0-9]$/.test(key)) {
+
+      this.appendNumber(key);
+
+      return;
+
+    }
+
+    if (key === ".") {
+
+      this.appendNumber(".");
+
+      return;
+
+    }
+
+    if (
+      ["+", "-", "*", "/"]
+        .includes(key)
+    ) {
+
+      this.appendOperator(key);
+
+      return;
+
+    }
+
+    if (
+      key === "Enter" ||
+      key === "="
+    ) {
+
+      event.preventDefault();
+
+      this.calculate();
+
+      return;
+
+    }
+
+    if (
+      key === "Backspace"
+    ) {
+
+      event.preventDefault();
+
+      this.deleteLast();
+
+      return;
+
+    }
+
+    if (
+      key === "Escape"
+    ) {
+
+      this.clear();
+
+    }
+
+  }
+);
+```
 
 },
 
 appendNumber(value) {
 
- 
+```
 if (
   value === "." &&
   this.currentNumberHasDecimal()
@@ -99,13 +176,13 @@ if (
 }
 
 this.render();
- 
+```
 
 },
 
 appendOperator(operator) {
 
- 
+```
 if (!this.expression.length)
   return;
 
@@ -129,13 +206,13 @@ if (
 }
 
 this.render();
- 
+```
 
 },
 
 handleAction(action) {
 
- 
+```
 switch (action) {
 
   case "clear":
@@ -183,24 +260,24 @@ switch (action) {
     break;
 
 }
- 
+```
 
 },
 
 deleteLast() {
 
- 
+```
 this.expression =
   this.expression.slice(0, -1);
 
 this.render();
- 
+```
 
 },
 
 percent() {
 
- 
+```
 if (!this.expression)
   return;
 
@@ -221,13 +298,13 @@ try {
 }
 
 this.render();
- 
+```
 
 },
 
 sqrt() {
 
- 
+```
 try {
 
   const value =
@@ -245,13 +322,13 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 square() {
 
- 
+```
 try {
 
   const value =
@@ -269,33 +346,37 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 insertPi() {
 
- 
+```
 this.expression +=
   Math.PI.toFixed(8);
 
 this.render();
- 
+```
 
 },
 
 sin() {
 
- 
+```
 try {
 
   const value =
     Number(this.expression || 0);
 
   this.expression =
-    String(Math.sin(
-      value * Math.PI / 180
-    ));
+    String(
+      Math.sin(
+        value *
+        Math.PI /
+        180
+      )
+    );
 
   this.render();
 
@@ -306,22 +387,26 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 cos() {
 
- 
+```
 try {
 
   const value =
     Number(this.expression || 0);
 
   this.expression =
-    String(Math.cos(
-      value * Math.PI / 180
-    ));
+    String(
+      Math.cos(
+        value *
+        Math.PI /
+        180
+      )
+    );
 
   this.render();
 
@@ -332,22 +417,26 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 tan() {
 
- 
+```
 try {
 
   const value =
     Number(this.expression || 0);
 
   this.expression =
-    String(Math.tan(
-      value * Math.PI / 180
-    ));
+    String(
+      Math.tan(
+        value *
+        Math.PI /
+        180
+      )
+    );
 
   this.render();
 
@@ -358,20 +447,22 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 log() {
 
- 
+```
 try {
 
   const value =
     Number(this.expression || 0);
 
   this.expression =
-    String(Math.log10(value));
+    String(
+      Math.log10(value)
+    );
 
   this.render();
 
@@ -382,25 +473,25 @@ try {
   this.render();
 
 }
- 
+```
 
 },
 
 clear() {
 
- 
+```
 this.expression = "";
 
 this.result = "0";
 
 this.render();
- 
+```
 
 },
 
 calculate() {
 
- 
+```
 if (!this.expression)
   return;
 
@@ -453,7 +544,7 @@ try {
 }
 
 this.render();
- 
+```
 
 },
 
@@ -462,7 +553,7 @@ expression,
 result
 ) {
 
- 
+```
 this.expression =
   expression;
 
@@ -479,35 +570,37 @@ if (
 }
 
 this.render();
- 
+```
 
 },
 
 currentNumberHasDecimal() {
 
- 
+```
 const parts =
   this.expression.split(
     /[\+\-\*\/]/g
   );
 
 const current =
-  parts[parts.length - 1];
+  parts[
+    parts.length - 1
+  ];
 
 return current.includes(".");
- 
+```
 
 },
 
 render() {
 
-
+```
 this.expressionElement.textContent =
   this.expression || "0";
 
 this.resultElement.textContent =
   this.result;
-
+```
 
 }
 
@@ -517,9 +610,9 @@ document.addEventListener(
 "DOMContentLoaded",
 () => {
 
-
+```
 calculator.init();
-
+```
 
 }
 );
