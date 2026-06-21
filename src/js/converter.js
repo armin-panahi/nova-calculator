@@ -1,4 +1,4 @@
-const Converter = {
+const UnitConverter = {
 
   currentCategory: "length",
 
@@ -9,10 +9,10 @@ const Converter = {
       kilometer: 1000,
       centimeter: 0.01,
       millimeter: 0.001,
-      mile: 1609.344,
-      yard: 0.9144,
+      inch: 0.0254,
       foot: 0.3048,
-      inch: 0.0254
+      yard: 0.9144,
+      mile: 1609.344
     },
 
     weight: {
@@ -20,31 +20,28 @@ const Converter = {
       gram: 0.001,
       milligram: 0.000001,
       pound: 0.45359237,
-      ounce: 0.0283495231,
-      ton: 1000
+      ounce: 0.0283495231
     },
 
     area: {
-      "square-meter": 1,
-      "square-kilometer": 1000000,
+      square_meter: 1,
+      square_kilometer: 1000000,
       hectare: 10000,
       acre: 4046.8564224,
-      "square-foot": 0.092903,
-      "square-inch": 0.00064516
+      square_foot: 0.092903
     },
 
     volume: {
       liter: 1,
       milliliter: 0.001,
-      cubicmeter: 1000,
-      gallon: 3.78541,
-      quart: 0.946353,
-      pint: 0.473176
+      cubic_meter: 1000,
+      gallon_us: 3.78541,
+      pint_us: 0.473176
     },
 
     speed: {
-      "m/s": 1,
-      "km/h": 0.277778,
+      mps: 1,
+      kph: 0.277777778,
       mph: 0.44704,
       knot: 0.514444
     },
@@ -55,119 +52,105 @@ const Converter = {
       hour: 3600,
       day: 86400,
       week: 604800
-    },
-
-    data: {
-      byte: 1,
-      kilobyte: 1024,
-      megabyte: 1048576,
-      gigabyte: 1073741824,
-      terabyte: 1099511627776
     }
 
   },
 
   init() {
 
-    this.cacheElements();
+    this.cacheDOM();
 
-    if (!this.container) return;
-
-    this.restoreState();
+    if (!this.categorySelect) {
+      return;
+    }
 
     this.bindEvents();
 
-    this.loadUnits();
+    this.populateUnits();
+
+    this.restoreState();
 
     this.convert();
 
   },
 
-  cacheElements() {
+  cacheDOM() {
 
-    this.container =
-      document.getElementById("converterPage");
+    this.categorySelect =
+      document.getElementById(
+        "converterCategory"
+      );
 
-    this.category =
-      document.getElementById("converterCategory");
+    this.fromSelect =
+      document.getElementById(
+        "converterFrom"
+      );
 
-    this.input =
-      document.getElementById("converterInput");
+    this.toSelect =
+      document.getElementById(
+        "converterTo"
+      );
 
-    this.from =
-      document.getElementById("converterFrom");
+    this.valueInput =
+      document.getElementById(
+        "converterValue"
+      );
 
-    this.to =
-      document.getElementById("converterTo");
+    this.resultElement =
+      document.getElementById(
+        "converterResult"
+      );
 
-    this.result =
-      document.getElementById("converterResult");
-
-    this.swap =
-      document.getElementById("converterSwap");
+    this.swapButton =
+      document.getElementById(
+        "swapUnits"
+      );
 
   },
 
   bindEvents() {
 
-    this.category?.addEventListener(
+    this.categorySelect?.addEventListener(
       "change",
       () => {
 
         this.currentCategory =
-          this.category.value;
+          this.categorySelect.value;
 
-        localStorage.setItem(
-          "nova_converter_category",
-          this.currentCategory
-        );
-
-        this.loadUnits();
+        this.populateUnits();
 
         this.convert();
 
       }
     );
 
-    this.input?.addEventListener(
+    this.fromSelect?.addEventListener(
+      "change",
+      () => this.convert()
+    );
+
+    this.toSelect?.addEventListener(
+      "change",
+      () => this.convert()
+    );
+
+    this.valueInput?.addEventListener(
       "input",
-      () => {
-
-        this.convert();
-
-      }
+      () => this.convert()
     );
 
-    this.from?.addEventListener(
-      "change",
-      () => {
-
-        this.convert();
-
-      }
-    );
-
-    this.to?.addEventListener(
-      "change",
-      () => {
-
-        this.convert();
-
-      }
-    );
-
-    this.swap?.addEventListener(
+    this.swapButton?.addEventListener(
       "click",
       () => {
 
-        const temp =
-          this.from.value;
+        const from =
+          this.fromSelect.value;
 
-        this.from.value =
-          this.to.value;
+        this.fromSelect.value =
+          this.toSelect.value;
 
-        this.to.value =
-          temp;
+        this.toSelect.value =
+          from;
 
         this.convert();
 
@@ -176,103 +159,82 @@ const Converter = {
 
   },
 
-  restoreState() {
+  populateUnits() {
 
-    const saved =
-      localStorage.getItem(
-        "nova_converter_category"
+    const units =
+      this.getUnits();
+
+    this.fromSelect.innerHTML = "";
+    this.toSelect.innerHTML = "";
+
+    units.forEach(unit => {
+
+      const option1 =
+        document.createElement(
+          "option"
+        );
+
+      option1.value = unit;
+
+      option1.textContent =
+        this.formatLabel(unit);
+
+      const option2 =
+        option1.cloneNode(true);
+
+      this.fromSelect.appendChild(
+        option1
       );
 
-    if (
-      saved &&
-      this.categories[saved]
-    ) {
+      this.toSelect.appendChild(
+        option2
+      );
 
-      this.currentCategory =
-        saved;
+    });
 
-      if (this.category) {
+    if (units.length > 1) {
 
-        this.category.value =
-          saved;
-
-      }
+      this.toSelect.selectedIndex = 1;
 
     }
 
   },
 
-  loadUnits() {
+  getUnits() {
 
     if (
-      !this.from ||
-      !this.to
-    ) return;
+      this.currentCategory ===
+      "temperature"
+    ) {
 
-    this.from.innerHTML = "";
-
-    this.to.innerHTML = "";
-
-    const categoryUnits =
-      this.categories[
-        this.currentCategory
+      return [
+        "celsius",
+        "fahrenheit",
+        "kelvin"
       ];
 
-    Object.keys(categoryUnits)
-      .forEach(unit => {
-
-        const option1 =
-          document.createElement(
-            "option"
-          );
-
-        option1.value =
-          unit;
-
-        option1.textContent =
-          this.pretty(unit);
-
-        const option2 =
-          option1.cloneNode(true);
-
-        this.from.appendChild(
-          option1
-        );
-
-        this.to.appendChild(
-          option2
-        );
-
-      });
-
-    if (
-      this.from.options.length > 0
-    ) {
-
-      this.from.selectedIndex = 0;
-
     }
 
-    if (
-      this.to.options.length > 1
-    ) {
-
-      this.to.selectedIndex = 1;
-
-    }
+    return Object.keys(
+      this.categories[
+        this.currentCategory
+      ] || {}
+    );
 
   },
 
   convert() {
 
     const value =
-      Number(this.input.value);
+      parseFloat(
+        this.valueInput.value
+      );
 
     if (
-      Number.isNaN(value)
+      isNaN(value)
     ) {
 
-      this.result.textContent =
+      this.resultElement.textContent =
         "0";
 
       return;
@@ -280,19 +242,19 @@ const Converter = {
     }
 
     const from =
-      this.from.value;
+      this.fromSelect.value;
 
     const to =
-      this.to.value;
+      this.toSelect.value;
 
-    let output = 0;
+    let result = 0;
 
     if (
       this.currentCategory ===
       "temperature"
     ) {
 
-      output =
+      result =
         this.convertTemperature(
           value,
           from,
@@ -306,18 +268,18 @@ const Converter = {
           this.currentCategory
         ];
 
-      const base =
-        value *
-        units[from];
+      const baseValue =
+        value * units[from];
 
-      output =
-        base /
-        units[to];
+      result =
+        baseValue / units[to];
 
     }
 
-    this.result.textContent =
-      this.format(output);
+    this.resultElement.textContent =
+      this.formatNumber(result);
+
+    this.saveState();
 
   },
 
@@ -327,82 +289,149 @@ const Converter = {
     to
   ) {
 
-    if (from === to)
-      return value;
-
     let celsius;
 
     switch (from) {
 
-      case "celsius":
-        celsius = value;
-        break;
-
       case "fahrenheit":
+
         celsius =
-          (value - 32) *
-          5 / 9;
+          (value - 32) * 5 / 9;
+
         break;
 
       case "kelvin":
+
         celsius =
           value - 273.15;
+
         break;
+
+      default:
+
+        celsius = value;
 
     }
 
     switch (to) {
 
-      case "celsius":
-        return celsius;
-
       case "fahrenheit":
+
         return (
           celsius * 9 / 5
-          + 32
-        );
+        ) + 32;
 
       case "kelvin":
+
         return (
           celsius + 273.15
         );
 
-    }
+      default:
 
-    return value;
+        return celsius;
+
+    }
 
   },
 
-  format(number) {
+  formatLabel(unit) {
+
+    return unit
+      .replaceAll("_", " ")
+      .replace(
+        /\b\w/g,
+        char => char.toUpperCase()
+      );
+
+  },
+
+  formatNumber(value) {
 
     if (
-      Math.abs(number) >=
-      1000000
+      Math.abs(value) >= 1000000
     ) {
 
-      return number.toLocaleString(
-        "en-US",
-        {
-          maximumFractionDigits: 4
-        }
+      return value.toExponential(
+        6
       );
 
     }
 
-    return parseFloat(
-      number.toFixed(8)
+    return Number(
+      value.toFixed(8)
     ).toString();
 
   },
 
-  pretty(unit) {
+  saveState() {
 
-    return unit
-      .replaceAll("-", " ")
-      .replace(/\b\w/g,
-        char =>
-          char.toUpperCase()
+    if (
+      typeof Storage ===
+      "undefined"
+    ) {
+      return;
+    }
+
+    Storage.set(
+      "nova_converter_state",
+      {
+
+        category:
+          this.currentCategory,
+
+        from:
+          this.fromSelect.value,
+
+        to:
+          this.toSelect.value,
+
+        value:
+          this.valueInput.value
+
+      }
+    );
+
+  },
+
+  restoreState() {
+
+    if (
+      typeof Storage ===
+      "undefined"
+    ) {
+      return;
+    }
+
+    const state =
+      Storage.get(
+        "nova_converter_state",
+        null
       );
+
+    if (!state) {
+      return;
+    }
+
+    this.currentCategory =
+      state.category ||
+      "length";
+
+    this.categorySelect.value =
+      this.currentCategory;
+
+    this.populateUnits();
+
+    this.fromSelect.value =
+      state.from ||
+      this.fromSelect.value;
+
+    this.toSelect.value =
+      state.to ||
+      this.toSelect.value;
+
+    this.valueInput.value =
+      state.value || "";
 
   }
 
@@ -412,7 +441,7 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    Converter.init();
+    UnitConverter.init();
 
   }
 );

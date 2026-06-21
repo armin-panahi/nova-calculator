@@ -14,7 +14,8 @@ const ThemeManager = {
     this.bindEvents();
 
     this.applyTheme(
-      this.currentTheme
+      this.currentTheme,
+      false
     );
 
   },
@@ -35,8 +36,7 @@ const ThemeManager = {
   toggleTheme() {
 
     const nextTheme =
-      this.currentTheme ===
-      "dark"
+      this.currentTheme === "dark"
         ? "light"
         : "dark";
 
@@ -46,7 +46,10 @@ const ThemeManager = {
 
   },
 
-  applyTheme(theme) {
+  applyTheme(
+    theme,
+    save = true
+  ) {
 
     this.currentTheme =
       theme;
@@ -56,15 +59,35 @@ const ThemeManager = {
       theme
     );
 
-    Storage.saveTheme(
-      theme
-    );
+    if (
+      save &&
+      typeof Storage !==
+        "undefined"
+    ) {
+
+      Storage.saveTheme(
+        theme
+      );
+
+    }
 
     this.updateIcon();
 
   },
 
   loadTheme() {
+
+    if (
+      typeof Storage ===
+      "undefined"
+    ) {
+
+      this.currentTheme =
+        "dark";
+
+      return;
+
+    }
 
     const savedTheme =
       Storage.loadTheme();
@@ -89,9 +112,20 @@ const ThemeManager = {
         : "moon";
 
     this.themeButton.innerHTML =
-      `<i data-lucide="${icon}"></i>`;
+      `
+      <i
+        data-lucide="${icon}"
+      ></i>
+      `;
 
-    lucide.createIcons();
+    if (
+      typeof lucide !==
+      "undefined"
+    ) {
+
+      lucide.createIcons();
+
+    }
 
   }
 

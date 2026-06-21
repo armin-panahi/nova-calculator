@@ -1,271 +1,174 @@
 const App = {
 
-drawer:
-document.querySelector(".side-drawer"),
+  drawer: null,
+  overlay: null,
+  menuButton: null,
+  closeButton: null,
 
-overlay:
-document.querySelector(".drawer-overlay"),
+  historyPanel: null,
+  historyButton: null,
 
-menuButton:
-document.getElementById("menuToggle"),
+  scientificPanel: null,
+  scientificToggle: null,
 
-closeButton:
-document.getElementById("drawerClose"),
+  init() {
 
-historyPanel:
-document.getElementById("historyPanel"),
+    this.cacheDOM();
 
-historyButton:
-document.getElementById("historyToggle"),
-
-scientificPanel:
-document.getElementById("scientificPanel"),
-
-scientificToggle:
-document.getElementById("scientificToggle"),
-
-scientificClose:
-document.getElementById("scientificClose"),
-
-init() {
-
-
-this.bindEvents();
-
-this.handleResize();
-
-
-},
-
-bindEvents() {
-
-
-/* =====================
-   DRAWER
-===================== */
-
-this.menuButton?.addEventListener(
-  "click",
-  () => {
-
-    this.toggleDrawer();
-
-  }
-);
-
-this.closeButton?.addEventListener(
-  "click",
-  () => {
-
-    this.closeDrawer();
-
-  }
-);
-
-this.overlay?.addEventListener(
-  "click",
-  () => {
-
-    this.closeDrawer();
-
-  }
-);
-
-/* =====================
-   HISTORY
-===================== */
-
-this.historyButton?.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-    this.closeScientific();
-
-    this.toggleHistory();
-
-  }
-);
-
-/* =====================
-   SCIENTIFIC
-===================== */
-
-this.scientificToggle?.addEventListener(
-  "click",
-  () => {
-
-    this.closeHistory();
-
-    this.toggleScientific();
-
-    this.closeDrawer();
-
-  }
-);
-
-this.scientificClose?.addEventListener(
-  "click",
-  () => {
-
-    this.closeScientific();
-
-  }
-);
-
-/* =====================
-   OUTSIDE CLICK
-===================== */
-
-document.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      this.historyPanel &&
-      !this.historyPanel.contains(event.target) &&
-      !this.historyButton?.contains(event.target)
-    ) {
-
-      this.closeHistory();
-
-    }
-
-    if (
-      this.scientificPanel &&
-      !this.scientificPanel.contains(event.target) &&
-      !this.scientificToggle?.contains(event.target)
-    ) {
-
-      this.closeScientific();
-
-    }
-
-  }
-);
-
-/* =====================
-   RESIZE
-===================== */
-
-window.addEventListener(
-  "resize",
-  () => {
+    this.bindEvents();
 
     this.handleResize();
 
+  },
+
+  cacheDOM() {
+
+    this.drawer =
+      document.querySelector(".side-drawer");
+
+    this.overlay =
+      document.querySelector(".drawer-overlay");
+
+    this.menuButton =
+      document.getElementById("menuToggle");
+
+    this.closeButton =
+      document.getElementById("drawerClose");
+
+    this.historyPanel =
+      document.getElementById("historyPanel");
+
+    this.historyButton =
+      document.getElementById("historyToggle");
+
+    this.scientificPanel =
+      document.getElementById("scientificPanel");
+
+    this.scientificToggle =
+      document.getElementById("scientificToggle");
+
+  },
+
+  bindEvents() {
+
+    this.menuButton?.addEventListener(
+      "click",
+      () => this.toggleDrawer()
+    );
+
+    this.closeButton?.addEventListener(
+      "click",
+      () => this.closeDrawer()
+    );
+
+    this.overlay?.addEventListener(
+      "click",
+      () => this.closeDrawer()
+    );
+
+    this.historyButton?.addEventListener(
+      "click",
+      (e) => {
+
+        e.stopPropagation();
+
+        this.toggleHistory();
+
+      }
+    );
+
+    this.scientificToggle?.addEventListener(
+      "click",
+      () => {
+
+        this.toggleScientific();
+
+        this.closeDrawer();
+
+      }
+    );
+
+    document.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          this.historyPanel &&
+          !this.historyPanel.contains(event.target) &&
+          !this.historyButton?.contains(event.target)
+        ) {
+
+          this.closeHistory();
+
+        }
+
+      }
+    );
+
+    window.addEventListener(
+      "resize",
+      () => this.handleResize()
+    );
+
+  },
+
+  toggleDrawer() {
+
+    this.drawer?.classList.toggle("open");
+
+    this.overlay?.classList.toggle("active");
+
+  },
+
+  closeDrawer() {
+
+    this.drawer?.classList.remove("open");
+
+    this.overlay?.classList.remove("active");
+
+  },
+
+  toggleHistory() {
+
+    this.historyPanel?.classList.toggle("open");
+
+  },
+
+  closeHistory() {
+
+    this.historyPanel?.classList.remove("open");
+
+  },
+
+  toggleScientific() {
+
+    this.scientificPanel?.classList.toggle("open");
+
+  },
+
+  closeScientific() {
+
+    this.scientificPanel?.classList.remove("open");
+
+  },
+
+  handleResize() {
+
+    if (window.innerWidth >= 1200) {
+
+      this.closeDrawer();
+
+    }
+
   }
-);
-
-
-},
-
-/* =====================
-DRAWER
-===================== */
-
-toggleDrawer() {
-
-
-this.drawer?.classList.toggle(
-  "open"
-);
-
-this.overlay?.classList.toggle(
-  "active"
-);
-
-
-},
-
-closeDrawer() {
-
-
-this.drawer?.classList.remove(
-  "open"
-);
-
-this.overlay?.classList.remove(
-  "active"
-);
-
-
-},
-
-/* =====================
-HISTORY
-===================== */
-
-toggleHistory() {
-
-
-this.historyPanel?.classList.toggle(
-  "open"
-);
-
-
-},
-
-closeHistory() {
-
-
-this.historyPanel?.classList.remove(
-  "open"
-);
-
-
-},
-
-/* =====================
-SCIENTIFIC
-===================== */
-
-toggleScientific() {
-
-
-this.scientificPanel?.classList.toggle(
-  "open"
-);
-
-
-},
-
-closeScientific() {
-
-
-this.scientificPanel?.classList.remove(
-  "open"
-);
-
-
-},
-
-/* =====================
-RESPONSIVE
-===================== */
-
-handleResize() {
-
-
-if (window.innerWidth >= 1200) {
-
-  this.closeDrawer();
-
-}
-
-
-}
 
 };
 
 document.addEventListener(
-"DOMContentLoaded",
-() => {
+  "DOMContentLoaded",
+  () => {
 
+    App.init();
 
-App.init();
-
-
-}
+  }
 );

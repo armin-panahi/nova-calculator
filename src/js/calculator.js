@@ -1,19 +1,23 @@
 const calculator = {
 
 expression: "",
-
 result: "0",
 
-expressionElement:
-document.getElementById("expression"),
-
-resultElement:
-document.getElementById("result"),
-
-lastCalculationElement:
-document.getElementById("lastCalculation"),
+expressionElement: null,
+resultElement: null,
+lastCalculationElement: null,
 
 init() {
+
+
+this.expressionElement =
+  document.getElementById("expression");
+
+this.resultElement =
+  document.getElementById("result");
+
+this.lastCalculationElement =
+  document.getElementById("lastCalculation");
 
 this.loadState();
 
@@ -23,294 +27,308 @@ this.bindKeyboardEvents();
 
 this.render();
 
+
 },
 
 bindEvents() {
 
+
 const keypad =
-document.getElementById("keypad");
+  document.getElementById("keypad");
+
+if (!keypad) return;
 
 keypad.addEventListener(
-"click",
-(event) => {
+  "click",
+  (event) => {
 
+    const button =
+      event.target.closest("button");
 
-  const button =
-    event.target.closest("button");
+    if (!button) return;
 
-  if (!button) return;
+    const number =
+      button.dataset.number;
 
-  const number =
-    button.dataset.number;
+    const operator =
+      button.dataset.operator;
 
-  const operator =
-    button.dataset.operator;
+    const action =
+      button.dataset.action;
 
-  const action =
-    button.dataset.action;
+    if (number !== undefined) {
 
-  if (number !== undefined) {
+      this.appendNumber(number);
+      return;
 
-    this.appendNumber(number);
+    }
 
-    return;
+    if (operator !== undefined) {
+
+      this.appendOperator(operator);
+      return;
+
+    }
+
+    if (action !== undefined) {
+
+      this.handleAction(action);
+
+    }
 
   }
-
-  if (operator !== undefined) {
-
-    this.appendOperator(operator);
-
-    return;
-
-  }
-
-  if (action !== undefined) {
-
-    this.handleAction(action);
-
-  }
-
-}
-
-
 );
+
+document
+  .querySelectorAll(".scientific-btn")
+  .forEach(btn => {
+
+    btn.addEventListener(
+      "click",
+      () => {
+
+        const action =
+          btn.dataset.scientific;
+
+        this.handleAction(action);
+
+      }
+    );
+
+  });
+
 
 },
 
 bindKeyboardEvents() {
 
+
 document.addEventListener(
-"keydown",
-(event) => {
+  "keydown",
+  (event) => {
 
+    const key = event.key;
 
-  const key = event.key;
+    if (/^[0-9]$/.test(key)) {
 
-  if (/^[0-9]$/.test(key)) {
+      this.appendNumber(key);
+      return;
 
-    this.appendNumber(key);
+    }
 
-    return;
+    if (key === ".") {
 
-  }
+      this.appendNumber(".");
+      return;
 
-  if (key === ".") {
+    }
 
-    this.appendNumber(".");
-
-    return;
-
-  }
-
-  if (
-    ["+", "-", "*", "/"]
+    if (
+      ["+","-","*","/"]
       .includes(key)
-  ) {
+    ) {
 
-    this.appendOperator(key);
+      this.appendOperator(key);
+      return;
 
-    return;
+    }
 
-  }
+    if (
+      key === "Enter" ||
+      key === "="
+    ) {
 
-  if (
-    key === "Enter" ||
-    key === "="
-  ) {
+      event.preventDefault();
 
-    event.preventDefault();
+      this.calculate();
 
-    this.calculate();
+      return;
 
-    return;
+    }
 
-  }
+    if (key === "Backspace") {
 
-  if (
-    key === "Backspace"
-  ) {
+      event.preventDefault();
 
-    event.preventDefault();
+      this.deleteLast();
 
-    this.deleteLast();
+      return;
 
-    return;
+    }
 
-  }
+    if (key === "Escape") {
 
-  if (
-    key === "Escape"
-  ) {
+      this.clear();
 
-    this.clear();
+    }
 
   }
-
-}
-
-
 );
+
 
 },
 
 appendNumber(value) {
 
+
 if (
-value === "." &&
-this.currentNumberHasDecimal()
+  value === "." &&
+  this.currentNumberHasDecimal()
 ) {
-return;
+  return;
 }
 
 if (
-this.expression === "0" &&
-value !== "."
+  this.expression === "0" &&
+  value !== "."
 ) {
 
-
-this.expression = value;
-
+  this.expression = value;
 
 } else {
 
-
-this.expression += value;
-
+  this.expression += value;
 
 }
 
 this.render();
+
 
 },
 
 appendOperator(operator) {
 
+
 if (!this.expression.length)
-return;
+  return;
 
 const lastChar =
-this.expression[
-this.expression.length - 1
-];
+  this.expression[
+    this.expression.length - 1
+  ];
 
 if (
-"+-*/".includes(lastChar)
+  "+-*/".includes(lastChar)
 ) {
 
-
-this.expression =
-  this.expression.slice(0, -1) +
-  operator;
-
+  this.expression =
+    this.expression.slice(0,-1) +
+    operator;
 
 } else {
 
-
-this.expression += operator;
-
+  this.expression += operator;
 
 }
 
 this.render();
+
 
 },
 
 handleAction(action) {
 
+
 switch (action) {
 
+  case "clear":
+    this.clear();
+    break;
 
-case "clear":
-  this.clear();
-  break;
+  case "delete":
+    this.deleteLast();
+    break;
 
-case "delete":
-  this.deleteLast();
-  break;
+  case "percent":
+    this.percent();
+    break;
 
-case "percent":
-  this.percent();
-  break;
+  case "sqrt":
+    this.sqrt();
+    break;
 
-case "sqrt":
-  this.sqrt();
-  break;
+  case "square":
+    this.square();
+    break;
 
-case "square":
-  this.square();
-  break;
+  case "pi":
+    this.insertPi();
+    break;
 
-case "pi":
-  this.insertPi();
-  break;
+  case "sin":
+    this.sin();
+    break;
 
-case "sin":
-  this.sin();
-  break;
+  case "cos":
+    this.cos();
+    break;
 
-case "cos":
-  this.cos();
-  break;
+  case "tan":
+    this.tan();
+    break;
 
-case "tan":
-  this.tan();
-  break;
+  case "log":
+    this.log();
+    break;
 
-case "log":
-  this.log();
-  break;
-
-case "equal":
-  this.calculate();
-  break;
-
+  case "equal":
+    this.calculate();
+    break;
 
 }
+
 
 },
 
 deleteLast() {
 
+
 this.expression =
-this.expression.slice(0, -1);
+  this.expression.slice(0,-1);
 
 this.render();
+
+
+},
+
+clear() {
+
+
+this.expression = "";
+this.result = "0";
+
+this.render();
+
 
 },
 
 percent() {
 
-if (!this.expression)
-return;
+
+if (!this.expression) return;
 
 try {
 
+  const value =
+    Function(
+      `"use strict";return (${this.expression})`
+    )();
 
-const value =
-  Function(
-    `"use strict"; return (${this.expression})`
-  )();
-
-this.expression =
-  String(value / 100);
-
+  this.expression =
+    String(value / 100);
 
 } catch {
 
-
-this.result = "Error";
-
+  this.result = "Error";
 
 }
 
 this.render();
 
+
 },
 
 sqrt() {
-
-try {
 
 
 const value =
@@ -322,21 +340,9 @@ this.expression =
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
 },
 
 square() {
-
-try {
 
 
 const value =
@@ -348,30 +354,20 @@ this.expression =
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
 },
 
 insertPi() {
 
+
 this.expression +=
-Math.PI.toFixed(8);
+  Math.PI.toFixed(8);
 
 this.render();
+
 
 },
 
 sin() {
-
-try {
 
 
 const value =
@@ -380,30 +376,16 @@ const value =
 this.expression =
   String(
     Math.sin(
-      value *
-      Math.PI /
-      180
+      value * Math.PI / 180
     )
   );
 
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
 },
 
 cos() {
-
-try {
 
 
 const value =
@@ -412,30 +394,16 @@ const value =
 this.expression =
   String(
     Math.cos(
-      value *
-      Math.PI /
-      180
+      value * Math.PI / 180
     )
   );
 
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
 },
 
 tan() {
-
-try {
 
 
 const value =
@@ -444,30 +412,16 @@ const value =
 this.expression =
   String(
     Math.tan(
-      value *
-      Math.PI /
-      180
+      value * Math.PI / 180
     )
   );
 
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
 },
 
 log() {
-
-try {
 
 
 const value =
@@ -481,86 +435,55 @@ this.expression =
 this.render();
 
 
-} catch {
-
-
-this.result = "Error";
-
-this.render();
-
-
-}
-
-},
-
-clear() {
-
-this.expression = "";
-
-this.result = "0";
-
-this.render();
-
 },
 
 calculate() {
 
+
 if (!this.expression)
-return;
+  return;
 
 try {
 
-
-const value =
-  Function(
-    `"use strict"; return (${this.expression})`
-  )();
-
-if (
-  value === Infinity ||
-  value === -Infinity
-) {
-
-  this.result = "Error";
-
-} else {
+  const value =
+    Function(
+      `"use strict";return (${this.expression})`
+    )();
 
   this.result =
-    String(value);
+    Number.isFinite(value)
+      ? String(value)
+      : "Error";
 
-}
+  if (
+    typeof HistoryManager !==
+    "undefined"
+  ) {
 
-if (
-  typeof HistoryManager !==
-  "undefined"
-) {
+    HistoryManager.add(
+      this.expression,
+      this.result
+    );
 
-  HistoryManager.add(
-    this.expression,
-    this.result
-  );
+  }
 
-}
+  if (
+    this.lastCalculationElement
+  ) {
 
-if (
-  this.lastCalculationElement
-) {
+    this.lastCalculationElement.textContent =
+      `${this.expression} = ${this.result}`;
 
-  this.lastCalculationElement.textContent =
-    `${this.expression} = ${this.result}`;
-
-}
-
+  }
 
 } catch {
 
-
-this.result = "Error";
-
+  this.result = "Error";
 
 }
 
 this.render();
+
 
 },
 
@@ -569,88 +492,84 @@ expression,
 result
 ) {
 
-this.expression =
-expression;
 
-this.result =
-result;
-
-if (
-this.lastCalculationElement
-) {
-
-
-this.lastCalculationElement.textContent =
-  `${expression} = ${result}`;
-
-
-}
+this.expression = expression;
+this.result = result;
 
 this.render();
+
 
 },
 
 saveState() {
 
+
 if (
-typeof Storage ===
-"undefined"
-) {
-return;
-}
+  typeof Storage ===
+  "undefined"
+) return;
 
 Storage.saveExpression(
-this.expression
+  this.expression
 );
 
 Storage.saveResult(
-this.result
+  this.result
 );
+
 
 },
 
 loadState() {
 
+
 if (
-typeof Storage ===
-"undefined"
-) {
-return;
-}
+  typeof Storage ===
+  "undefined"
+) return;
 
 this.expression =
-Storage.loadExpression();
+  Storage.loadExpression();
 
 this.result =
-Storage.loadResult();
+  Storage.loadResult();
+
 
 },
 
 currentNumberHasDecimal() {
 
+
 const parts =
-this.expression.split(
-/[+-*/]/g
-);
+  this.expression.split(/[+\-*/]/g);
 
 const current =
-parts[
-parts.length - 1
-];
+  parts[parts.length - 1];
 
 return current.includes(".");
+
 
 },
 
 render() {
 
-this.expressionElement.textContent =
-this.expression || "0";
 
-this.resultElement.textContent =
-this.result;
+if (this.expressionElement) {
+
+  this.expressionElement.textContent =
+    this.expression || "0";
+
+}
+
+if (this.resultElement) {
+
+  this.resultElement.textContent =
+    this.result;
+
+}
 
 this.saveState();
+
 
 }
 
