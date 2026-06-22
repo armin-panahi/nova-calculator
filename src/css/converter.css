@@ -317,3 +317,59 @@ body[data-theme="light"] .converter-category {
     padding: 18px;
   }
 }
+
+
+.converter-result-actions {
+
+display: flex;
+
+justify-content: center;
+
+gap: 12px;
+
+margin-top: 18px;
+}
+
+.converter-action-btn {
+
+height: 42px;
+
+padding: 0 18px;
+
+border-radius: 12px;
+
+cursor: pointer;
+
+background: var(--glass);
+
+border: 1px solid var(--border);
+
+color: var(--text-primary);
+
+transition: .25s ease;
+}
+
+.converter-action-btn:hover {
+
+transform: translateY(-2px);
+
+background: var(--glass-hover);
+}
+
+.swapping {
+
+animation:
+converterSwap .4s ease;
+}
+
+@keyframes converterSwap {
+
+from {
+transform: rotate(0deg);
+}
+
+to {
+transform: rotate(180deg);
+}
+
+}

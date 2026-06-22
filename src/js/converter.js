@@ -4,6 +4,11 @@ const UnitConverter = {
 
   categories: {
 
+
+    /* ==========================
+       LENGTH
+    ========================== */
+
     length: {
       meter: 1,
       kilometer: 1000,
@@ -15,29 +20,48 @@ const UnitConverter = {
       mile: 1609.344
     },
 
+    /* ==========================
+       WEIGHT
+    ========================== */
+
     weight: {
       kilogram: 1,
       gram: 0.001,
       milligram: 0.000001,
       pound: 0.45359237,
-      ounce: 0.0283495231
+      ounce: 0.0283495231,
+      ton: 1000
     },
+
+    /* ==========================
+       AREA
+    ========================== */
 
     area: {
       square_meter: 1,
       square_kilometer: 1000000,
       hectare: 10000,
       acre: 4046.8564224,
-      square_foot: 0.092903
+      square_foot: 0.092903,
+      square_inch: 0.00064516
     },
+
+    /* ==========================
+       VOLUME
+    ========================== */
 
     volume: {
       liter: 1,
       milliliter: 0.001,
       cubic_meter: 1000,
       gallon_us: 3.78541,
-      pint_us: 0.473176
+      pint_us: 0.473176,
+      fluid_ounce_us: 0.0295735
     },
+
+    /* ==========================
+       SPEED
+    ========================== */
 
     speed: {
       mps: 1,
@@ -46,17 +70,83 @@ const UnitConverter = {
       knot: 0.514444
     },
 
+    /* ==========================
+       TIME
+    ========================== */
+
     time: {
       second: 1,
       minute: 60,
       hour: 3600,
       day: 86400,
-      week: 604800
+      week: 604800,
+      month: 2629800,
+      year: 31557600
+    },
+
+    /* ==========================
+       DATA STORAGE
+    ========================== */
+
+    data: {
+      byte: 1,
+      kilobyte: 1024,
+      megabyte: 1048576,
+      gigabyte: 1073741824,
+      terabyte: 1099511627776
+    },
+
+    /* ==========================
+       ENERGY
+    ========================== */
+
+    energy: {
+      joule: 1,
+      kilojoule: 1000,
+      calorie: 4.184,
+      kilocalorie: 4184,
+      watt_hour: 3600,
+      kilowatt_hour: 3600000
+    },
+
+    /* ==========================
+       PRESSURE
+    ========================== */
+
+    pressure: {
+      pascal: 1,
+      kilopascal: 1000,
+      bar: 100000,
+      psi: 6894.757,
+      atmosphere: 101325
+    },
+
+    /* ==========================
+       ANGLE
+    ========================== */
+
+    angle: {
+      degree: 1,
+      radian: 57.2957795,
+      gradian: 0.9
+    },
+
+    /* ==========================
+       FREQUENCY
+    ========================== */
+
+    frequency: {
+      hertz: 1,
+      kilohertz: 1000,
+      megahertz: 1000000,
+      gigahertz: 1000000000
     }
+
 
   },
 
   init() {
+
 
     this.cacheDOM();
 
@@ -72,9 +162,11 @@ const UnitConverter = {
 
     this.convert();
 
+
   },
 
   cacheDOM() {
+
 
     this.categorySelect =
       document.getElementById(
@@ -106,9 +198,20 @@ const UnitConverter = {
         "swapUnits"
       );
 
+    this.copyButton =
+      document.getElementById(
+        "copyConverterResult"
+      );
+
+    this.clearButton =
+      document.getElementById(
+        "clearConverter"
+      );
+
   },
 
   bindEvents() {
+
 
     this.categorySelect?.addEventListener(
       "change",
@@ -143,23 +246,86 @@ const UnitConverter = {
       "click",
       () => {
 
-        const from =
-          this.fromSelect.value;
+        this.swapButton.classList.add(
+          "swapping"
+        );
 
-        this.fromSelect.value =
-          this.toSelect.value;
+        setTimeout(() => {
 
-        this.toSelect.value =
-          from;
+          this.swapButton.classList.remove(
+            "swapping"
+          );
+
+        }, 400);
 
         this.convert();
 
       }
     );
 
+
+    this.copyButton?.addEventListener(
+      "click",
+      () => {
+
+        navigator.clipboard.writeText(
+          this.resultElement.textContent
+        );
+
+        this.copyButton.textContent =
+          "Copied!";
+
+        setTimeout(() => {
+
+          this.copyButton.textContent =
+            "Copy";
+
+        }, 1200);
+
+      }
+    );
+
+    this.clearButton?.addEventListener(
+      "click",
+      () => {
+
+        this.valueInput.value = "";
+
+        this.resultElement.textContent =
+          "0";
+
+      }
+    );
+
+  },
+
+  getUnits() {
+
+
+    if (
+      this.currentCategory ===
+      "temperature"
+    ) {
+
+      return [
+        "celsius",
+        "fahrenheit",
+        "kelvin"
+      ];
+
+    }
+
+    return Object.keys(
+      this.categories[
+      this.currentCategory
+      ] || {}
+    );
+
+
   },
 
   populateUnits() {
+
 
     const units =
       this.getUnits();
@@ -198,41 +364,18 @@ const UnitConverter = {
 
     }
 
-  },
-
-  getUnits() {
-
-    if (
-      this.currentCategory ===
-      "temperature"
-    ) {
-
-      return [
-        "celsius",
-        "fahrenheit",
-        "kelvin"
-      ];
-
-    }
-
-    return Object.keys(
-      this.categories[
-        this.currentCategory
-      ] || {}
-    );
 
   },
 
   convert() {
+
 
     const value =
       parseFloat(
         this.valueInput.value
       );
 
-    if (
-      isNaN(value)
-    ) {
+    if (isNaN(value)) {
 
       this.resultElement.textContent =
         "0";
@@ -265,7 +408,7 @@ const UnitConverter = {
 
       const units =
         this.categories[
-          this.currentCategory
+        this.currentCategory
         ];
 
       const baseValue =
@@ -279,7 +422,28 @@ const UnitConverter = {
     this.resultElement.textContent =
       this.formatNumber(result);
 
+    if (
+      typeof ConverterHistory !==
+      "undefined"
+    ) {
+
+      ConverterHistory.add({
+
+        value,
+
+        from,
+
+        to,
+
+        result:
+          this.formatNumber(result)
+
+      });
+
+    }
+
     this.saveState();
+
 
   },
 
@@ -289,26 +453,22 @@ const UnitConverter = {
     to
   ) {
 
+
     let celsius;
 
     switch (from) {
 
       case "fahrenheit":
-
         celsius =
           (value - 32) * 5 / 9;
-
         break;
 
       case "kelvin":
-
         celsius =
           value - 273.15;
-
         break;
 
       default:
-
         celsius = value;
 
     }
@@ -316,26 +476,25 @@ const UnitConverter = {
     switch (to) {
 
       case "fahrenheit":
-
         return (
           celsius * 9 / 5
         ) + 32;
 
       case "kelvin":
-
         return (
           celsius + 273.15
         );
 
       default:
-
         return celsius;
 
     }
 
+
   },
 
   formatLabel(unit) {
+
 
     return unit
       .replaceAll("_", " ")
@@ -344,9 +503,11 @@ const UnitConverter = {
         char => char.toUpperCase()
       );
 
+
   },
 
   formatNumber(value) {
+
 
     if (
       Math.abs(value) >= 1000000
@@ -362,46 +523,31 @@ const UnitConverter = {
       value.toFixed(8)
     ).toString();
 
+
   },
 
   saveState() {
 
-    if (
-      typeof Storage ===
-      "undefined"
-    ) {
-      return;
-    }
 
     Storage.set(
       "nova_converter_state",
       {
-
         category:
           this.currentCategory,
-
         from:
           this.fromSelect.value,
-
         to:
           this.toSelect.value,
-
         value:
           this.valueInput.value
-
       }
     );
+
 
   },
 
   restoreState() {
 
-    if (
-      typeof Storage ===
-      "undefined"
-    ) {
-      return;
-    }
 
     const state =
       Storage.get(
@@ -409,9 +555,7 @@ const UnitConverter = {
         null
       );
 
-    if (!state) {
-      return;
-    }
+    if (!state) return;
 
     this.currentCategory =
       state.category ||
@@ -433,6 +577,7 @@ const UnitConverter = {
     this.valueInput.value =
       state.value || "";
 
+
   }
 
 };
@@ -441,7 +586,9 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+
     UnitConverter.init();
+
 
   }
 );

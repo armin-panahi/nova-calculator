@@ -150,6 +150,25 @@ const Storage = {
       "0"
     );
 
-  }
+  },
+
+  saveConverterHistory(history) {
+
+this.set(
+"nova_converter_history",
+history
+);
+
+},
+
+loadConverterHistory() {
+
+return this.get(
+"nova_converter_history",
+[]
+);
+
+},
+
 
 };
