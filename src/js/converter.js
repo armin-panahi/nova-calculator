@@ -208,6 +208,11 @@ const UnitConverter = {
         "clearConverter"
       );
 
+    this.presetCards =
+      document.querySelectorAll(
+        ".preset-card"
+      );
+
   },
 
   bindEvents() {
@@ -293,6 +298,44 @@ const UnitConverter = {
 
         this.resultElement.textContent =
           "0";
+
+      }
+    );
+
+    this.presetCards?.forEach(
+      card => {
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            const category =
+              card.dataset.category;
+
+            const from =
+              card.dataset.from;
+
+            const to =
+              card.dataset.to;
+
+            this.currentCategory =
+              category;
+
+            this.categorySelect.value =
+              category;
+
+            this.populateUnits();
+
+            this.fromSelect.value =
+              from;
+
+            this.toSelect.value =
+              to;
+
+            this.convert();
+
+          }
+        );
 
       }
     );

@@ -373,3 +373,44 @@ transform: rotate(180deg);
 }
 
 }
+
+.converter-presets {
+
+display: grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(140px,1fr)
+);
+
+gap: 12px;
+
+margin-bottom: 24px;
+}
+
+.preset-card {
+
+height: 56px;
+
+border-radius: 16px;
+
+cursor: pointer;
+
+border: 1px solid var(--border);
+
+background: var(--glass);
+
+color: var(--text-primary);
+
+transition: .25s ease;
+}
+
+.preset-card:hover {
+
+transform: translateY(-3px);
+
+background: var(--glass-hover);
+
+box-shadow: var(--shadow);
+}
