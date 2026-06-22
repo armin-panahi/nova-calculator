@@ -345,3 +345,210 @@
     height: 46px;
   }
 }
+
+
+/* ==================================
+   CONVERTER DESKTOP
+================================== */
+
+@media (min-width: 1200px) {
+
+  .converter-body {
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    width: 100%;
+  }
+
+  .converter-presets {
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .converter-form {
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 24px;
+  }
+
+  .converter-result {
+
+    grid-column: span 2;
+  }
+
+  .converter-history {
+
+    grid-column: span 2;
+  }
+
+  .favorites-card {
+
+    width: 100%;
+  }
+
+}
+
+/* ==================================
+   TABLET
+================================== */
+
+@media (min-width: 768px)
+and (max-width: 1199px) {
+
+  .converter-body {
+
+    padding: 20px;
+  }
+
+  .converter-presets {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .converter-header {
+
+    padding: 20px;
+  }
+
+  .converter-title h2 {
+
+    font-size: 1.8rem;
+  }
+
+  .converter-result h3 {
+
+    font-size: 2.5rem;
+  }
+
+}
+
+/* ==================================
+   MOBILE
+================================== */
+
+@media (max-width: 767px) {
+
+  .converter-header {
+
+    padding: 18px;
+  }
+
+  .converter-header-actions {
+
+    gap: 8px;
+  }
+
+  .converter-title h2 {
+
+    font-size: 1.5rem;
+  }
+
+  .converter-title p {
+
+    font-size: .9rem;
+  }
+
+  .converter-body {
+
+    padding: 16px;
+
+    gap: 16px;
+  }
+
+  .converter-presets {
+
+    grid-template-columns: 1fr;
+  }
+
+  .preset-card {
+
+    height: 72px;
+
+    font-size: 1rem;
+  }
+
+  .favorites-card,
+  .converter-history,
+  .converter-result {
+
+    padding: 18px;
+  }
+
+  .converter-group select,
+  .converter-group input {
+
+    height: 56px;
+
+    font-size: 1rem;
+  }
+
+  .swap-btn {
+
+    width: 64px;
+    height: 64px;
+
+    font-size: 1.4rem;
+  }
+
+  .converter-result h3 {
+
+    font-size: 2rem;
+  }
+
+  .converter-result-actions {
+
+    flex-direction: column;
+  }
+
+  .converter-action-btn {
+
+    width: 100%;
+  }
+
+}
+
+/* ==================================
+   SMALL MOBILE
+================================== */
+
+@media (max-width: 480px) {
+
+  .converter-header {
+
+    padding: 14px;
+  }
+
+  .converter-body {
+
+    padding: 14px;
+  }
+
+  .converter-title h2 {
+
+    font-size: 1.3rem;
+  }
+
+  .converter-result h3 {
+
+    font-size: 1.8rem;
+  }
+
+  .preset-card {
+
+    height: 64px;
+
+    font-size: .95rem;
+  }
+
+}
+
+
+

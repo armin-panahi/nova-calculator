@@ -1,33 +1,21 @@
 /* ==================================
-   CONVERTER PAGE
+   CONVERTER VIEW
 ================================== */
 
-.converter-page {
+.converter-view {
 
   display: none;
 
-  position: relative;
-
   flex: 1;
-
-  min-height: 0;
 
   flex-direction: column;
 
+  min-width: 0;
+
   overflow: hidden;
-
-  border-radius: 32px;
-
-  background: rgba(255,255,255,.05);
-
-  backdrop-filter: blur(24px);
-
-  border: 1px solid var(--border);
-
-  box-shadow: var(--shadow);
 }
 
-.converter-page.active {
+.converter-view.active {
 
   display: flex;
 }
@@ -51,9 +39,11 @@
 
 .converter-title h2 {
 
-  font-size: 1.8rem;
+  font-size: 2rem;
 
   font-weight: 700;
+
+  color: var(--text-primary);
 }
 
 .converter-title p {
@@ -61,6 +51,13 @@
   margin-top: 4px;
 
   color: var(--text-secondary);
+}
+
+.converter-header-actions {
+
+  display: flex;
+
+  gap: 10px;
 }
 
 /* ==================================
@@ -83,61 +80,108 @@
 }
 
 /* ==================================
-   CARD
+   PRESETS
+================================== */
+
+.converter-presets {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 16px;
+}
+
+.preset-card {
+
+  height: 82px;
+
+  border-radius: 22px;
+
+  border: 1px solid var(--border);
+
+  background: var(--glass);
+
+  color: var(--text-primary);
+
+  font-size: 1.1rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+.preset-card:hover {
+
+  transform: translateY(-3px);
+
+  border-color: rgba(124,92,255,.45);
+
+  box-shadow:
+    0 12px 25px rgba(124,92,255,.18);
+}
+
+/* ==================================
+   FAVORITES
+================================== */
+
+.favorites-card {
+
+  background: var(--glass);
+
+  border: 1px solid var(--border);
+
+  border-radius: 28px;
+
+  padding: 24px;
+}
+
+.favorites-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
+}
+
+.favorites-header h3 {
+
+  font-size: 1.4rem;
+
+  color: var(--text-primary);
+}
+
+.favorite-list {
+
+  min-height: 70px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+/* ==================================
+   CONVERTER CARD
 ================================== */
 
 .converter-card {
 
-  background: var(--glass);
+  display: flex;
 
-  border: 1px solid var(--border);
+  flex-direction: column;
 
-  border-radius: 24px;
-
-  padding: 20px;
+  gap: 18px;
 }
 
-/* ==================================
-   CATEGORY
-================================== */
-
-.converter-category {
-
-  width: 100%;
-
-  height: 58px;
-
-  border-radius: 18px;
-
-  padding: 0 16px;
-
-  background: var(--glass);
-
-  border: 1px solid var(--border);
-
-  color: var(--text-primary);
-
-  font-size: 1rem;
-
-  outline: none;
-}
-
-/* ==================================
-   INPUTS
-================================== */
-
-.converter-grid {
-
-  display: grid;
-
-  grid-template-columns: 1fr auto 1fr;
-
-  gap: 16px;
-
-  align-items: center;
-}
-
-.converter-field {
+.converter-group {
 
   display: flex;
 
@@ -146,321 +190,294 @@
   gap: 10px;
 }
 
-.converter-field label {
+.converter-group label {
 
   color: var(--text-secondary);
 
-  font-size: .9rem;
+  font-size: .95rem;
+
+  font-weight: 500;
 }
 
-.converter-input {
+/* ==================================
+   FORM CONTROLS
+================================== */
+
+.converter-group select,
+.converter-group input {
 
   width: 100%;
 
-  height: 64px;
+  height: 62px;
 
-  border-radius: 18px;
+  padding: 0 18px;
 
-  padding: 0 16px;
-
-  background: var(--glass);
+  border-radius: 20px;
 
   border: 1px solid var(--border);
 
+  background: var(--glass);
+
   color: var(--text-primary);
 
-  font-size: 1.2rem;
+  font-size: 1rem;
 
   outline: none;
+
+  transition: .25s ease;
 }
 
-.converter-unit {
+.converter-group select:focus,
+.converter-group input:focus {
 
-  width: 100%;
+  border-color: var(--primary);
 
-  height: 58px;
+  box-shadow:
+    0 0 0 4px rgba(124,92,255,.15);
+}
 
-  border-radius: 18px;
+.converter-group input::placeholder {
 
-  padding: 0 16px;
-
-  background: var(--glass);
-
-  border: 1px solid var(--border);
-
-  color: var(--text-primary);
-
-  outline: none;
+  color: var(--text-secondary);
 }
 
 /* ==================================
    SWAP BUTTON
 ================================== */
 
-.converter-swap {
+.swap-btn {
 
-  width: 58px;
+  width: 72px;
 
-  height: 58px;
+  height: 72px;
+
+  margin: 0 auto;
 
   border-radius: 50%;
 
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
+  border: none;
 
   cursor: pointer;
 
-  background: rgba(124,92,255,.18);
-
-  border: 1px solid rgba(124,92,255,.24);
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--primary-hover)
+  );
 
   color: white;
 
-  transition: .25s ease;
+  font-size: 1.6rem;
+
+  font-weight: 700;
+
+  box-shadow: var(--glow-primary);
+
+  transition: .3s ease;
 }
 
-.converter-swap:hover {
+.swap-btn:hover {
 
-  transform: rotate(180deg);
+  transform:
+    rotate(180deg)
+    scale(1.05);
+}
 
-  background: rgba(124,92,255,.30);
+.swap-btn:active {
+
+  transform:
+    rotate(180deg)
+    scale(.96);
 }
 
 /* ==================================
-   RESULT
+   RESULT CARD
 ================================== */
 
 .converter-result {
 
-  text-align: center;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124,92,255,.14),
+      rgba(124,92,255,.05)
+    );
+
+  border: 1px solid rgba(124,92,255,.25);
+
+  border-radius: 30px;
 
   padding: 28px;
 
-  border-radius: 24px;
-
-  background: rgba(124,92,255,.10);
-
-  border: 1px solid rgba(124,92,255,.20);
+  text-align: center;
 }
 
-.converter-result-label {
+.converter-result span {
+
+  display: block;
 
   color: var(--text-secondary);
 
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+
+  font-size: .95rem;
 }
 
-.converter-result-value {
+.converter-result h3 {
 
-  font-size: 2rem;
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.5rem
+  );
 
-  font-weight: 700;
+  font-weight: 800;
 
   color: var(--primary);
 
   word-break: break-word;
 }
 
-/* ==================================
-   LIGHT MODE
-================================== */
-
-body[data-theme="light"] .converter-page {
-
-  background: rgba(255,255,255,.72);
-
-  border-color: rgba(15,23,42,.08);
-}
-
-body[data-theme="light"] .converter-card {
-
-  background: rgba(255,255,255,.70);
-}
-
-body[data-theme="light"] .converter-input,
-body[data-theme="light"] .converter-unit,
-body[data-theme="light"] .converter-category {
-
-  background: rgba(255,255,255,.90);
-
-  border-color: rgba(15,23,42,.08);
-
-  color: #0f172a;
-}
-
-/* ==================================
-   MOBILE
-================================== */
-
-@media (max-width: 767px) {
-
-  .converter-grid {
-
-    grid-template-columns: 1fr;
-  }
-
-  .converter-swap {
-
-    margin: 0 auto;
-  }
-
-  .converter-header {
-
-    padding: 18px;
-  }
-
-  .converter-body {
-
-    padding: 18px;
-  }
-}
-
-
 .converter-result-actions {
 
-display: flex;
+  margin-top: 24px;
 
-justify-content: center;
+  display: flex;
 
-gap: 12px;
+  justify-content: center;
 
-margin-top: 18px;
+  flex-wrap: wrap;
+
+  gap: 12px;
 }
+
+/* ==================================
+   ACTION BUTTONS
+================================== */
 
 .converter-action-btn {
 
-height: 42px;
+  min-width: 110px;
 
-padding: 0 18px;
+  height: 44px;
 
-border-radius: 12px;
+  padding: 0 18px;
 
-cursor: pointer;
+  border-radius: 14px;
 
-background: var(--glass);
+  cursor: pointer;
 
-border: 1px solid var(--border);
+  background: var(--glass);
 
-color: var(--text-primary);
+  border: 1px solid var(--border);
 
-transition: .25s ease;
+  color: var(--text-primary);
+
+  font-weight: 600;
+
+  transition: .25s ease;
 }
 
 .converter-action-btn:hover {
 
-transform: translateY(-2px);
+  transform: translateY(-2px);
 
-background: var(--glass-hover);
+  border-color: var(--primary);
+
+  background: var(--glass-hover);
 }
 
-.swapping {
+/* ==================================
+   HISTORY CARD
+================================== */
 
-animation:
-converterSwap .4s ease;
+.converter-history {
+
+  background: var(--glass);
+
+  border: 1px solid var(--border);
+
+  border-radius: 28px;
+
+  padding: 24px;
 }
 
-@keyframes converterSwap {
+.converter-history-header {
 
-from {
-transform: rotate(0deg);
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 18px;
 }
 
-to {
-transform: rotate(180deg);
+.converter-history-header h3 {
+
+  font-size: 1.4rem;
+
+  color: var(--text-primary);
 }
 
+.converter-clear-btn {
+
+  height: 40px;
+
+  padding: 0 16px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  background: transparent;
+
+  border: 1px solid var(--border);
+
+  color: var(--text-secondary);
+
+  transition: .25s ease;
 }
 
-.converter-presets {
+.converter-clear-btn:hover {
 
-display: grid;
+  color: white;
 
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(140px,1fr)
-);
+  background: rgba(239,68,68,.18);
 
-gap: 12px;
-
-margin-bottom: 24px;
+  border-color: rgba(239,68,68,.4);
 }
 
-.preset-card {
+.converter-history-list {
 
-height: 56px;
+  display: flex;
 
-border-radius: 16px;
+  flex-direction: column;
 
-cursor: pointer;
+  gap: 10px;
 
-border: 1px solid var(--border);
-
-background: var(--glass);
-
-color: var(--text-primary);
-
-transition: .25s ease;
+  min-height: 60px;
 }
 
-.preset-card:hover {
+.converter-history-item {
 
-transform: translateY(-3px);
+  padding: 14px 16px;
 
-background: var(--glass-hover);
+  border-radius: 16px;
 
-box-shadow: var(--shadow);
+  background: rgba(255,255,255,.04);
+
+  border: 1px solid var(--border);
+
+  cursor: pointer;
+
+  transition: .25s ease;
 }
 
+.converter-history-item:hover {
 
-.favorite-conversions {
+  border-color: var(--primary);
 
-margin-top: 24px;
+  transform: translateX(4px);
 }
 
-.favorite-header {
-
-display: flex;
-
-justify-content: space-between;
-
-align-items: center;
-
-margin-bottom: 12px;
-}
-
-.favorite-list {
-
-display: flex;
-
-flex-wrap: wrap;
-
-gap: 10px;
-}
-
-.favorite-card {
-
-padding: 10px 14px;
-
-border-radius: 14px;
-
-cursor: pointer;
-
-border: 1px solid var(--border);
-
-background: var(--glass);
-
-color: var(--text-primary);
-
-transition: .25s ease;
-}
-
-.favorite-card:hover {
-
-transform: translateY(-2px);
-
-background: var(--glass-hover);
-}

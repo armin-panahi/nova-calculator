@@ -207,71 +207,41 @@
 ========================== -->
 
       <section class="converter-view page-view" id="converterView">
-        <div class="converter-container">
-          <div class="converter-header">
+        <!-- Header -->
+
+        <header class="converter-header">
+          <div class="converter-title">
             <h2>Unit Converter</h2>
 
             <p>Convert anything instantly</p>
           </div>
 
-          <div class="converter-presets">
+          <div class="converter-header-actions">
             <button
-              class="preset-card"
-              data-category="length"
-              data-from="meter"
-              data-to="foot"
+              id="converterThemeToggle"
+              class="theme-btn"
+              aria-label="Theme"
             >
-              Meter → Foot
+              <i data-lucide="moon"></i>
             </button>
 
-            <button
-              class="preset-card"
-              data-category="length"
-              data-from="kilometer"
-              data-to="mile"
-            >
-              KM → Mile
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="weight"
-              data-from="kilogram"
-              data-to="pound"
-            >
-              KG → Pound
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="temperature"
-              data-from="celsius"
-              data-to="fahrenheit"
-            >
-              °C → °F
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="data"
-              data-from="megabyte"
-              data-to="gigabyte"
-            >
-              MB → GB
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="speed"
-              data-from="kph"
-              data-to="mph"
-            >
-              KM/H → MPH
+            <button id="converterMenuToggle" class="menu-btn" aria-label="Menu">
+              <i data-lucide="menu"></i>
             </button>
           </div>
+        </header>
 
-          <div class="favorite-conversions">
-            <div class="favorite-header">
+        <div class="converter-body">
+          <!-- Presets -->
+
+          <section class="converter-presets">
+            <!-- preset cards -->
+          </section>
+
+          <!-- Favorites -->
+
+          <section class="favorites-card">
+            <div class="favorites-header">
               <h3>Favorites</h3>
 
               <button id="clearFavorites" class="converter-action-btn">
@@ -280,98 +250,47 @@
             </div>
 
             <div id="favoriteList" class="favorite-list"></div>
-          </div>
+          </section>
 
-          <div class="converter-form">
-            <div class="converter-group">
-              <label> Category </label>
+          <!-- Converter Form -->
 
-              <select id="converterCategory">
-                <option value="length">Length</option>
+          <section class="converter-card">
+            <!-- category -->
 
-                <option value="weight">Weight</option>
+            <!-- from -->
 
-                <option value="temperature">Temperature</option>
+            <!-- to -->
 
-                <option value="area">Area</option>
+            <!-- value -->
+          </section>
 
-                <option value="volume">Volume</option>
+          <!-- Result -->
 
-                <option value="speed">Speed</option>
+          <section class="converter-result-card">
+            <span> Result </span>
 
-                <option value="time">Time</option>
+            <h3 id="converterResult">0</h3>
 
-                <option value="data">Data Storage</option>
+            <div class="converter-result-actions">
+              <button id="copyConverterResult">Copy</button>
 
-                <option value="energy">Energy</option>
+              <button id="favoriteConversion">Favorite</button>
 
-                <option value="pressure">Pressure</option>
+              <button id="clearConverter">Clear</button>
+            </div>
+          </section>
 
-                <option value="angle">Angle</option>
+          <!-- History -->
 
-                <option value="frequency">Frequency</option>
-              </select>
+          <section class="converter-history-card">
+            <div class="converter-history-header">
+              <h3>Recent Conversions</h3>
+
+              <button id="clearConverterHistory">Clear</button>
             </div>
 
-            <div class="converter-group">
-              <label> From </label>
-
-              <select id="converterFrom"></select>
-            </div>
-
-            <div class="converter-group">
-              <label> To </label>
-
-              <select id="converterTo"></select>
-            </div>
-
-            <button id="swapUnits" class="swap-btn">⇄</button>
-
-            <div class="converter-group">
-              <label> Value </label>
-
-              <input
-                type="number"
-                id="converterValue"
-                placeholder="Enter value"
-              />
-            </div>
-
-            <div class="converter-result">
-              <span> Result </span>
-
-              <h3 id="converterResult">0</h3>
-
-              <div class="converter-result-actions">
-                <button id="copyConverterResult" class="converter-action-btn">
-                  Copy
-                </button>
-
-                <button id="clearConverter" class="converter-action-btn">
-                  Clear
-                </button>
-
-                <button id="favoriteConversion" class="converter-action-btn">
-                  Favorite
-                </button>
-              </div>
-            </div>
-
-            <div class="converter-history">
-              <div class="converter-history-header">
-                <h3>Recent Conversions</h3>
-
-                <button id="clearConverterHistory" class="converter-clear-btn">
-                  Clear
-                </button>
-              </div>
-
-              <div
-                id="converterHistoryList"
-                class="converter-history-list"
-              ></div>
-            </div>
-          </div>
+            <div id="converterHistoryList" class="converter-history-list"></div>
+          </section>
         </div>
       </section>
 
