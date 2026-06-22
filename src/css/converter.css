@@ -414,3 +414,53 @@ background: var(--glass-hover);
 
 box-shadow: var(--shadow);
 }
+
+
+.favorite-conversions {
+
+margin-top: 24px;
+}
+
+.favorite-header {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+margin-bottom: 12px;
+}
+
+.favorite-list {
+
+display: flex;
+
+flex-wrap: wrap;
+
+gap: 10px;
+}
+
+.favorite-card {
+
+padding: 10px 14px;
+
+border-radius: 14px;
+
+cursor: pointer;
+
+border: 1px solid var(--border);
+
+background: var(--glass);
+
+color: var(--text-primary);
+
+transition: .25s ease;
+}
+
+.favorite-card:hover {
+
+transform: translateY(-2px);
+
+background: var(--glass-hover);
+}

@@ -213,6 +213,11 @@ const UnitConverter = {
         ".preset-card"
       );
 
+    this.favoriteButton =
+      document.getElementById(
+        "favoriteConversion"
+      );
+
   },
 
   bindEvents() {
@@ -336,6 +341,33 @@ const UnitConverter = {
 
           }
         );
+
+      }
+    );
+
+    this.favoriteButton?.addEventListener(
+      "click",
+      () => {
+
+        if (
+          typeof ConverterFavorites ===
+          "undefined"
+        ) {
+          return;
+        }
+
+        ConverterFavorites.add({
+
+          category:
+            this.currentCategory,
+
+          from:
+            this.fromSelect.value,
+
+          to:
+            this.toSelect.value
+
+        });
 
       }
     );
