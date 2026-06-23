@@ -1,0 +1,23 @@
+{
+  "name": "Nova Calculator",
+  "short_name": "Nova",
+  "description": "Smart Calculator & Utilities",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#7c5cff",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./assets/images/nova-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/images/nova-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
