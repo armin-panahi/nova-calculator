@@ -27,13 +27,13 @@
     <meta name="apple-mobile-web-app-title" content="Nova" />
     <link rel="apple-touch-icon" href="./assets/images/nova-logo.png" />
 
-
     <link rel="stylesheet" href="./src/css/variables.css" />
     <link rel="stylesheet" href="./src/css/base.css" />
     <link rel="stylesheet" href="./src/css/layout.css" />
     <link rel="stylesheet" href="./src/css/calculator.css" />
     <link rel="stylesheet" href="./src/css/converter.css" />
     <link rel="stylesheet" href="./src/css/main.css" />
+    <link rel="stylesheet" href="./src/css/toast.css" />
     <link rel="stylesheet" href="./src/css/responsive.css" />
     <link rel="stylesheet" href="./src/css/animations.css" />
 
@@ -221,10 +221,11 @@
       ========================== -->
 
       <section class="converter-view page-view" id="converterView">
+        <!-- HEADER -->
+
         <div class="converter-header">
           <div class="converter-title">
             <h2>Unit Converter</h2>
-
             <p>Convert anything instantly</p>
           </div>
 
@@ -234,8 +235,9 @@
               class="theme-btn"
               aria-label="Favorites"
             >
-              ★
+              <i data-lucide="star"></i>
             </button>
+
             <button
               id="converterThemeToggle"
               class="theme-btn"
@@ -250,68 +252,72 @@
           </div>
         </div>
 
+        <!-- BODY -->
+
         <div class="converter-body">
-          <div class="converter-top-grid">
-            <section class="converter-presets">
-              <button
-                class="preset-card"
-                data-category="length"
-                data-from="meter"
-                data-to="foot"
-              >
-                Meter → Foot
-              </button>
+          <!-- QUICK PRESETS -->
 
-              <button
-                class="preset-card"
-                data-category="length"
-                data-from="kilometer"
-                data-to="mile"
-              >
-                KM → Mile
-              </button>
+          <section class="converter-presets">
+            <button
+              class="preset-card"
+              data-category="length"
+              data-from="meter"
+              data-to="foot"
+            >
+              Meter → Foot
+            </button>
 
-              <button
-                class="preset-card"
-                data-category="weight"
-                data-from="kilogram"
-                data-to="pound"
-              >
-                KG → Pound
-              </button>
+            <button
+              class="preset-card"
+              data-category="length"
+              data-from="kilometer"
+              data-to="mile"
+            >
+              KM → Mile
+            </button>
 
-              <button
-                class="preset-card"
-                data-category="temperature"
-                data-from="celsius"
-                data-to="fahrenheit"
-              >
-                °C → °F
-              </button>
+            <button
+              class="preset-card"
+              data-category="weight"
+              data-from="kilogram"
+              data-to="pound"
+            >
+              KG → Pound
+            </button>
 
-              <button
-                class="preset-card"
-                data-category="data"
-                data-from="megabyte"
-                data-to="gigabyte"
-              >
-                MB → GB
-              </button>
+            <button
+              class="preset-card"
+              data-category="temperature"
+              data-from="celsius"
+              data-to="fahrenheit"
+            >
+              °C → °F
+            </button>
 
-              <button
-                class="preset-card"
-                data-category="speed"
-                data-from="kph"
-                data-to="mph"
-              >
-                KM/H → MPH
-              </button>
-            </section>
-          </div>
+            <button
+              class="preset-card"
+              data-category="data"
+              data-from="megabyte"
+              data-to="gigabyte"
+            >
+              MB → GB
+            </button>
 
-          <div class="converter-card">
+            <button
+              class="preset-card"
+              data-category="speed"
+              data-from="kph"
+              data-to="mph"
+            >
+              KM/H → MPH
+            </button>
+          </section>
+
+          <!-- CONVERTER FORM -->
+
+          <section class="converter-card">
             <div class="converter-group">
-              <label>Category</label>
+              <label for="converterCategory"> Category </label>
 
               <select id="converterCategory">
                 <option value="length">Length</option>
@@ -341,21 +347,21 @@
             </div>
 
             <div class="converter-group">
-              <label>From</label>
+              <label for="converterFrom"> From </label>
 
               <select id="converterFrom"></select>
             </div>
 
+            <button id="swapUnits" class="swap-btn" type="button">⇄</button>
+
             <div class="converter-group">
-              <label>To</label>
+              <label for="converterTo"> To </label>
 
               <select id="converterTo"></select>
             </div>
 
-            <button id="swapUnits" class="swap-btn">⇄</button>
-
             <div class="converter-group">
-              <label>Value</label>
+              <label for="converterValue"> Value </label>
 
               <input
                 type="number"
@@ -363,9 +369,11 @@
                 placeholder="Enter value"
               />
             </div>
-          </div>
+          </section>
 
-          <div class="converter-result">
+          <!-- RESULT -->
+
+          <section class="converter-result">
             <span>Result</span>
 
             <h3 id="converterResult">0</h3>
@@ -383,9 +391,11 @@
                 Favorite
               </button>
             </div>
-          </div>
+          </section>
 
-          <div class="converter-history">
+          <!-- HISTORY -->
+
+          <section class="converter-history">
             <div class="converter-history-header">
               <h3>Recent Conversions</h3>
 
@@ -395,20 +405,26 @@
             </div>
 
             <div id="converterHistoryList" class="converter-history-list"></div>
-          </div>
+          </section>
         </div>
 
-        <div class="favorites-panel" id="favoritesPanel">
+        <!-- FAVORITES PANEL -->
+
+        <aside class="favorites-panel" id="favoritesPanel">
           <div class="favorites-panel-header">
             <h3>Favorites</h3>
 
-            <button id="clearFavorites" class="converter-clear-btn">
-              Clear
-            </button>
+            <div class="favorites-actions">
+              <button id="clearFavorites" class="converter-clear-btn">
+                Clear
+              </button>
+
+              <button id="favoritesClose" class="converter-clear-btn">✕</button>
+            </div>
           </div>
 
           <div id="favoriteList" class="favorite-list"></div>
-        </div>
+        </aside>
       </section>
 
       <!-- ==========================
@@ -437,6 +453,7 @@
     <script src="./src/js/converter.js"></script>
     <script src="./src/js/converter-history.js"></script>
     <script src="./src/js/converter-favorites.js"></script>
+    <script src="./src/js/toast.js"></script>
     <script src="./src/js/app.js"></script>
     <script src="./src/js/navigation.js"></script>
   </body>
