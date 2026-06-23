@@ -3,21 +3,27 @@
 ================================== */
 
 .converter-view {
-
   display: none;
-
   flex: 1;
-
-  flex-direction: column;
-
   min-width: 0;
-
+  min-height: 0;
   overflow: hidden;
 }
 
 .converter-view.active {
+  display: flex;
+}
+
+.converter-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+
+  padding: 32px;
 
   display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 /* ==================================
@@ -25,58 +31,26 @@
 ================================== */
 
 .converter-header {
-
   display: flex;
-
+  align-items: center;
   justify-content: space-between;
 
-  align-items: center;
+  gap: 20px;
 
-  padding: 24px;
+  padding-bottom: 20px;
 
   border-bottom: 1px solid var(--border);
 }
 
-.converter-title h2 {
-
-  font-size: 2rem;
-
-  font-weight: 700;
-
+.converter-header h2 {
+  font-size: 3rem;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
-.converter-title p {
-
-  margin-top: 4px;
-
+.converter-header p {
   color: var(--text-secondary);
-}
-
-.converter-header-actions {
-
-  display: flex;
-
-  gap: 10px;
-}
-
-/* ==================================
-   BODY
-================================== */
-
-.converter-body {
-
-  flex: 1;
-
-  overflow-y: auto;
-
-  padding: 24px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 24px;
+  font-size: 1.2rem;
 }
 
 /* ==================================
@@ -84,20 +58,18 @@
 ================================== */
 
 .converter-presets {
-
   display: grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(auto-fit, minmax(220px, 1fr));
 
-  gap: 16px;
+  gap: 18px;
 }
 
 .preset-card {
+  height: 86px;
 
-  height: 82px;
-
-  border-radius: 22px;
+  border-radius: 24px;
 
   border: 1px solid var(--border);
 
@@ -105,9 +77,8 @@
 
   color: var(--text-primary);
 
-  font-size: 1.1rem;
-
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
 
   cursor: pointer;
 
@@ -115,21 +86,19 @@
 }
 
 .preset-card:hover {
-
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 
   border-color: rgba(124,92,255,.45);
 
   box-shadow:
-    0 12px 25px rgba(124,92,255,.18);
+    0 15px 30px rgba(124,92,255,.18);
 }
 
 /* ==================================
    FAVORITES
 ================================== */
 
-.favorites-card {
-
+.favorite-conversions {
   background: var(--glass);
 
   border: 1px solid var(--border);
@@ -139,80 +108,62 @@
   padding: 24px;
 }
 
-.favorites-header {
-
+.favorite-header {
   display: flex;
-
+  align-items: center;
   justify-content: space-between;
 
-  align-items: center;
-
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
-.favorites-header h3 {
-
-  font-size: 1.4rem;
-
+.favorite-header h3 {
+  font-size: 1.6rem;
   color: var(--text-primary);
 }
 
 .favorite-list {
-
-  min-height: 70px;
-
   display: flex;
-
   flex-wrap: wrap;
-
   gap: 10px;
+
+  min-height: 60px;
 }
 
 /* ==================================
-   CONVERTER CARD
+   FORM
 ================================== */
 
-.converter-card {
-
+.converter-form {
   display: flex;
-
   flex-direction: column;
-
-  gap: 18px;
+  gap: 22px;
 }
 
 .converter-group {
-
   display: flex;
-
   flex-direction: column;
-
   gap: 10px;
 }
 
 .converter-group label {
-
   color: var(--text-secondary);
-
-  font-size: .95rem;
-
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* ==================================
-   FORM CONTROLS
+   INPUTS
 ================================== */
 
 .converter-group select,
 .converter-group input {
-
   width: 100%;
 
-  height: 62px;
+  height: 68px;
 
-  padding: 0 18px;
+  padding: 0 20px;
 
-  border-radius: 20px;
+  border-radius: 22px;
 
   border: 1px solid var(--border);
 
@@ -220,7 +171,7 @@
 
   color: var(--text-primary);
 
-  font-size: 1rem;
+  font-size: 1.05rem;
 
   outline: none;
 
@@ -229,7 +180,6 @@
 
 .converter-group select:focus,
 .converter-group input:focus {
-
   border-color: var(--primary);
 
   box-shadow:
@@ -237,39 +187,36 @@
 }
 
 .converter-group input::placeholder {
-
   color: var(--text-secondary);
 }
 
 /* ==================================
-   SWAP BUTTON
+   SWAP
 ================================== */
 
 .swap-btn {
+  width: 76px;
+  height: 76px;
 
-  width: 72px;
-
-  height: 72px;
-
-  margin: 0 auto;
-
-  border-radius: 50%;
+  margin: 8px auto;
 
   border: none;
 
-  cursor: pointer;
+  border-radius: 50%;
 
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--primary-hover)
-  );
+  cursor: pointer;
 
   color: white;
 
-  font-size: 1.6rem;
-
+  font-size: 1.8rem;
   font-weight: 700;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-hover)
+    );
 
   box-shadow: var(--glow-primary);
 
@@ -277,76 +224,62 @@
 }
 
 .swap-btn:hover {
-
   transform:
     rotate(180deg)
     scale(1.05);
 }
 
-.swap-btn:active {
-
-  transform:
-    rotate(180deg)
-    scale(.96);
-}
-
 /* ==================================
-   RESULT CARD
+   RESULT
 ================================== */
 
 .converter-result {
+  padding: 30px;
+
+  border-radius: 32px;
+
+  text-align: center;
 
   background:
     linear-gradient(
       135deg,
-      rgba(124,92,255,.14),
+      rgba(124,92,255,.15),
       rgba(124,92,255,.05)
     );
 
-  border: 1px solid rgba(124,92,255,.25);
-
-  border-radius: 30px;
-
-  padding: 28px;
-
-  text-align: center;
+  border:
+    1px solid rgba(124,92,255,.25);
 }
 
 .converter-result span {
-
   display: block;
 
+  margin-bottom: 10px;
+
   color: var(--text-secondary);
-
-  margin-bottom: 12px;
-
-  font-size: .95rem;
 }
 
 .converter-result h3 {
+  color: var(--primary);
 
   font-size: clamp(
-    2rem,
-    5vw,
-    3.5rem
+    2.5rem,
+    6vw,
+    4rem
   );
 
   font-weight: 800;
-
-  color: var(--primary);
 
   word-break: break-word;
 }
 
 .converter-result-actions {
-
   margin-top: 24px;
 
   display: flex;
+  flex-wrap: wrap;
 
   justify-content: center;
-
-  flex-wrap: wrap;
 
   gap: 12px;
 }
@@ -356,22 +289,19 @@
 ================================== */
 
 .converter-action-btn {
+  min-width: 120px;
 
-  min-width: 110px;
-
-  height: 44px;
-
-  padding: 0 18px;
+  height: 46px;
 
   border-radius: 14px;
 
-  cursor: pointer;
+  border: 1px solid var(--border);
 
   background: var(--glass);
 
-  border: 1px solid var(--border);
-
   color: var(--text-primary);
+
+  cursor: pointer;
 
   font-weight: 600;
 
@@ -379,20 +309,16 @@
 }
 
 .converter-action-btn:hover {
-
   transform: translateY(-2px);
 
   border-color: var(--primary);
-
-  background: var(--glass-hover);
 }
 
 /* ==================================
-   HISTORY CARD
+   HISTORY
 ================================== */
 
 .converter-history {
-
   background: var(--glass);
 
   border: 1px solid var(--border);
@@ -403,71 +329,33 @@
 }
 
 .converter-history-header {
-
   display: flex;
-
-  justify-content: space-between;
-
   align-items: center;
+  justify-content: space-between;
 
   margin-bottom: 18px;
 }
 
 .converter-history-header h3 {
-
   font-size: 1.4rem;
-
-  color: var(--text-primary);
-}
-
-.converter-clear-btn {
-
-  height: 40px;
-
-  padding: 0 16px;
-
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  background: transparent;
-
-  border: 1px solid var(--border);
-
-  color: var(--text-secondary);
-
-  transition: .25s ease;
-}
-
-.converter-clear-btn:hover {
-
-  color: white;
-
-  background: rgba(239,68,68,.18);
-
-  border-color: rgba(239,68,68,.4);
 }
 
 .converter-history-list {
-
   display: flex;
-
   flex-direction: column;
 
-  gap: 10px;
-
-  min-height: 60px;
+  gap: 12px;
 }
 
 .converter-history-item {
-
-  padding: 14px 16px;
+  padding: 14px 18px;
 
   border-radius: 16px;
 
-  background: rgba(255,255,255,.04);
-
   border: 1px solid var(--border);
+
+  background:
+    rgba(255,255,255,.04);
 
   cursor: pointer;
 
@@ -475,9 +363,74 @@
 }
 
 .converter-history-item:hover {
+  transform: translateX(4px);
 
   border-color: var(--primary);
-
-  transform: translateX(4px);
 }
 
+/* ==================================
+   TABLET
+================================== */
+
+@media (max-width: 1024px) {
+
+  .converter-container {
+    padding: 24px;
+  }
+
+  .converter-header h2 {
+    font-size: 2.4rem;
+  }
+
+}
+
+/* ==================================
+   MOBILE
+================================== */
+
+@media (max-width: 768px) {
+
+  .converter-container {
+    padding: 18px;
+  }
+
+  .converter-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .converter-header h2 {
+    font-size: 2rem;
+  }
+
+  .converter-presets {
+    grid-template-columns: 1fr;
+  }
+
+  .converter-group select,
+  .converter-group input {
+    height: 60px;
+  }
+
+  .swap-btn {
+    width: 68px;
+    height: 68px;
+  }
+
+}
+
+/* ==================================
+   SMALL MOBILE
+================================== */
+
+@media (max-width: 480px) {
+
+  .converter-result {
+    padding: 22px;
+  }
+
+  .converter-action-btn {
+    width: 100%;
+  }
+
+}

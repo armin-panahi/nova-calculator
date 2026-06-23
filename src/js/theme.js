@@ -2,31 +2,45 @@ const ThemeManager = {
 
   currentTheme: "dark",
 
-  themeButton:
-    document.getElementById(
-      "themeToggle"
-    ),
+  buttons: [],
 
   init() {
+
+    this.buttons = [
+
+      document.getElementById(
+        "themeToggle"
+      ),
+
+      document.getElementById(
+        "converterThemeToggle"
+      )
+
+    ].filter(Boolean);
 
     this.loadTheme();
 
     this.bindEvents();
 
     this.applyTheme(
-      this.currentTheme,
-      false
+      this.currentTheme
     );
 
   },
 
   bindEvents() {
 
-    this.themeButton?.addEventListener(
-      "click",
-      () => {
+    this.buttons.forEach(
+      button => {
 
-        this.toggleTheme();
+        button.addEventListener(
+          "click",
+          () => {
+
+            this.toggleTheme();
+
+          }
+        );
 
       }
     );
@@ -35,24 +49,19 @@ const ThemeManager = {
 
   toggleTheme() {
 
-    const nextTheme =
+    this.applyTheme(
+
       this.currentTheme === "dark"
         ? "light"
-        : "dark";
+        : "dark"
 
-    this.applyTheme(
-      nextTheme
     );
 
   },
 
-  applyTheme(
-    theme,
-    save = true
-  ) {
+  applyTheme(theme) {
 
-    this.currentTheme =
-      theme;
+    this.currentTheme = theme;
 
     document.body.setAttribute(
       "data-theme",
@@ -60,9 +69,8 @@ const ThemeManager = {
     );
 
     if (
-      save &&
       typeof Storage !==
-        "undefined"
+      "undefined"
     ) {
 
       Storage.saveTheme(
@@ -71,61 +79,44 @@ const ThemeManager = {
 
     }
 
-    this.updateIcon();
+    this.updateIcons();
 
   },
 
   loadTheme() {
 
     if (
-      typeof Storage ===
+      typeof Storage !==
       "undefined"
     ) {
 
       this.currentTheme =
+        Storage.loadTheme() ||
         "dark";
 
-      return;
-
     }
-
-    const savedTheme =
-      Storage.loadTheme();
-
-    this.currentTheme =
-      savedTheme || "dark";
 
   },
 
-  updateIcon() {
-
-    if (
-      !this.themeButton
-    ) {
-      return;
-    }
+  updateIcons() {
 
     const icon =
-      this.currentTheme ===
-      "dark"
+
+      this.currentTheme === "dark"
         ? "sun"
         : "moon";
 
-    this.themeButton.innerHTML =
-      `
-      <i
-        data-lucide="${icon}"
-      ></i>
-      `;
+    this.buttons.forEach(
+      button => {
 
-    if (
-      typeof lucide !==
-      "undefined"
-    ) {
+        button.innerHTML =
 
-      lucide.createIcons();
+          `<i data-lucide="${icon}"></i>`;
 
-    }
+      }
+    );
+
+    lucide.createIcons();
 
   }
 

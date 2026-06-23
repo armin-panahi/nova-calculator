@@ -2,7 +2,7 @@ const App = {
 
   drawer: null,
   overlay: null,
-  menuButton: null,
+  menuButtons: [],
   closeButton: null,
 
   historyPanel: null,
@@ -29,8 +29,17 @@ const App = {
     this.overlay =
       document.querySelector(".drawer-overlay");
 
-    this.menuButton =
-      document.getElementById("menuToggle");
+    this.menuButtons = [
+
+      document.getElementById(
+        "menuToggle"
+      ),
+
+      document.getElementById(
+        "converterMenuToggle"
+      )
+
+    ].filter(Boolean);
 
     this.closeButton =
       document.getElementById("drawerClose");
@@ -51,9 +60,15 @@ const App = {
 
   bindEvents() {
 
-    this.menuButton?.addEventListener(
-      "click",
-      () => this.toggleDrawer()
+    this.menuButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => this.toggleDrawer()
+        );
+
+      }
     );
 
     this.closeButton?.addEventListener(

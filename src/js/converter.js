@@ -372,6 +372,26 @@ const UnitConverter = {
       }
     );
 
+    this.swapButton?.addEventListener(
+      "click",
+      () => {
+
+        const from =
+          this.fromSelect.value;
+
+        this.fromSelect.value =
+          this.toSelect.value;
+
+        this.toSelect.value =
+          from;
+
+        this.convert();
+
+      }
+    );
+
+    this.bindUtilityButtons();
+
   },
 
   getUnits() {
@@ -652,6 +672,57 @@ const UnitConverter = {
     this.valueInput.value =
       state.value || "";
 
+
+  },
+
+  bindUtilityButtons() {
+
+    const copyButton =
+      document.getElementById(
+        "copyConverterResult"
+      );
+
+    const clearButton =
+      document.getElementById(
+        "clearConverter"
+      );
+
+    copyButton?.addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          await navigator.clipboard.writeText(
+            this.resultElement.textContent
+          );
+
+          copyButton.textContent =
+            "Copied";
+
+          setTimeout(() => {
+
+            copyButton.textContent =
+              "Copy";
+
+          }, 1500);
+
+        } catch { }
+
+      }
+    );
+
+    clearButton?.addEventListener(
+      "click",
+      () => {
+
+        this.valueInput.value = "";
+
+        this.resultElement.textContent =
+          "0";
+
+      }
+    );
 
   }
 

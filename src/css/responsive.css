@@ -107,6 +107,12 @@
   .history-panel.open {
     display: block;
   }
+
+  .converter-top-grid {
+
+  grid-template-columns: 1fr;
+}
+
 }
 
 /* ==================================
@@ -213,6 +219,12 @@
   .history-panel.open {
     display: block;
   }
+
+  .converter-top-grid {
+
+  grid-template-columns: 1fr;
+}
+
 }
 
 /* ==================================

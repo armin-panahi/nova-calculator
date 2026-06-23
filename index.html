@@ -207,9 +207,7 @@
 ========================== -->
 
       <section class="converter-view page-view" id="converterView">
-        <!-- Header -->
-
-        <header class="converter-header">
+        <div class="converter-header">
           <div class="converter-title">
             <h2>Unit Converter</h2>
 
@@ -229,68 +227,166 @@
               <i data-lucide="menu"></i>
             </button>
           </div>
-        </header>
+        </div>
 
         <div class="converter-body">
-          <!-- Presets -->
-
-          <section class="converter-presets">
-            <!-- preset cards -->
-          </section>
-
-          <!-- Favorites -->
-
-          <section class="favorites-card">
-            <div class="favorites-header">
-              <h3>Favorites</h3>
-
-              <button id="clearFavorites" class="converter-action-btn">
-                Clear
+          <div class="converter-top-grid">
+            <section class="converter-presets">
+              <button
+                class="preset-card"
+                data-category="length"
+                data-from="meter"
+                data-to="foot"
+              >
+                Meter → Foot
               </button>
+
+              <button
+                class="preset-card"
+                data-category="length"
+                data-from="kilometer"
+                data-to="mile"
+              >
+                KM → Mile
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="weight"
+                data-from="kilogram"
+                data-to="pound"
+              >
+                KG → Pound
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="temperature"
+                data-from="celsius"
+                data-to="fahrenheit"
+              >
+                °C → °F
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="data"
+                data-from="megabyte"
+                data-to="gigabyte"
+              >
+                MB → GB
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="speed"
+                data-from="kph"
+                data-to="mph"
+              >
+                KM/H → MPH
+              </button>
+            </section>
+
+            <section class="favorites-card">
+              <div class="favorites-header">
+                <h3>Favorites</h3>
+
+                <button id="clearFavorites" class="converter-action-btn">
+                  Clear
+                </button>
+              </div>
+
+              <div id="favoriteList" class="favorite-list"></div>
+            </section>
+          </div>
+
+          <div class="converter-card">
+            <div class="converter-group">
+              <label>Category</label>
+
+              <select id="converterCategory">
+                <option value="length">Length</option>
+
+                <option value="weight">Weight</option>
+
+                <option value="temperature">Temperature</option>
+
+                <option value="area">Area</option>
+
+                <option value="volume">Volume</option>
+
+                <option value="speed">Speed</option>
+
+                <option value="time">Time</option>
+
+                <option value="data">Data Storage</option>
+
+                <option value="energy">Energy</option>
+
+                <option value="pressure">Pressure</option>
+
+                <option value="angle">Angle</option>
+
+                <option value="frequency">Frequency</option>
+              </select>
             </div>
 
-            <div id="favoriteList" class="favorite-list"></div>
-          </section>
+            <div class="converter-group">
+              <label>From</label>
 
-          <!-- Converter Form -->
+              <select id="converterFrom"></select>
+            </div>
 
-          <section class="converter-card">
-            <!-- category -->
+            <div class="converter-group">
+              <label>To</label>
 
-            <!-- from -->
+              <select id="converterTo"></select>
+            </div>
 
-            <!-- to -->
+            <button id="swapUnits" class="swap-btn">⇄</button>
 
-            <!-- value -->
-          </section>
+            <div class="converter-group">
+              <label>Value</label>
 
-          <!-- Result -->
+              <input
+                type="number"
+                id="converterValue"
+                placeholder="Enter value"
+              />
+            </div>
+          </div>
 
-          <section class="converter-result-card">
-            <span> Result </span>
+          <div class="converter-result">
+            <span>Result</span>
 
             <h3 id="converterResult">0</h3>
 
             <div class="converter-result-actions">
-              <button id="copyConverterResult">Copy</button>
+              <button id="copyConverterResult" class="converter-action-btn">
+                Copy
+              </button>
 
-              <button id="favoriteConversion">Favorite</button>
+              <button id="clearConverter" class="converter-action-btn">
+                Clear
+              </button>
 
-              <button id="clearConverter">Clear</button>
+              <button id="favoriteConversion" class="converter-action-btn">
+                Favorite
+              </button>
             </div>
-          </section>
+          </div>
 
-          <!-- History -->
-
-          <section class="converter-history-card">
+          <div class="converter-history">
             <div class="converter-history-header">
               <h3>Recent Conversions</h3>
 
-              <button id="clearConverterHistory">Clear</button>
+              <button id="clearConverterHistory" class="converter-clear-btn">
+                Clear
+              </button>
             </div>
 
             <div id="converterHistoryList" class="converter-history-list"></div>
-          </section>
+          </div>
         </div>
       </section>
 
