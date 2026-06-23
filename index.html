@@ -203,8 +203,8 @@
       </section>
 
       <!-- ==========================
-     UNIT CONVERTER
-========================== -->
+        UNIT CONVERTER
+      ========================== -->
 
       <section class="converter-view page-view" id="converterView">
         <div class="converter-header">
@@ -215,6 +215,13 @@
           </div>
 
           <div class="converter-header-actions">
+            <button
+              id="favoritesToggle"
+              class="theme-btn"
+              aria-label="Favorites"
+            >
+              ★
+            </button>
             <button
               id="converterThemeToggle"
               class="theme-btn"
@@ -285,18 +292,6 @@
               >
                 KM/H → MPH
               </button>
-            </section>
-
-            <section class="favorites-card">
-              <div class="favorites-header">
-                <h3>Favorites</h3>
-
-                <button id="clearFavorites" class="converter-action-btn">
-                  Clear
-                </button>
-              </div>
-
-              <div id="favoriteList" class="favorite-list"></div>
             </section>
           </div>
 
@@ -387,6 +382,18 @@
 
             <div id="converterHistoryList" class="converter-history-list"></div>
           </div>
+        </div>
+
+        <div class="favorites-panel" id="favoritesPanel">
+          <div class="favorites-panel-header">
+            <h3>Favorites</h3>
+
+            <button id="clearFavorites" class="converter-clear-btn">
+              Clear
+            </button>
+          </div>
+
+          <div id="favoriteList" class="favorite-list"></div>
         </div>
       </section>
 

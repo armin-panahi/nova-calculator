@@ -56,6 +56,16 @@ const App = {
     this.scientificToggle =
       document.getElementById("scientificToggle");
 
+    this.favoritesPanel =
+      document.getElementById(
+        "favoritesPanel"
+      );
+
+    this.favoritesToggle =
+      document.getElementById(
+        "favoritesToggle"
+      );
+
   },
 
   bindEvents() {
@@ -117,12 +127,31 @@ const App = {
 
         }
 
+        if (
+          this.favoritesPanel &&
+          !this.favoritesPanel.contains(event.target) &&
+          !this.favoritesToggle?.contains(event.target)
+        ) {
+
+          this.closeFavorites();
+
+        }
+
       }
     );
 
     window.addEventListener(
       "resize",
       () => this.handleResize()
+    );
+
+    this.favoritesToggle?.addEventListener(
+      "click",
+      () => {
+
+        this.toggleFavorites();
+
+      }
     );
 
   },
@@ -164,6 +193,22 @@ const App = {
   closeScientific() {
 
     this.scientificPanel?.classList.remove("open");
+
+  },
+
+  toggleFavorites() {
+
+    this.favoritesPanel?.classList.toggle(
+      "open"
+    );
+
+  },
+
+  closeFavorites() {
+
+    this.favoritesPanel?.classList.remove(
+      "open"
+    );
 
   },
 
