@@ -1,84 +1,90 @@
+/* ==================================
+APP LAYOUT
+================================== */
+
 .app {
-width: 100%;
-min-height: 100dvh;
 
-display: flex;
-justify-content: center;
-align-items: center;
+  width: 100%;
 
-padding: 16px;
+  min-height: 100dvh;
 
-position: relative;
+  display: flex;
+
+  justify-content: flex-start;
+
+  align-items: stretch;
+
+  position: relative;
+
+  overflow: hidden;
 }
 
 /* ==================================
 PAGE SYSTEM
 ================================== */
 
-.page {
-display: none;
-width: 100%;
-height: 100%;
+.page-view {
+
+  display: none;
+
+  flex: 1;
+
+  min-width: 0;
+
+  min-height: 100dvh;
+
 }
 
-.page.active {
-display: flex;
+.page-view.active {
+
+  display: flex;
+
 }
 
 /* ==================================
-CALCULATOR PAGE
+CALCULATOR
 ================================== */
 
-#calculatorPage {
-flex: 1;
+#calculatorView {
+
+  flex-direction: column;
+
 }
 
 /* ==================================
-CONVERTER PAGE
+CONVERTER
 ================================== */
 
-#converterPage {
-flex: 1;
+#converterView {
+
+  flex-direction: column;
+
+}
+
+/* ==================================
+CURRENCY
+================================== */
+
+#currencyView {
+
+  flex-direction: column;
+
 }
 
 /* ==================================
 DESKTOP
 ================================== */
 
-@media (min-width: 1200px) {
+@media (min-width:1200px) {
 
-.app {
+  .app {
 
+    flex-direction: row;
 
-width: 100%;
+    align-items: stretch;
 
-min-height: 100dvh;
+    justify-content: flex-start;
 
-display: flex;
-
-flex-direction: row-reverse;
-
-align-items: stretch;
-
-justify-content: flex-start;
-
-gap: 24px;
-
-padding: 24px;
-
-
-}
-
-.page.active {
-
-
-display: flex;
-
-flex: 1;
-
-min-width: 0;
-
-
-}
+  }
 
 }

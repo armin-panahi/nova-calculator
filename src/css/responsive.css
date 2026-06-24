@@ -108,11 +108,6 @@
     display: block;
   }
 
-  .converter-top-grid {
-
-  grid-template-columns: 1fr;
-}
-
 }
 
 /* ==================================
@@ -219,11 +214,6 @@
   .history-panel.open {
     display: block;
   }
-
-  .converter-top-grid {
-
-  grid-template-columns: 1fr;
-}
 
 }
 
@@ -358,55 +348,6 @@
   }
 }
 
-
-/* ==================================
-   CONVERTER DESKTOP
-================================== */
-
-@media (min-width: 1200px) {
-
-  .converter-body {
-
-    max-width: 1400px;
-
-    margin: 0 auto;
-
-    width: 100%;
-  }
-
-  .converter-presets {
-
-    grid-template-columns:
-      repeat(3, 1fr);
-  }
-
-  .converter-form {
-
-    display: grid;
-
-    grid-template-columns:
-      repeat(2, 1fr);
-
-    gap: 24px;
-  }
-
-  .converter-result {
-
-    grid-column: span 2;
-  }
-
-  .converter-history {
-
-    grid-column: span 2;
-  }
-
-  .favorites-card {
-
-    width: 100%;
-  }
-
-}
-
 /* ==================================
    TABLET
 ================================== */
@@ -487,13 +428,6 @@ and (max-width: 1199px) {
     font-size: 1rem;
   }
 
-  .favorites-card,
-  .converter-history,
-  .converter-result {
-
-    padding: 18px;
-  }
-
   .converter-group select,
   .converter-group input {
 
@@ -563,4 +497,104 @@ and (max-width: 1199px) {
 }
 
 
+/* ==================================
+   NOVA CONVERTER RESPONSIVE
+================================== */
 
+/* Desktop */
+
+@media (min-width: 1200px) {
+
+  #converterView {
+
+    overflow: hidden;
+  }
+
+  .converter-body {
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 24px;
+
+    overflow-y: auto;
+  }
+
+  .converter-presets {
+
+    grid-template-columns:
+      repeat(3, minmax(0,1fr));
+  }
+
+}
+
+/* Tablet */
+
+@media (max-width: 1199px) {
+
+  .converter-body {
+
+    padding: 20px;
+  }
+
+  .converter-presets {
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+  .converter-body {
+
+    padding: 16px;
+  }
+
+  .converter-presets {
+
+    grid-template-columns: 1fr;
+  }
+
+  .converter-header {
+
+    padding: 18px;
+  }
+
+  .converter-header-actions {
+
+    gap: 8px;
+  }
+
+  .converter-result-actions {
+
+    flex-direction: column;
+  }
+
+  .converter-action-btn {
+
+    width: 100%;
+  }
+
+}
+
+/* Very Small Phones */
+
+@media (max-width: 480px) {
+
+  .converter-header {
+
+    padding: 14px;
+  }
+
+  .converter-body {
+
+    padding: 14px;
+  }
+
+}
