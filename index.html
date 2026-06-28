@@ -216,23 +216,26 @@
         </section>
       </section>
 
-      <!-- ==========================
-        UNIT CONVERTER
-      ========================== -->
+      <!-- ==================================
+     UNIT CONVERTER
+================================== -->
 
-      <section class="converter-view page-view" id="converterView">
-        <!-- HEADER -->
+      <section id="converterView" class="page-view converter-view">
+        <!-- ===============================
+       HEADER
+  =============================== -->
 
-        <div class="converter-header">
-          <div class="converter-title">
-            <h2>Unit Converter</h2>
-            <p>Convert anything instantly</p>
+        <header class="converter-header">
+          <div class="converter-header-left">
+            <h1 class="converter-title">Unit Converter</h1>
+
+            <p class="converter-subtitle">Fast • Accurate • Professional</p>
           </div>
 
-          <div class="converter-header-actions">
+          <div class="converter-header-right">
             <button
               id="favoritesToggle"
-              class="theme-btn"
+              class="header-icon-btn"
               aria-label="Favorites"
             >
               <i data-lucide="star"></i>
@@ -240,187 +243,196 @@
 
             <button
               id="converterThemeToggle"
-              class="theme-btn"
+              class="header-icon-btn"
               aria-label="Theme"
             >
               <i data-lucide="moon"></i>
             </button>
 
-            <button id="converterMenuToggle" class="menu-btn" aria-label="Menu">
+            <button
+              id="converterMenuToggle"
+              class="header-icon-btn mobile-only"
+              aria-label="Menu"
+            >
               <i data-lucide="menu"></i>
             </button>
           </div>
-        </div>
+        </header>
 
-        <!-- BODY -->
+        <!-- ===============================
+       BODY
+  =============================== -->
 
-        <div class="converter-body">
-          <!-- QUICK PRESETS -->
+        <main class="converter-body">
+          <!-- LEFT SIDE -->
 
-          <section class="converter-presets">
-            <button
-              class="preset-card"
-              data-category="length"
-              data-from="meter"
-              data-to="foot"
-            >
-              Meter → Foot
-            </button>
+          <section class="converter-main">
+            <!-- QUICK CONVERSIONS -->
 
-            <button
-              class="preset-card"
-              data-category="length"
-              data-from="kilometer"
-              data-to="mile"
-            >
-              KM → Mile
-            </button>
+            <section class="converter-presets">
+              <button
+                class="preset-card"
+                data-category="length"
+                data-from="meter"
+                data-to="foot"
+              >
+                <span>Length</span>
 
-            <button
-              class="preset-card"
-              data-category="weight"
-              data-from="kilogram"
-              data-to="pound"
-            >
-              KG → Pound
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="temperature"
-              data-from="celsius"
-              data-to="fahrenheit"
-            >
-              °C → °F
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="data"
-              data-from="megabyte"
-              data-to="gigabyte"
-            >
-              MB → GB
-            </button>
-
-            <button
-              class="preset-card"
-              data-category="speed"
-              data-from="kph"
-              data-to="mph"
-            >
-              KM/H → MPH
-            </button>
-          </section>
-
-          <!-- CONVERTER FORM -->
-
-          <section class="converter-card">
-            <div class="converter-group">
-              <label for="converterCategory"> Category </label>
-
-              <select id="converterCategory">
-                <option value="length">Length</option>
-
-                <option value="weight">Weight</option>
-
-                <option value="temperature">Temperature</option>
-
-                <option value="area">Area</option>
-
-                <option value="volume">Volume</option>
-
-                <option value="speed">Speed</option>
-
-                <option value="time">Time</option>
-
-                <option value="data">Data Storage</option>
-
-                <option value="energy">Energy</option>
-
-                <option value="pressure">Pressure</option>
-
-                <option value="angle">Angle</option>
-
-                <option value="frequency">Frequency</option>
-              </select>
-            </div>
-
-            <div class="converter-group">
-              <label for="converterFrom"> From </label>
-
-              <select id="converterFrom"></select>
-            </div>
-
-            <button id="swapUnits" class="swap-btn" type="button">⇄</button>
-
-            <div class="converter-group">
-              <label for="converterTo"> To </label>
-
-              <select id="converterTo"></select>
-            </div>
-
-            <div class="converter-group">
-              <label for="converterValue"> Value </label>
-
-              <input
-                type="number"
-                id="converterValue"
-                placeholder="Enter value"
-              />
-            </div>
-          </section>
-
-          <!-- RESULT -->
-
-          <section class="converter-result">
-            <span>Result</span>
-
-            <h3 id="converterResult">0</h3>
-
-            <div class="converter-result-actions">
-              <button id="copyConverterResult" class="converter-action-btn">
-                Copy
+                <strong>Meter → Foot</strong>
               </button>
 
-              <button id="clearConverter" class="converter-action-btn">
-                Clear
+              <button
+                class="preset-card"
+                data-category="length"
+                data-from="kilometer"
+                data-to="mile"
+              >
+                <span>Length</span>
+
+                <strong>KM → Mile</strong>
               </button>
 
-              <button id="favoriteConversion" class="converter-action-btn">
-                Favorite
+              <button
+                class="preset-card"
+                data-category="weight"
+                data-from="kilogram"
+                data-to="pound"
+              >
+                <span>Weight</span>
+
+                <strong>KG → Pound</strong>
               </button>
-            </div>
+
+              <button
+                class="preset-card"
+                data-category="temperature"
+                data-from="celsius"
+                data-to="fahrenheit"
+              >
+                <span>Temperature</span>
+
+                <strong>°C → °F</strong>
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="data"
+                data-from="megabyte"
+                data-to="gigabyte"
+              >
+                <span>Storage</span>
+
+                <strong>MB → GB</strong>
+              </button>
+
+              <button
+                class="preset-card"
+                data-category="speed"
+                data-from="kph"
+                data-to="mph"
+              >
+                <span>Speed</span>
+
+                <strong>KM/H → MPH</strong>
+              </button>
+            </section>
+
+            <!-- CONVERTER -->
+
+            <section class="converter-card">
+              <div class="converter-row">
+                <div class="converter-field">
+                  <label> Category </label>
+
+                  <select id="converterCategory">
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                    <option value="area">Area</option>
+                    <option value="volume">Volume</option>
+                    <option value="speed">Speed</option>
+                    <option value="time">Time</option>
+                    <option value="data">Data Storage</option>
+                    <option value="energy">Energy</option>
+                    <option value="pressure">Pressure</option>
+                    <option value="angle">Angle</option>
+                    <option value="frequency">Frequency</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="converter-row converter-units">
+                <div class="converter-field">
+                  <label> From </label>
+
+                  <select id="converterFrom"></select>
+                </div>
+
+                <button id="swapUnits" class="swap-btn" type="button">⇄</button>
+
+                <div class="converter-field">
+                  <label> To </label>
+
+                  <select id="converterTo"></select>
+                </div>
+              </div>
+
+              <div class="converter-row">
+                <div class="converter-field">
+                  <label> Value </label>
+
+                  <input
+                    id="converterValue"
+                    type="number"
+                    placeholder="Enter value"
+                  />
+                </div>
+              </div>
+            </section>
+
+            <!-- RESULT -->
+
+            <section class="converter-result-card">
+              <span class="result-label"> Result </span>
+
+              <h2 id="converterResult">0</h2>
+
+              <div class="result-actions">
+                <button id="copyConverterResult" class="action-btn">
+                  Copy
+                </button>
+
+                <button id="favoriteConversion" class="action-btn">
+                  Favorite
+                </button>
+
+                <button id="clearConverter" class="action-btn">Clear</button>
+              </div>
+            </section>
           </section>
 
-          <!-- HISTORY -->
+          <!-- RIGHT SIDE -->
 
-          <section class="converter-history">
-            <div class="converter-history-header">
-              <h3>Recent Conversions</h3>
+          <aside class="converter-sidebar">
+            <section class="history-card">
+              <div class="history-header">
+                <h3>Recent</h3>
 
-              <button id="clearConverterHistory" class="converter-clear-btn">
-                Clear
-              </button>
-            </div>
+                <button id="clearConverterHistory">Clear</button>
+              </div>
 
-            <div id="converterHistoryList" class="converter-history-list"></div>
-          </section>
-        </div>
+              <div id="converterHistoryList" class="history-list"></div>
+            </section>
+          </aside>
+        </main>
 
-        <!-- FAVORITES PANEL -->
+        <!-- FAVORITES -->
 
-        <aside class="favorites-panel" id="favoritesPanel">
-          <div class="favorites-panel-header">
+        <aside id="favoritesPanel" class="favorites-panel">
+          <div class="favorites-header">
             <h3>Favorites</h3>
 
-            <div class="favorites-actions">
-              <button id="clearFavorites" class="converter-clear-btn">
-                Clear
-              </button>
-
-              <button id="favoritesClose" class="converter-clear-btn">✕</button>
-            </div>
+            <button id="favoritesClose">✕</button>
           </div>
 
           <div id="favoriteList" class="favorite-list"></div>

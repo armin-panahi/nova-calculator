@@ -1,13 +1,13 @@
-/* ==========================================================
-   NOVA CALCULATOR
-   UNIT CONVERTER
-========================================================== */
+/* ===========================================
+   NOVA CONVERTER V2
+   LAYOUT SYSTEM
+=========================================== */
 
-/* ==========================================================
-   VIEW
-========================================================== */
+/* ==========================
+   ROOT VIEW
+========================== */
 
-#converterView{
+.converter-view{
 
     display:none;
 
@@ -21,18 +21,19 @@
 
     flex-direction:column;
 
+    background:transparent;
+
 }
 
-#converterView.active{
+.converter-view.active{
 
     display:flex;
 
 }
 
-
-/* ==========================================================
+/* ==========================
    HEADER
-========================================================== */
+========================== */
 
 .converter-header{
 
@@ -44,17 +45,15 @@
 
     align-items:center;
 
-    gap:20px;
+    gap:24px;
 
-    padding:28px;
+    padding:24px 28px;
 
     border-bottom:1px solid var(--border);
 
-    backdrop-filter:blur(20px);
-
 }
 
-.converter-title{
+.converter-header-left{
 
     display:flex;
 
@@ -62,29 +61,11 @@
 
     gap:6px;
 
-}
-
-.converter-title h2{
-
-    font-size:clamp(2rem,3vw,2.8rem);
-
-    font-weight:800;
-
-    color:var(--text-primary);
-
-    line-height:1;
+    min-width:0;
 
 }
 
-.converter-title p{
-
-    font-size:1rem;
-
-    color:var(--text-secondary);
-
-}
-
-.converter-header-actions{
+.converter-header-right{
 
     display:flex;
 
@@ -92,12 +73,13 @@
 
     gap:12px;
 
+    flex-shrink:0;
+
 }
 
-
-/* ==========================================================
+/* ==========================
    BODY
-========================================================== */
+========================== */
 
 .converter-body{
 
@@ -105,173 +87,131 @@
 
     min-height:0;
 
-    overflow-y:auto;
+    display:grid;
+
+    grid-template-columns:
+
+        minmax(0,1fr)
+
+        340px;
+
+    gap:24px;
+
+    padding:24px;
+
+    overflow:hidden;
+
+}
+
+/* ==========================
+   MAIN
+========================== */
+
+.converter-main{
+
+    min-width:0;
+
+    min-height:0;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:28px;
-
-    padding:28px;
+    gap:20px;
 
 }
 
+/* ==========================
+   SIDEBAR
+========================== */
 
-/* ==========================================================
-   TOP GRID
-========================================================== */
+.converter-sidebar{
 
-.converter-top-grid{
+    min-width:0;
 
-    display:grid;
+    min-height:0;
 
-    grid-template-columns:1fr;
+    display:flex;
 
-    gap:24px;
+    flex-direction:column;
 
 }
 
-
-/* ==========================================================
+/* ==========================
    PRESETS
-========================================================== */
+========================== */
 
 .converter-presets{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    grid-template-columns:
+
+        repeat(3,minmax(0,1fr));
+
+    gap:14px;
+
+}
+
+/* ==========================
+   FORM
+========================== */
+
+.converter-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:22px;
+
+    flex-shrink:0;
+
+}
+
+/* ==========================
+   ROW
+========================== */
+
+.converter-row{
+
+    display:grid;
 
     gap:18px;
 
 }
 
-.preset-card{
+.converter-row:first-child{
 
-    position:relative;
-
-    overflow:hidden;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    min-height:82px;
-
-    padding:18px;
-
-    border-radius:24px;
-
-    cursor:pointer;
-
-    font-size:1rem;
-
-    font-weight:700;
-
-    color:var(--text-primary);
-
-    background:var(--glass);
-
-    border:1px solid var(--border);
-
-    backdrop-filter:blur(24px);
-
-    transition:
-    transform .25s ease,
-    border-color .25s ease,
-    background .25s ease,
-    box-shadow .25s ease;
+    grid-template-columns:1fr;
 
 }
 
-.preset-card:hover{
-
-    transform:translateY(-4px);
-
-    border-color:var(--primary);
-
-    box-shadow:
-
-    0 20px 40px rgba(124,92,255,.15);
-
-}
-
-.preset-card:active{
-
-    transform:scale(.98);
-
-}
-
-.preset-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-    radial-gradient(
-
-        circle,
-
-        rgba(255,255,255,.18),
-
-        transparent 70%
-
-    );
-
-    opacity:0;
-
-    transition:.25s;
-
-}
-
-.preset-card:hover::after{
-
-    opacity:1;
-
-}
-
-/* ==========================================================
-   CONVERTER CARD
-========================================================== */
-
-.converter-card{
-
-    display:grid;
+.converter-units{
 
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
 
-    gap:24px;
+        minmax(0,1fr)
 
-    padding:32px;
+        72px
 
-    border-radius:30px;
-
-    background:var(--glass);
-
-    border:1px solid var(--border);
-
-    backdrop-filter:blur(24px);
-
-    box-shadow:var(--shadow);
+        minmax(0,1fr);
 
     align-items:end;
 
 }
 
+.converter-row:last-child{
 
-/* ==========================================================
-   FORM GROUP
-========================================================== */
+    grid-template-columns:1fr;
 
-.converter-group{
+}
+
+/* ==========================
+   FIELD
+========================== */
+
+.converter-field{
 
     display:flex;
 
@@ -283,500 +223,43 @@
 
 }
 
-.converter-group label{
+/* ==========================
+   RESULT
+========================== */
 
-    font-size:.95rem;
+.converter-result-card{
 
-    font-weight:600;
-
-    color:var(--text-secondary);
-
-}
-
-.converter-group select,
-.converter-group input{
-
-    width:100%;
-
-    height:64px;
-
-    padding:0 18px;
-
-    border-radius:18px;
-
-    outline:none;
-
-    appearance:none;
-
-    color:var(--text-primary);
-
-    background:rgba(255,255,255,.04);
-
-    border:1px solid var(--border);
-
-    font-size:1rem;
-
-    transition:
-        border-color .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
+    flex-shrink:0;
 
 }
 
-.converter-group input::placeholder{
-
-    color:var(--text-secondary);
-
-}
-
-.converter-group select:focus,
-.converter-group input:focus{
-
-    border-color:var(--primary);
-
-    box-shadow:
-
-        0 0 0 4px rgba(124,92,255,.12);
-
-}
-
-
-/* ==========================================================
-   CATEGORY
-========================================================== */
-
-.converter-group:first-child{
-
-    grid-column:1 / -1;
-
-}
-
-
-/* ==========================================================
-   FROM
-========================================================== */
-
-.converter-group:nth-child(2){
-
-    grid-column:1;
-
-}
-
-
-/* ==========================================================
-   SWAP BUTTON
-========================================================== */
-
-.swap-btn{
-
-    width:74px;
-
-    height:74px;
-
-    border-radius:50%;
-
-    justify-self:center;
-
-    align-self:center;
-
-    grid-column:1 / -1;
-
-    cursor:pointer;
-
-    font-size:1.45rem;
-
-    color:#fff;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            var(--primary),
-            var(--primary-hover)
-        );
-
-    box-shadow:var(--glow-primary);
-
-    transition:
-        transform .35s ease,
-        box-shadow .35s ease;
-
-}
-
-.swap-btn:hover{
-
-    transform:
-
-        rotate(180deg)
-        scale(1.05);
-
-}
-
-.swap-btn:active{
-
-    transform:scale(.95);
-
-}
-
-
-/* ==========================================================
-   TO
-========================================================== */
-
-.converter-group:nth-child(4){
-
-    grid-column:2;
-
-}
-
-
-/* ==========================================================
-   VALUE
-========================================================== */
-
-.converter-group:last-child{
-
-    grid-column:1 / -1;
-
-}
-
-
-/* ==========================================================
-   DESKTOP IMPROVEMENT
-========================================================== */
-
-@media (min-width:1200px){
-
-    .converter-card{
-
-        max-width:900px;
-
-        margin:0 auto;
-
-    }
-
-}
-
-
-/* ==========================================================
-   TABLET
-========================================================== */
-
-@media (max-width:991px){
-
-    .converter-card{
-
-        grid-template-columns:1fr;
-
-        gap:18px;
-
-        padding:24px;
-
-    }
-
-    .converter-group,
-    .converter-group:first-child,
-    .converter-group:nth-child(2),
-    .converter-group:nth-child(4),
-    .converter-group:last-child{
-
-        grid-column:auto;
-
-    }
-
-    .swap-btn{
-
-        width:66px;
-
-        height:66px;
-
-    }
-
-}
-
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media (max-width:576px){
-
-    .converter-card{
-
-        padding:18px;
-
-        border-radius:24px;
-
-    }
-
-    .converter-group select,
-    .converter-group input{
-
-        height:58px;
-
-        font-size:.95rem;
-
-    }
-
-    .swap-btn{
-
-        width:60px;
-
-        height:60px;
-
-        font-size:1.25rem;
-
-    }
-
-}
-
-/* ==========================================================
-   RESULT CARD
-========================================================== */
-
-.converter-result{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:18px;
-
-    padding:34px;
-
-    border-radius:32px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(124,92,255,.12),
-            rgba(124,92,255,.04)
-        );
-
-    border:1px solid rgba(124,92,255,.18);
-
-    backdrop-filter:blur(24px);
-
-    box-shadow:var(--shadow);
-
-}
-
-.converter-result span{
-
-    font-size:1rem;
-
-    font-weight:600;
-
-    color:var(--text-secondary);
-
-}
-
-.converter-result h3{
-
-    font-size:clamp(2.6rem,6vw,4.5rem);
-
-    font-weight:800;
-
-    line-height:1;
-
-    color:var(--primary);
-
-    word-break:break-word;
-
-    text-align:center;
-
-}
-
-/* ==========================================================
-   RESULT ACTIONS
-========================================================== */
-
-.converter-result-actions{
-
-    width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:14px;
-
-}
-
-.converter-action-btn{
-
-    min-width:140px;
-
-    height:52px;
-
-    padding:0 20px;
-
-    border-radius:16px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    color:var(--text-primary);
-
-    background:var(--glass);
-
-    border:1px solid var(--border);
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-
-}
-
-.converter-action-btn:hover{
-
-    transform:translateY(-3px);
-
-    border-color:var(--primary);
-
-    box-shadow:
-
-        0 10px 24px rgba(124,92,255,.12);
-
-}
-
-.converter-action-btn:active{
-
-    transform:scale(.96);
-
-}
-
-/* ==========================================================
+/* ==========================
    HISTORY
-========================================================== */
+========================== */
 
-.converter-history{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-    padding:28px;
-
-    border-radius:30px;
-
-    background:var(--glass);
-
-    border:1px solid var(--border);
-
-    backdrop-filter:blur(24px);
-
-}
-
-.converter-history-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:14px;
-
-}
-
-.converter-history-header h3{
-
-    font-size:1.3rem;
-
-    font-weight:700;
-
-    color:var(--text-primary);
-
-}
-
-.converter-history-list{
+.history-card{
 
     display:flex;
 
     flex-direction:column;
 
-    gap:14px;
+    flex:1;
+
+    min-height:0;
 
 }
 
-.converter-history-item{
+.history-list{
 
-    padding:18px;
+    flex:1;
 
-    border-radius:18px;
-
-    cursor:pointer;
-
-    background:rgba(255,255,255,.03);
-
-    border:1px solid var(--border);
-
-    transition:
-        transform .25s ease,
-        border-color .25s ease,
-        background .25s ease;
+    overflow:auto;
 
 }
 
-.converter-history-item:hover{
-
-    transform:translateX(5px);
-
-    border-color:var(--primary);
-
-    background:rgba(124,92,255,.08);
-
-}
-
-/* ==========================================================
-   CLEAR BUTTON
-========================================================== */
-
-.converter-clear-btn{
-
-    height:42px;
-
-    padding:0 18px;
-
-    border-radius:14px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    color:var(--text-primary);
-
-    background:var(--glass);
-
-    border:1px solid var(--border);
-
-    transition:.25s;
-
-}
-
-.converter-clear-btn:hover{
-
-    border-color:#ef4444;
-
-    color:#ef4444;
-
-}
-
-/* ==========================================================
-   FAVORITES PANEL
-========================================================== */
+/* ==========================
+   FAVORITES
+========================== */
 
 .favorites-panel{
 
@@ -786,77 +269,66 @@
 
     right:-420px;
 
-    width:380px;
+    width:390px;
 
     max-width:92vw;
 
     height:100dvh;
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-    padding:28px;
-
-    overflow-y:auto;
-
     z-index:1500;
 
-    background:var(--bg-secondary);
+}
 
-    border-left:1px solid var(--border);
+/* ===========================================
+   NOVA CONVERTER V2
+   COMPONENTS
+=========================================== */
 
-    box-shadow:
+/* ==========================
+   HEADER
+========================== */
 
-        -20px 0 50px rgba(0,0,0,.2);
+.converter-title{
 
-    transition:right .35s ease;
+    font-size:2rem;
+
+    font-weight:800;
+
+    line-height:1;
+
+    color:var(--text-primary);
 
 }
 
-.favorites-panel.open{
+.converter-subtitle{
 
-    right:0;
+    color:var(--text-secondary);
+
+    font-size:.95rem;
 
 }
 
-.favorites-panel-header{
+/* ==========================
+   HEADER BUTTONS
+========================== */
+
+.header-icon-btn{
+
+    width:52px;
+
+    height:52px;
 
     display:flex;
 
-    justify-content:space-between;
+    justify-content:center;
 
     align-items:center;
 
-}
-
-.favorites-actions{
-
-    display:flex;
-
-    gap:10px;
-
-}
-
-.favorite-list{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-}
-
-.favorite-item{
-
-    padding:18px;
-
-    border-radius:18px;
+    border-radius:50%;
 
     cursor:pointer;
+
+    color:var(--text-primary);
 
     background:var(--glass);
 
@@ -866,87 +338,1342 @@
 
 }
 
-.favorite-item:hover{
-
-    border-color:var(--primary);
+.header-icon-btn:hover{
 
     transform:translateY(-2px);
 
+    background:var(--glass-hover);
+
 }
 
-/* ==========================================================
+/* ==========================
+   GLASS CARD
+========================== */
+
+.converter-card,
+.converter-result-card,
+.history-card{
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(24px);
+
+    border:1px solid var(--border);
+
+    border-radius:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ==========================
+   PRESET CARD
+========================== */
+
+.preset-card{
+
+    height:88px;
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:6px;
+
+    border-radius:22px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid var(--border);
+
+    transition:.25s;
+
+}
+
+.preset-card span{
+
+    font-size:.8rem;
+
+    color:var(--text-secondary);
+
+}
+
+.preset-card strong{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    color:var(--text-primary);
+
+}
+
+.preset-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:var(--primary);
+
+    box-shadow:0 16px 34px rgba(124,92,255,.18);
+
+}
+
+/* ==========================
+   FORM CARD
+========================== */
+
+.converter-card{
+
+    padding:28px;
+
+}
+
+/* ==========================
+   LABEL
+========================== */
+
+.converter-field label{
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    color:var(--text-secondary);
+
+}
+
+/* ==========================
+   INPUT
+========================== */
+
+.converter-field input,
+.converter-field select{
+
+    height:64px;
+
+    width:100%;
+
+    padding:0 20px;
+
+    border-radius:18px;
+
+    border:1px solid var(--border);
+
+    outline:none;
+
+    color:var(--text-primary);
+
+    background:rgba(255,255,255,.04);
+
+    transition:.25s;
+
+}
+
+.converter-field input:focus,
+.converter-field select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+    0 0 0 4px rgba(124,92,255,.15);
+
+}
+
+/* ==========================
+   SWAP
+========================== */
+
+.swap-btn{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    var(--primary),
+
+    var(--primary-hover)
+
+    );
+
+    box-shadow:
+
+    var(--glow-primary);
+
+    transition:.35s;
+
+}
+
+.swap-btn:hover{
+
+    transform:
+
+    rotate(180deg)
+
+    scale(1.08);
+
+}
+
+/* ==========================
+   RESULT
+========================== */
+
+.converter-result-card{
+
+    padding:28px;
+
+    text-align:center;
+
+}
+
+.result-label{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    color:var(--text-secondary);
+
+    font-size:.9rem;
+
+}
+
+.converter-result-card h2{
+
+    font-size:clamp(2.6rem,5vw,4rem);
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    word-break:break-word;
+
+}
+
+/* ==========================
+   RESULT BUTTONS
+========================== */
+
+.result-actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:24px;
+
+}
+
+.action-btn{
+
+    min-width:120px;
+
+    height:46px;
+
+    padding:0 18px;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:var(--text-primary);
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid var(--border);
+
+    transition:.25s;
+
+}
+
+.action-btn:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--primary);
+
+}
+
+/* ==========================
+   HISTORY
+========================== */
+
+.history-card{
+
+    padding:22px;
+
+}
+
+.history-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.history-header h3{
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+}
+
+.history-header button{
+
+    padding:8px 14px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    color:#ef4444;
+
+    background:rgba(239,68,68,.08);
+
+    border:1px solid rgba(239,68,68,.12);
+
+}
+
+.history-header button:hover{
+
+    background:rgba(239,68,68,.15);
+
+}
+
+.history-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+/* ==========================
+   HISTORY ITEM
+========================== */
+
+.converter-history-item{
+
+    padding:14px 16px;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid var(--border);
+
+    transition:.25s;
+
+}
+
+.converter-history-item:hover{
+
+    transform:translateX(4px);
+
+    border-color:var(--primary);
+
+}
+
+/* ===========================================
+   NOVA CONVERTER V2
+   RESPONSIVE
+=========================================== */
+
+/* ==========================
+   LARGE DESKTOP
+========================== */
+
+@media (min-width:1600px){
+
+    .converter-body{
+
+        grid-template-columns:
+            minmax(0,1fr)
+            380px;
+
+        gap:28px;
+
+    }
+
+    .converter-presets{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+}
+
+/* ==========================
+   DESKTOP
+========================== */
+
+@media (min-width:1200px){
+
+    .converter-view{
+
+        height:100dvh;
+
+    }
+
+    .converter-body{
+
+        overflow:hidden;
+
+    }
+
+    .converter-main{
+
+        overflow:hidden;
+
+    }
+
+    .converter-sidebar{
+
+        overflow:hidden;
+
+    }
+
+}
+
+/* ==========================
+   LAPTOP
+========================== */
+
+@media (max-width:1199px){
+
+    .converter-body{
+
+        grid-template-columns:
+            minmax(0,1fr)
+            300px;
+
+        gap:20px;
+
+        padding:20px;
+
+    }
+
+    .converter-presets{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .converter-card{
+
+        padding:22px;
+
+    }
+
+}
+
+/* ==========================
    TABLET
-========================================================== */
+========================== */
 
 @media (max-width:991px){
 
-    .converter-result{
+    .converter-body{
 
-        padding:28px;
+        display:flex;
+
+        flex-direction:column;
+
+        gap:18px;
+
+        overflow:hidden;
 
     }
 
-    .converter-history{
+    .converter-main{
 
-        padding:22px;
+        flex:1;
+
+    }
+
+    .converter-sidebar{
+
+        flex-shrink:0;
+
+    }
+
+    .history-card{
+
+        max-height:180px;
+
+    }
+
+    .converter-presets{
+
+        grid-template-columns:
+            repeat(2,1fr);
 
     }
 
 }
 
-/* ==========================================================
+/* ==========================
    MOBILE
-========================================================== */
+========================== */
 
-@media (max-width:576px){
+@media (max-width:767px){
 
-    .converter-result{
-
-        padding:22px;
-
-        border-radius:24px;
-
-    }
-
-    .converter-result-actions{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-    }
-
-    .converter-action-btn{
-
-        width:100%;
-
-        min-width:unset;
-
-    }
-
-    .converter-history{
+    .converter-header{
 
         padding:18px;
 
-        border-radius:22px;
+    }
+
+    .converter-title{
+
+        font-size:1.45rem;
 
     }
 
-    .converter-history-header{
+    .converter-subtitle{
+
+        display:none;
+
+    }
+
+    .converter-body{
+
+        padding:16px;
+
+        gap:16px;
+
+    }
+
+    .converter-presets{
+
+        grid-template-columns:1fr;
+
+        gap:10px;
+
+    }
+
+    .preset-card{
+
+        min-height:64px;
+
+    }
+
+    .converter-card{
+
+        padding:18px;
+
+        gap:18px;
+
+    }
+
+    .converter-units{
+
+        grid-template-columns:1fr;
+
+        gap:14px;
+
+    }
+
+    .swap-btn{
+
+        justify-self:center;
+
+        width:64px;
+
+        height:64px;
+
+    }
+
+    .converter-field input,
+    .converter-field select{
+
+        height:56px;
+
+    }
+
+    .converter-result-card{
+
+        padding:22px;
+
+    }
+
+    .converter-result-card h2{
+
+        font-size:2.2rem;
+
+    }
+
+    .result-actions{
 
         flex-direction:column;
 
-        align-items:flex-start;
-
     }
 
-    .favorites-panel{
+    .action-btn{
 
         width:100%;
 
-        max-width:100%;
+    }
+
+    .history-card{
+
+        max-height:170px;
 
     }
+
+}
+
+/* ==========================
+   SMALL MOBILE
+========================== */
+
+@media (max-width:480px){
+
+    .converter-header{
+
+        padding:14px;
+
+    }
+
+    .converter-body{
+
+        padding:14px;
+
+    }
+
+    .converter-title{
+
+        font-size:1.25rem;
+
+    }
+
+    .converter-card{
+
+        padding:16px;
+
+    }
+
+    .converter-result-card{
+
+        padding:18px;
+
+    }
+
+    .converter-result-card h2{
+
+        font-size:1.9rem;
+
+    }
+
+}
+
+/* ==========================
+   LANDSCAPE MOBILE
+========================== */
+
+@media (orientation:landscape)
+and (max-height:540px){
+
+    .converter-header{
+
+        padding:10px 18px;
+
+    }
+
+    .converter-presets{
+
+        display:none;
+
+    }
+
+    .converter-card{
+
+        gap:14px;
+
+    }
+
+    .converter-field input,
+    .converter-field select{
+
+        height:48px;
+
+    }
+
+    .converter-result-card{
+
+        padding:16px;
+
+    }
+
+    .converter-result-card h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .history-card{
+
+        display:none;
+
+    }
+
+}
+
+/* ===========================================
+   NOVA CONVERTER V2
+   PREMIUM EFFECTS
+=========================================== */
+
+/* ==========================
+   GLASS HOVER
+========================== */
+
+.converter-card,
+.converter-result-card,
+.history-card,
+.preset-card{
+
+    transition:
+
+        transform .28s ease,
+        border-color .28s ease,
+        background .28s ease,
+        box-shadow .28s ease;
+
+}
+
+.converter-card:hover,
+.converter-result-card:hover,
+.history-card:hover{
+
+    transform:translateY(-3px);
+
+    border-color:rgba(124,92,255,.20);
+
+    box-shadow:
+
+        0 20px 45px rgba(0,0,0,.22);
+
+}
+
+/* ==========================
+   PRESET ANIMATION
+========================== */
+
+.preset-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.preset-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            120deg,
+
+            transparent,
+
+            rgba(255,255,255,.08),
+
+            transparent
+
+        );
+
+    transform:translateX(-120%);
+
+    transition:transform .65s ease;
+
+}
+
+.preset-card:hover::before{
+
+    transform:translateX(120%);
+
+}
+
+/* ==========================
+   INPUT HOVER
+========================== */
+
+.converter-field input,
+.converter-field select{
+
+    transition:
+
+        border-color .25s ease,
+
+        background .25s ease,
+
+        box-shadow .25s ease,
+
+        transform .25s ease;
+
+}
+
+.converter-field input:hover,
+.converter-field select:hover{
+
+    transform:translateY(-1px);
+
+    background:rgba(255,255,255,.06);
+
+}
+
+/* ==========================
+   SWAP BUTTON
+========================== */
+
+.swap-btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.swap-btn::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-40%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,255,255,.28),
+
+            transparent 60%
+
+        );
+
+    opacity:0;
+
+    transition:opacity .35s;
+
+}
+
+.swap-btn:hover::after{
+
+    opacity:1;
+
+}
+
+.swap-btn:active{
+
+    transform:
+
+        scale(.94)
+
+        rotate(180deg);
+
+}
+
+/* ==========================
+   ACTION BUTTON
+========================== */
+
+.action-btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.action-btn::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,255,255,.15),
+
+            transparent 65%
+
+        );
+
+    opacity:0;
+
+    transition:opacity .3s;
+
+}
+
+.action-btn:hover::after{
+
+    opacity:1;
+
+}
+
+.action-btn:active{
+
+    transform:scale(.96);
+
+}
+
+/* ==========================
+   HEADER BUTTONS
+========================== */
+
+.header-icon-btn:active{
+
+    transform:scale(.94);
+
+}
+
+/* ==========================
+   HISTORY ITEMS
+========================== */
+
+.converter-history-item{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.converter-history-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    bottom:0;
+
+    width:4px;
+
+    border-radius:20px;
+
+    background:var(--primary);
+
+    transform:scaleY(0);
+
+    transition:.25s;
+
+}
+
+.converter-history-item:hover::before{
+
+    transform:scaleY(1);
+
+}
+
+/* ==========================
+   FAVORITES PANEL
+========================== */
+
+.favorites-panel{
+
+    box-shadow:
+
+        -30px 0 60px rgba(0,0,0,.35);
+
+}
+
+/* ==========================
+   FADE UP
+========================== */
+
+.converter-main>*{
+
+    animation:
+
+        converterFade .45s ease both;
+
+}
+
+.converter-main>*:nth-child(2){
+
+    animation-delay:.05s;
+
+}
+
+.converter-main>*:nth-child(3){
+
+    animation-delay:.1s;
+
+}
+
+@keyframes converterFade{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+/* ==========================
+   RESULT GLOW
+========================== */
+
+.converter-result-card h2{
+
+    text-shadow:
+
+        0 0 24px rgba(124,92,255,.18);
+
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+.history-list::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+.history-list::-webkit-scrollbar-thumb{
+
+    background:rgba(124,92,255,.35);
+
+    border-radius:999px;
+
+}
+
+.history-list::-webkit-scrollbar-thumb:hover{
+
+    background:rgba(124,92,255,.55);
+
+}
+
+/* ===========================================
+   NOVA CONVERTER V2
+   LIGHT THEME
+=========================================== */
+
+body[data-theme="light"] .converter-header{
+
+    border-bottom:
+        1px solid rgba(15,23,42,.08);
+
+}
+
+/* ==========================
+   CARDS
+========================== */
+
+body[data-theme="light"] .converter-card,
+body[data-theme="light"] .converter-result-card,
+body[data-theme="light"] .history-card{
+
+    background:
+
+        rgba(255,255,255,.78);
+
+    backdrop-filter:blur(24px);
+
+    border:
+
+        1px solid rgba(15,23,42,.08);
+
+    box-shadow:
+
+        0 20px 40px rgba(15,23,42,.06);
+
+}
+
+/* ==========================
+   PRESETS
+========================== */
+
+body[data-theme="light"] .preset-card{
+
+    background:
+
+        rgba(255,255,255,.82);
+
+    border:
+
+        1px solid rgba(15,23,42,.08);
+
+}
+
+body[data-theme="light"] .preset-card:hover{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 18px 36px rgba(124,92,255,.12);
+
+}
+
+/* ==========================
+   INPUTS
+========================== */
+
+body[data-theme="light"] .converter-field input,
+body[data-theme="light"] .converter-field select{
+
+    background:white;
+
+    color:#0f172a;
+
+    border:
+
+        1px solid rgba(15,23,42,.08);
+
+}
+
+body[data-theme="light"] .converter-field input:hover,
+body[data-theme="light"] .converter-field select:hover{
+
+    background:#fcfcfd;
+
+}
+
+body[data-theme="light"] .converter-field input:focus,
+body[data-theme="light"] .converter-field select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 0 0 4px rgba(124,92,255,.12);
+
+}
+
+/* ==========================
+   RESULT
+========================== */
+
+body[data-theme="light"] .converter-result-card{
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(124,92,255,.08),
+
+            rgba(255,255,255,.9)
+
+        );
+
+}
+
+body[data-theme="light"] .converter-result-card h2{
+
+    color:var(--primary);
+
+    text-shadow:none;
+
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+body[data-theme="light"] .action-btn{
+
+    background:white;
+
+    color:#0f172a;
+
+    border:
+
+        1px solid rgba(15,23,42,.08);
+
+}
+
+body[data-theme="light"] .action-btn:hover{
+
+    background:#fafafa;
+
+    border-color:var(--primary);
+
+}
+
+/* ==========================
+   HEADER BUTTONS
+========================== */
+
+body[data-theme="light"] .header-icon-btn{
+
+    background:white;
+
+    color:#0f172a;
+
+    border:
+
+        1px solid rgba(15,23,42,.08);
+
+}
+
+body[data-theme="light"] .header-icon-btn:hover{
+
+    background:#fafafa;
+
+}
+
+/* ==========================
+   HISTORY
+========================== */
+
+body[data-theme="light"] .converter-history-item{
+
+    background:white;
+
+    border:
+
+        1px solid rgba(15,23,42,.06);
+
+}
+
+body[data-theme="light"] .converter-history-item:hover{
+
+    background:#fcfcfd;
+
+}
+
+/* ==========================
+   CLEAR BUTTON
+========================== */
+
+body[data-theme="light"] .history-header button{
+
+    background:
+
+        rgba(220,38,38,.08);
+
+    border:
+
+        1px solid rgba(220,38,38,.15);
+
+    color:#dc2626;
+
+}
+
+body[data-theme="light"] .history-header button:hover{
+
+    background:
+
+        rgba(220,38,38,.14);
+
+}
+
+/* ==========================
+   FAVORITES PANEL
+========================== */
+
+body[data-theme="light"] .favorites-panel{
+
+    background:
+
+        rgba(255,255,255,.96);
+
+    border-left:
+
+        1px solid rgba(15,23,42,.08);
+
+    box-shadow:
+
+        -30px 0 50px rgba(15,23,42,.08);
+
+}
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+body[data-theme="light"] .history-list::-webkit-scrollbar-thumb{
+
+    background:
+
+        rgba(124,92,255,.22);
+
+}
+
+body[data-theme="light"] .history-list::-webkit-scrollbar-thumb:hover{
+
+    background:
+
+        rgba(124,92,255,.42);
 
 }
 
